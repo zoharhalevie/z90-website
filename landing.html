@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Z90 Method — קבע שיחת התאמה והתחל את התהליך</title>
+  <meta name="description" content="תהליך אישי של 90 יום שמחזיר לך שליטה על הגוף. השאר פרטים וקבע שיחת התאמה קצרה — בלי עלות, בלי מחויבות." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #F4CE14;
+      --yellow-dark: hsl(56, 100%, 38%);
+      --yellow-faint: rgba(244, 206, 20, 0.12);
+      --yellow-line: rgba(244, 206, 20, 0.45);
+      --black-1: hsl(0, 0%, 13%);
+      --black-2: hsl(0, 0%, 18%);
+      --card: #414141;
+      --card-2: #3A3A3A;
+      --footer: #161616;
+      --line: rgba(255,255,255,0.1);
+      --white: #FFFFFF;
+      --soft: #CFCFCF;
+      --faint: #9A9A9A;
+      --maxw: 1120px;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Heebo', system-ui, sans-serif;
+      font-weight: 300;
+      background: var(--black-1);
+      color: var(--white);
+      line-height: 1.85;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+    main, section, footer { overflow-x: clip; }
+    img { display: block; max-width: 100%; }
+
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 5vw; }
+
+    /* ── top bar: logo + single CTA ── */
+    .topbar {
+      position: fixed; top: 0; right: 0; left: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 5vw;
+      background: rgba(26,26,26,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent; transition: border-color 0.3s;
+    }
+    .topbar.scrolled { border-bottom-color: var(--line); }
+    .tb-logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.05em; }
+    .tb-logo span { color: var(--yellow); }
+    .tb-mark { width: 38px; height: 38px; background: var(--yellow); color: var(--black-1); clip-path: polygon(15% 0,100% 0,85% 100%,0 100%); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.05rem; }
+    .tb-cta {
+      background: var(--yellow); color: var(--black-1); text-decoration: none;
+      font-weight: 800; font-size: 0.9rem; padding: 11px 24px; border-radius: 5px;
+      transition: background 0.25s;
+    }
+    .tb-cta:hover { background: var(--yellow-dark); }
+    @media (max-width: 520px) { .tb-cta { padding: 10px 16px; font-size: 0.82rem; } .tb-logo { font-size: 1rem; } }
+
+    /* ── buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--yellow); color: var(--black-1);
+      font-family: inherit; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.02em;
+      padding: 17px 40px; border: none; cursor: pointer; text-decoration: none;
+      clip-path: polygon(3% 0, 100% 0%, 97% 100%, 0% 100%);
+      transition: all 0.25s; width: 100%;
+    }
+    .btn:hover { background: var(--yellow-dark); }
+    .btn.wa { background: #25D366; color: #fff; }
+    .btn.wa:hover { background: #1da851; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; isolation: isolate; overflow: hidden;
+      padding: 120px 0 70px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: -2;
+      background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover; background-position: center 28%;
+    }
+    .hero-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,20,20,0.82), rgba(20,20,20,0.78) 50%, rgba(20,20,20,0.95)); }
+
+    .hero-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(36px, 5vw, 64px); align-items: center;
+    }
+    .hero-copy .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--yellow); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.22em;
+      text-transform: none; margin-bottom: 18px;
+    }
+    .hero-copy .eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--yellow); }
+    .hero-copy h1 {
+      font-size: clamp(2rem, 4.4vw, 3.3rem); font-weight: 900; line-height: 1.22;
+      margin-bottom: 20px; text-shadow: 2px 4px 6px rgba(0,0,0,0.5);
+    }
+    .hero-copy h1 em { font-style: normal; color: var(--yellow); }
+    .hero-copy .sub { font-size: 1.1rem; color: var(--soft); margin-bottom: 26px; max-width: 46ch; }
+    .hero-copy .sub strong { color: var(--white); font-weight: 600; }
+    .trust-row { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 8px; }
+    .trust-row .ti { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--soft); }
+    .trust-row .ti::before { content: '✓'; color: var(--yellow); font-weight: 900; }
+
+    /* ── lead card ── */
+    .lead-card {
+      background: rgba(24,23,22,0.9); backdrop-filter: blur(14px);
+      border: 1px solid var(--line); border-top: 4px solid var(--yellow);
+      border-radius: 10px; padding: 30px clamp(22px, 3vw, 32px);
+      box-shadow: rgba(0,0,0,0.5) 0px 28px 70px;
+    }
+    .lead-card h2 { font-size: 1.45rem; font-weight: 900; margin-bottom: 6px; }
+    .lead-card .lc-sub { font-size: 0.92rem; color: var(--soft); margin-bottom: 22px; }
+
+    .form-control { position: relative; margin: 0 0 30px; width: 100%; }
+    .form-control input {
+      background: transparent; border: 0; border-bottom: 2px #fff solid;
+      display: block; width: 100%; padding: 13px 0; font-size: 1.05rem; color: #fff; font-family: inherit;
+    }
+    .form-control input:focus, .form-control input:valid { outline: 0; border-bottom-color: var(--yellow); }
+    .form-control label { position: absolute; top: 13px; right: 0; pointer-events: none; }
+    .form-control label span {
+      display: inline-block; font-size: 1.05rem; min-width: 4px; color: var(--faint);
+      transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .form-control input:focus + label span, .form-control input:valid + label span { color: var(--yellow); transform: translateY(-30px); }
+
+    .lc-or { display: flex; align-items: center; gap: 14px; margin: 18px 0; }
+    .lc-or::before, .lc-or::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .lc-or span { font-size: 0.8rem; color: var(--faint); }
+    .lc-note { text-align: center; font-size: 0.8rem; color: var(--faint); margin-top: 16px; }
+
+    /* send button (airplane) */
+    .send-btn {
+      width: 100%; font-family: inherit; font-size: 1.05rem; font-weight: 800;
+      background: var(--yellow); color: var(--black-1); padding: 16px 20px;
+      display: flex; align-items: center; justify-content: center; gap: 0.45em;
+      border: none; overflow: hidden; cursor: pointer; transition: all 0.25s;
+      clip-path: polygon(2.5% 0, 100% 0%, 97.5% 100%, 0% 100%);
+    }
+    .send-btn span { display: block; transition: transform 0.3s ease-in-out; }
+    .send-btn svg { display: block; transform: scaleX(-1); transition: transform 0.3s ease-in-out; }
+    .send-btn:hover { background: var(--yellow-dark); }
+    .send-btn:hover svg { transform: scaleX(-1) translateX(2.4em) rotate(45deg) scale(1.1); }
+    .send-btn:hover span { transform: translateX(-8em); opacity: 0; }
+    .send-btn:active { transform: scale(0.97); }
+
+    .lc-sent { display: none; text-align: center; padding: 18px 0; }
+    .lc-sent .ok { font-size: 2.4rem; color: var(--yellow); font-weight: 900; display: block; margin-bottom: 8px; }
+    .lc-sent h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .lc-sent p { color: var(--soft); font-size: 0.95rem; }
+
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .lead-card { order: -1; }
+    }
+
+    /* ── sections ── */
+    .sec { padding: 80px 0; }
+    .sec.alt { background: var(--black-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    h2.title { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 900; text-align: center; margin-bottom: 14px; }
+    h2.title::after { content: ''; display: block; width: 64px; height: 4px; background: var(--yellow); margin: 16px auto 0; clip-path: polygon(8% 0,100% 0,92% 100%,0 100%); }
+    .lead-sub { text-align: center; color: var(--soft); max-width: 56ch; margin: 0 auto 48px; }
+
+    /* outcomes */
+    .outcomes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; max-width: 820px; margin: 0 auto; }
+    .oc {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--card); border-radius: 8px; padding: 24px 26px;
+      box-shadow: rgba(0,0,0,0.18) 0px 8px 26px;
+    }
+    .oc .oc-ic { width: 40px; height: 40px; flex-shrink: 0; background: var(--yellow); color: var(--black-1); clip-path: polygon(12% 0,100% 0,88% 100%,0 100%); display: flex; align-items: center; justify-content: center; }
+    .oc .oc-ic svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.9; }
+    .oc h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+    .oc p { font-size: 0.9rem; color: var(--soft); }
+    @media (max-width: 640px) { .outcomes { grid-template-columns: 1fr; } }
+
+    /* steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 920px; margin: 0 auto; }
+    .step { text-align: center; position: relative; padding: 10px; }
+    .step .num {
+      width: 60px; height: 60px; margin: 0 auto 18px;
+      background: var(--yellow); color: var(--black-1); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 900;
+      box-shadow: 0 8px 24px rgba(244,206,20,0.3);
+    }
+    .step h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; }
+    .step p { font-size: 0.93rem; color: var(--soft); }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; top: 30px; left: -10px; width: 20px; height: 2px;
+      background: var(--yellow-line);
+    }
+    @media (max-width: 700px) { .steps { grid-template-columns: 1fr; gap: 28px; } .step:not(:last-child)::after { display: none; } }
+
+    /* testimonials */
+    .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .tcard { background: var(--card); border-radius: 8px; padding: 26px 28px; border-bottom: 3px solid var(--yellow); box-shadow: rgba(0,0,0,0.2) 0px 8px 26px; }
+    .tcard .stars { color: var(--yellow); letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 10px; }
+    .tcard .q { font-size: 0.95rem; color: var(--soft); margin-bottom: 16px; line-height: 1.7; }
+    .tcard .who { display: flex; align-items: center; gap: 12px; }
+    .tcard .av { width: 44px; height: 44px; border-radius: 50%; background: var(--yellow-faint); border: 2px solid var(--yellow); display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--yellow); }
+    .tcard .nm { font-weight: 800; font-size: 0.95rem; }
+    .tcard .mt { font-size: 0.78rem; color: var(--faint); }
+    @media (max-width: 820px) { .tgrid { grid-template-columns: 1fr; } }
+
+    /* before/after gallery */
+    .ba-head { text-align: center; color: var(--yellow); font-weight: 800; letter-spacing: 0.12em; font-size: 0.85rem; margin: 44px 0 24px; }
+    .ba-marquee { position: relative; overflow: hidden; padding: 6px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+    .ba-track { display: flex; gap: 16px; width: max-content; animation: baScroll 48s linear infinite; }
+    .ba-marquee:hover .ba-track { animation-play-state: paused; }
+    @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ba-card { width: 280px; flex-shrink: 0; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: rgba(0,0,0,0.25) 0px 10px 30px; }
+    .ba-imgs { display: flex; gap: 2px; }
+    .ba-half { position: relative; flex: 1; aspect-ratio: 3/4; background: linear-gradient(160deg, #3c3c3c, #2a2a2a); overflow: hidden; }
+    .ba-half img { width: 100%; height: 100%; object-fit: cover; }
+    .ba-ph { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
+    .ba-ph svg { width: 72%; height: 82%; fill: rgba(255,255,255,0.06); }
+    .ba-lbl { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); z-index: 2; font-size: 0.68rem; font-weight: 800; padding: 4px 13px; border-radius: 100px; white-space: nowrap; }
+    .ba-lbl.before { background: rgba(0,0,0,0.68); color: #fff; }
+    .ba-lbl.after { background: var(--yellow); color: var(--black-1); }
+    .ba-cap { padding: 11px 14px; text-align: center; font-weight: 700; font-size: 0.9rem; }
+    .ba-cap small { display: block; color: var(--faint); font-weight: 500; font-size: 0.76rem; }
+    @media (max-width: 600px) { .ba-card { width: 230px; } }
+    html.acc-still .ba-track { animation: none !important; }
+
+    /* coach */
+    .coach { display: grid; grid-template-columns: 260px 1fr; gap: clamp(28px,5vw,60px); align-items: center; max-width: 900px; margin: 0 auto; }
+    .coach-photo { aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; background: #1f4e55; box-shadow: rgba(0,0,0,0.4) 0px 16px 44px; position: relative; max-width: 260px; }
+    .coach-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
+    .coach-photo::after { content: ''; position: absolute; inset: 0; border: 4px solid var(--yellow); border-radius: 50%; }
+    .coach-text h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 14px; text-align: right; }
+    .coach-text h2::after { display: none; }
+    .coach-text p { color: var(--soft); font-size: 1.02rem; margin-bottom: 14px; }
+    .coach-text p strong { color: var(--white); font-weight: 700; }
+    .coach-creds { display: flex; gap: 28px; margin-top: 18px; flex-wrap: wrap; }
+    .coach-creds .c-top { font-size: 1.3rem; font-weight: 900; color: var(--yellow); display: block; }
+    .coach-creds .c-bot { font-size: 0.76rem; color: var(--faint); }
+    @media (max-width: 700px) { .coach { grid-template-columns: 1fr; justify-items: center; text-align: center; } .coach-text h2 { text-align: center; } .coach-creds { justify-content: center; } }
+
+    /* faq */
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item { background: var(--card-2); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+    .faq-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; text-align: right; font-family: inherit; font-size: 1rem; font-weight: 700; color: #fff; transition: color 0.2s; }
+    .faq-q:hover { color: var(--yellow); }
+    .faq-q .fx { flex-shrink: 0; width: 28px; height: 28px; background: var(--yellow); color: var(--black-1); clip-path: polygon(12% 0,100% 0,88% 100%,0 100%); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: transform 0.3s; }
+    .faq-item.open .fx { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-a p { padding: 0 22px 22px; color: var(--soft); font-size: 0.94rem; }
+
+    /* final CTA */
+    .final { position: relative; isolation: isolate; overflow: hidden; padding: 90px 0; text-align: center; }
+    .final-bg { position: absolute; inset: 0; z-index: -2; background-image: url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center 40%; }
+    .final::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,20,20,0.9), rgba(20,20,20,0.82)); }
+    .final h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 900; margin-bottom: 14px; }
+    .final p { color: var(--soft); max-width: 50ch; margin: 0 auto 30px; }
+    .final-actions { max-width: 380px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+
+    /* footer */
+    footer { background: var(--footer); padding: 36px 0; text-align: center; }
+    footer .f-logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 0.05em; margin-bottom: 8px; }
+    footer .f-logo span { color: var(--yellow); }
+    footer .f-meta { font-size: 0.82rem; color: var(--faint); margin-bottom: 14px; }
+    footer .f-social { display: flex; gap: 14px; justify-content: center; margin-bottom: 14px; }
+    footer .f-social a { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; transition: transform 0.2s; }
+    footer .f-social a:hover { transform: translateY(-3px); }
+    footer .f-social .wa { background: #25D366; }
+    footer .f-social .ig { background: linear-gradient(45deg,#f09433,#dc2743,#bc1888); }
+    footer .f-legal { font-size: 0.72rem; color: var(--faint); }
+    footer .f-legal button { background: none; border: none; color: var(--faint); text-decoration: underline; cursor: pointer; font-family: inherit; font-size: 0.72rem; }
+
+    /* sticky mobile CTA bar */
+    .sticky-cta {
+      position: fixed; bottom: 0; right: 0; left: 0; z-index: 120;
+      display: none; gap: 10px; padding: 10px 14px;
+      background: rgba(20,20,20,0.96); backdrop-filter: blur(10px);
+      border-top: 1px solid var(--line);
+    }
+    .sticky-cta a { flex: 1; text-align: center; padding: 13px; border-radius: 6px; font-weight: 800; font-size: 0.92rem; text-decoration: none; }
+    .sticky-cta .s-call { background: var(--yellow); color: var(--black-1); }
+    .sticky-cta .s-wa { background: #25D366; color: #fff; }
+    @media (max-width: 880px) { .sticky-cta { display: flex; } body { padding-bottom: 64px; } }
+
+    /* accessibility (Israel) */
+    .skip-link { position: fixed; top: -60px; right: 14px; background: var(--yellow); color: var(--black-1); padding: 12px 22px; border-radius: 4px; font-weight: 800; z-index: 500; transition: top 0.25s; text-decoration: none; }
+    .skip-link:focus { top: 12px; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+    .acc-btn { position: fixed; bottom: 80px; right: 18px; width: 50px; height: 50px; border-radius: 50%; background: #1B66C9; color: #fff; border: 2px solid rgba(255,255,255,0.25); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 130; box-shadow: 0 10px 28px rgba(0,0,0,0.45); transition: transform 0.2s; }
+    .acc-btn:hover { transform: scale(1.06); }
+    @media (min-width: 881px) { .acc-btn { bottom: 24px; } }
+    .acc-panel { position: fixed; bottom: 140px; right: 18px; width: 260px; background: var(--black-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px; z-index: 130; display: none; box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
+    .acc-panel.open { display: block; }
+    .acc-panel .ah { font-weight: 800; margin-bottom: 12px; }
+    .acc-opt { display: block; width: 100%; text-align: right; padding: 10px 12px; margin-bottom: 7px; background: var(--card-2); border: 1px solid var(--line); border-radius: 7px; color: var(--soft); font-family: inherit; font-size: 0.86rem; cursor: pointer; transition: all 0.2s; }
+    .acc-opt:hover { color: #fff; border-color: var(--yellow-line); }
+    .acc-opt[aria-pressed="true"] { border-color: var(--yellow); color: #fff; background: var(--yellow-faint); }
+    .acc-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: center; justify-content: center; z-index: 400; padding: 20px; }
+    .acc-modal.open { display: flex; }
+    .acc-modal .box { background: var(--black-2); border: 1px solid var(--line); border-radius: 12px; max-width: 560px; width: 100%; max-height: 80vh; overflow: auto; padding: 32px; }
+    .acc-modal h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: 16px; }
+    .acc-modal p { color: var(--soft); font-size: 0.92rem; margin-bottom: 12px; }
+    .acc-modal .cl { margin-top: 8px; padding: 11px 28px; background: var(--yellow); color: var(--black-1); border: none; border-radius: 4px; font-family: inherit; font-weight: 800; cursor: pointer; }
+
+    html.acc-contrast { --soft: #fff; --faint: #e8e8e8; --yellow: #FFE14D; --line: rgba(255,255,255,0.4); --card: #2a2a2a; --card-2: #222; }
+    html.acc-contrast .hero-shade, html.acc-contrast .final::after { background: rgba(0,0,0,0.9); }
+    html.acc-links a { text-decoration: underline !important; }
+    html.acc-font body, html.acc-font body * { font-family: Arial, Helvetica, sans-serif !important; }
+
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .rv.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <a href="#lead" class="skip-link">דלג לטופס ההרשמה</a>
+
+  <!-- TOP BAR -->
+  <div class="topbar" id="topbar">
+    <div class="tb-logo"><span class="tb-mark">Z</span>Z<span>90</span> METHOD</div>
+    <a href="#lead" class="tb-cta">קבע שיחת התאמה</a>
+  </div>
+
+  <main>
+    <!-- HERO + LEAD FORM -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-shade"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">תהליך אישי של 90 יום</span>
+          <h1>מוכן/ה להחזיר <em>שליטה</em> על הגוף שלך?</h1>
+          <p class="sub">
+            תהליך אימון אישי, מדויק ומותאם — שמחזיר לך כוח, תנועה וביטחון.
+            <strong>השאר פרטים וקבע שיחת התאמה קצרה,</strong> ונבדוק יחד אם זה מתאים לך.
+          </p>
+          <div class="trust-row">
+            <span class="ti">ליווי אישי 1:1</span>
+            <span class="ti">תוכנית מותאמת אישית</span>
+            <span class="ti">מאות מתאמנים</span>
+          </div>
+        </div>
+
+        <!-- LEAD CARD -->
+        <div class="lead-card" id="lead">
+          <h2>קבע שיחת התאמה</h2>
+          <p class="lc-sub">15 דקות · ללא עלות · ללא מחויבות</p>
+          <div id="leadForm">
+            <div class="form-control">
+              <input type="text" id="lname" required autocomplete="name" aria-label="שם מלא" />
+              <label aria-hidden="true"><span style="transition-delay:0ms">ש</span><span style="transition-delay:50ms">ם</span><span style="transition-delay:100ms">&nbsp;</span><span style="transition-delay:150ms">מ</span><span style="transition-delay:200ms">ל</span><span style="transition-delay:250ms">א</span></label>
+            </div>
+            <div class="form-control">
+              <input type="tel" id="lphone" required dir="ltr" autocomplete="tel" aria-label="טלפון" />
+              <label aria-hidden="true"><span style="transition-delay:0ms">ט</span><span style="transition-delay:50ms">ל</span><span style="transition-delay:100ms">פ</span><span style="transition-delay:150ms">ו</span><span style="transition-delay:200ms">ן</span></label>
+            </div>
+            <button class="send-btn" onclick="sendLead()">
+              <div class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path></svg></div>
+              <span>שלח ואחזור אליך</span>
+            </button>
+          </div>
+          <div class="lc-sent" id="lcSent">
+            <span class="ok">✓</span>
+            <h3>הפרטים התקבלו!</h3>
+            <p>אחזור אליך בהקדם לתיאום שיחת ההתאמה.</p>
+          </div>
+          <div class="lc-or"><span>או בוואטסאפ, מיד</span></div>
+          <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            שלח הודעה בוואטסאפ
+          </a>
+          <p class="lc-note">הפרטים נשארים אצלי בלבד. ללא ספאם.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="sec">
+      <div class="container">
+        <h2 class="title rv">מה תקבל בתהליך</h2>
+        <p class="lead-sub rv">לא הבטחות — תוצאות שמרגישים בגוף, ביציבה ובאנרגיה היומיומית.</p>
+        <div class="outcomes">
+          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M7 21h10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>גב חזק ויציב</h3><p>פחות כאבים, יותר ביטחון בכל תנועה יומיומית.</p></div></div>
+          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round"/></svg></div><div><h3>תנועה חופשית</h3><p>טווחי תנועה וגמישות — בלי נוקשות בבוקר.</p></div></div>
+          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5h6L11 22l8.5-11.5h-6L13 2z" stroke-linejoin="round"/></svg></div><div><h3>אנרגיה לאורך היום</h3><p>אימון שמטעין, לא ששואב. אנרגיה יציבה.</p></div></div>
+          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>ליווי שלא עוזב</h3><p>מעקב אחרי כל אימון והתאמות שבועיות.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="sec alt">
+      <div class="container">
+        <h2 class="title rv">איך מתחילים?</h2>
+        <p class="lead-sub rv">שלושה צעדים פשוטים — ואתה בדרך.</p>
+        <div class="steps">
+          <div class="step rv"><div class="num">1</div><h3>שיחת התאמה</h3><p>שיחה קצרה של 15 דקות שבה נבין את המצב, הכאבים והמטרות שלך.</p></div>
+          <div class="step rv"><div class="num">2</div><h3>אבחון ותוכנית</h3><p>אבחון אישי ובניית תוכנית מותאמת בדיוק אליך ולקצב החיים שלך.</p></div>
+          <div class="step rv"><div class="num">3</div><h3>מתחילים להתאמן</h3><p>יוצאים לדרך עם ליווי צמוד, מעקב והתאמות לאורך כל התהליך.</p></div>
+        </div>
+        <div style="max-width:380px;margin:44px auto 0;"><a href="#lead" class="btn">אני רוצה להתחיל</a></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="sec">
+      <div class="container">
+        <h2 class="title rv">מה אומרים המתאמנים</h2>
+        <p class="lead-sub rv"><!-- TODO: להחליף בהמלצות אמיתיות --></p>
+        <div class="tgrid">
+          <div class="tcard rv"><div class="stars">★★★★★</div><div class="q">"אחרי שנתיים של כאבי גב — היום אני מרים את הנכדים בלי לחשוב פעמיים. התהליך החזיר לי את החיים."</div><div class="who"><div class="av">י</div><div><div class="nm">יעקב</div><div class="mt">מחזור שני ב-Z90</div></div></div></div>
+          <div class="tcard rv"><div class="stars">★★★★★</div><div class="q">"ניסיתי הכל ושום דבר לא החזיק. כאן יש שיטה, יש סדר, ויש מישהו שרואה אותי. בפעם הראשונה התמדתי."</div><div class="who"><div class="av">א</div><div><div class="nm">אורית</div><div class="mt">Z90 Premium</div></div></div></div>
+          <div class="tcard rv"><div class="stars">★★★★★</div><div class="q">"חשבתי שהגוף שלי כבר 'נגמר'. אחרי מחזור אחד אני חזק יותר ממה שהייתי שנים. פשוט עבודה נכונה."</div><div class="who"><div class="av">ר</div><div><div class="nm">רונן</div><div class="mt">Z90 Elite</div></div></div></div>
+        </div>
+
+        <!-- before/after gallery — runs under the testimonials -->
+        <p class="ba-head rv">תוצאות אמיתיות · לפני ואחרי</p>
+      </div>
+      <div class="ba-marquee" id="baMarquee">
+        <div class="ba-track" id="baTrack">
+          <!-- TODO: להחליף בתמונות אמיתיות. בכל חצי: <img src="..."> במקום ה-ba-ph -->
+          <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">דני<small>12 שבועות</small></div></div>
+          <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">אורית<small>מחזור ראשון</small></div></div>
+          <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">רונן<small>90 יום</small></div></div>
+          <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">מיכל<small>חיזוק וגמישות</small></div></div>
+          <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">שרון<small>חזרה לעצמה</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COACH -->
+    <section class="sec alt">
+      <div class="container">
+        <div class="coach">
+          <div class="coach-photo rv"><img src="zohar-coach.png" alt="זהר הלוי — מאמן כושר אישי" /></div>
+          <div class="coach-text rv">
+            <h2>אני זהר הלוי</h2>
+            <p>מאמן כושר אישי, מלווה מתאמנים בתהליכי שינוי פיזיים ומנטליים כבר 11 שנים.</p>
+            <p><strong>אני לא מעביר אימונים — אני בונה תהליכים.</strong> כל מתאמן מתחיל עם אבחון, מקבל תוכנית מותאמת, ועובד לפי מחזורים מסודרים של 90 יום.</p>
+            <p>בלי קיצורי דרך, בלי הבטחות ריקות — עבודה נכונה, מדויקת ובטוחה, שמחזירה לך שליטה בגוף.</p>
+            <div class="coach-creds">
+              <div><span class="c-top">11+</span><span class="c-bot">שנות ניסיון</span></div>
+              <div><span class="c-top">מאות</span><span class="c-bot">מתאמנים</span></div>
+              <div><span class="c-top">1:1</span><span class="c-bot">ליווי אישי</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (objections) -->
+    <section class="sec">
+      <div class="container">
+        <h2 class="title rv">שאלות שחשוב לענות עליהן</h2>
+        <div class="faq-list rv">
+          <div class="faq-item"><button class="faq-q">כמה זה עולה?<span class="fx">+</span></button><div class="faq-a"><p>ההשקעה משתנה לפי המסלול ונמסרת בשיחת ההתאמה — אחרי שנבין יחד מה מתאים לך. זה תהליך פרימיום עם ליווי אישי מלא, ומתומחר בהתאם.</p></div></div>
+          <div class="faq-item"><button class="faq-q">לא התאמנתי שנים. זה בכלל בשבילי?<span class="fx">+</span></button><div class="faq-a"><p>בדיוק בשבילך. מתחילים מאבחון ויסודות, לא מקפיצות למים עמוקים. הנקודה שאתה מתחיל ממנה לא משנה — חשוב שנעבוד נכון משם.</p></div></div>
+          <div class="faq-item"><button class="faq-q">יש לי כאבי גב / ברכיים. אפשר?<span class="fx">+</span></button><div class="faq-a"><p>ברוב המקרים כן, ובזהירות זה אפילו הדבר הכי טוב שתעשה. התוכנית נבנית סביב המגבלות שלך. אם צריך ליווי רפואי — אגיד לך ביושר.</p></div></div>
+          <div class="faq-item"><button class="faq-q">אין לי הרבה זמן. איך זה מסתדר?<span class="fx">+</span></button><div class="faq-a"><p>התוכנית נבנית סביב החיים שלך — כולל שבועות עמוסים ונסיעות. גמישות היא חלק מהשיטה.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="final-bg"></div>
+    <h2>מוכן/ה לעשות את הצעד הראשון?</h2>
+    <p>שיחת התאמה קצרה, בלי עלות ובלי מחויבות. נבדוק יחד אם התהליך מתאים לך — וזהו.</p>
+    <div class="final-actions">
+      <a href="#lead" class="btn">השאר פרטים עכשיו</a>
+      <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90" target="_blank" rel="noopener">דבר איתי בוואטסאפ</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-logo">Z<span>90</span> METHOD</div>
+    <div class="f-meta">אימון אישי פרימיום · תהליכי 90 יום · הרצליה</div>
+    <div class="f-social">
+      <a class="wa" href="https://wa.me/972546349923" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      <a class="ig" href="https://www.instagram.com/zoharhalevie_fitness/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg width="20" height="20" viewBox="0 0 448 512" fill="#fff"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a>
+    </div>
+    <div class="f-legal">© 2026 Z90 Method · כל הזכויות שמורות · <button id="accStmtFooter">הצהרת נגישות</button></div>
+  </footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta">
+    <a class="s-call" href="#lead">קבע שיחת התאמה</a>
+    <a class="s-wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94" target="_blank" rel="noopener">וואטסאפ</a>
+  </div>
+
+  <!-- ACCESSIBILITY -->
+  <button class="acc-btn" id="accBtn" aria-label="פתח תפריט נגישות" aria-expanded="false"><svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M12 2a2.2 2.2 0 110 4.4A2.2 2.2 0 0112 2zm9 6.4h-5.8v12.4a1.2 1.2 0 01-2.4 0v-5.6h-1.6v5.6a1.2 1.2 0 01-2.4 0V8.4H3a1.2 1.2 0 010-2.4h18a1.2 1.2 0 010 2.4z"/></svg></button>
+  <div class="acc-panel" id="accPanel" role="dialog" aria-label="נגישות">
+    <div class="ah">♿ נגישות</div>
+    <button class="acc-opt" data-acc="acc-contrast" aria-pressed="false">ניגודיות גבוהה</button>
+    <button class="acc-opt" data-acc="acc-links" aria-pressed="false">הדגשת קישורים</button>
+    <button class="acc-opt" data-acc="acc-font" aria-pressed="false">פונט קריא</button>
+    <button class="acc-opt" id="accBig">הגדל טקסט</button>
+    <button class="acc-opt" id="accReset">איפוס</button>
+    <button class="acc-opt" id="accStmt">הצהרת נגישות</button>
+  </div>
+  <div class="acc-modal" id="accModal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות">
+    <div class="box">
+      <h3>הצהרת נגישות</h3>
+      <p>אתר Z90 Method פועל להנגשת שירותיו לאנשים עם מוגבלות בהתאם לחוק שוויון זכויות לאנשים עם מוגבלות, התשנ"ח-1998, ולתקנות הנגישות התשע"ג-2013, ברמה AA לפי WCAG 2.1.</p>
+      <p>נתקלתם בבעיה? רכז הנגישות זהר — <a href="mailto:zoharhalevie@gmail.com" style="color:var(--yellow)">zoharhalevie@gmail.com</a></p>
+      <button class="cl" id="accClose">סגור</button>
+    </div>
+  </div>
+
+  <script>
+    /* topbar shadow */
+    const topbar = document.getElementById('topbar');
+    addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+    /* reveal */
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    /* before/after gallery: duplicate cards for seamless loop */
+    (() => { const t = document.getElementById('baTrack'); if (t) t.innerHTML += t.innerHTML; })();
+
+    /* FAQ */
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-q'), a = item.querySelector('.faq-a');
+      q.addEventListener('click', () => {
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(o => { o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = '0px'; });
+        if (!open) { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+      });
+    });
+
+    /* lead → Gmail */
+    function sendLead() {
+      const name = document.getElementById('lname').value.trim();
+      const phone = document.getElementById('lphone').value.trim();
+      if (!name || !phone) { alert('אנא מלא/י שם וטלפון.'); return; }
+      const body = ['ליד חדש מעמוד הנחיתה — Z90 Method','','שם: ' + name,'טלפון: ' + phone].join('\n');
+      window.open('https://mail.google.com/mail/?view=cm&to=zoharhalevie%40gmail.com&su=' + encodeURIComponent('ליד חדש: ' + name) + '&body=' + encodeURIComponent(body), '_blank');
+      document.getElementById('leadForm').style.display = 'none';
+      document.getElementById('lcSent').style.display = 'block';
+    }
+
+    /* accessibility */
+    const accBtn = document.getElementById('accBtn'), accPanel = document.getElementById('accPanel'), accModal = document.getElementById('accModal');
+    const KEY = 'z90_landing_acc';
+    let st = { cls: [], big: false };
+    try { st = { ...st, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
+    function apply() {
+      ['acc-contrast','acc-links','acc-font'].forEach(c => document.documentElement.classList.toggle(c, st.cls.includes(c)));
+      document.documentElement.style.fontSize = st.big ? '115%' : '';
+      document.querySelectorAll('.acc-opt[data-acc]').forEach(b => b.setAttribute('aria-pressed', st.cls.includes(b.dataset.acc) ? 'true' : 'false'));
+      localStorage.setItem(KEY, JSON.stringify(st));
+    }
+    accBtn.addEventListener('click', () => { const o = accPanel.classList.toggle('open'); accBtn.setAttribute('aria-expanded', o); });
+    document.addEventListener('click', e => { if (!accPanel.contains(e.target) && !accBtn.contains(e.target)) accPanel.classList.remove('open'); });
+    document.querySelectorAll('.acc-opt[data-acc]').forEach(b => b.addEventListener('click', () => { const c = b.dataset.acc; st.cls = st.cls.includes(c) ? st.cls.filter(x => x !== c) : [...st.cls, c]; apply(); }));
+    document.getElementById('accBig').addEventListener('click', () => { st.big = !st.big; apply(); });
+    document.getElementById('accReset').addEventListener('click', () => { st = { cls: [], big: false }; apply(); });
+    const openStmt = () => { accModal.classList.add('open'); accPanel.classList.remove('open'); };
+    document.getElementById('accStmt').addEventListener('click', openStmt);
+    document.getElementById('accStmtFooter').addEventListener('click', openStmt);
+    document.getElementById('accClose').addEventListener('click', () => accModal.classList.remove('open'));
+    accModal.addEventListener('click', e => { if (e.target === accModal) accModal.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { accModal.classList.remove('open'); accPanel.classList.remove('open'); } });
+    apply();
+  </script>
+</body>
+</html>

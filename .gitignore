@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Editor / tooling
+.claude/
+*.log
+
+# Unused source images (not referenced by the site)
+zohar.png
+"זהר תמונה.PNG"
