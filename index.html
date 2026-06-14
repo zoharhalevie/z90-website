@@ -1162,8 +1162,8 @@
           </div>
           <div class="sent-ok" id="heroSentOk" style="padding:24px 0 0;">
             <span class="ok-mark">✓</span>
-            <h4>הפרטים התקבלו</h4>
-            <p>אחזור אליך בהקדם.</p>
+            <h4>הפרטים נשלחו למאמן</h4>
+            <p>בדרך אליי — אחזור אליך בהקדם.</p>
           </div>
         </div>
 
@@ -1525,8 +1525,8 @@
             </div>
             <div class="sent-ok" id="sentOk">
               <span class="ok-mark">✓</span>
-              <h4>הפרטים התקבלו</h4>
-              <p>אחזור אליך בהקדם לתיאום שיחת ההתאמה.</p>
+              <h4>הפרטים נשלחו למאמן</h4>
+              <p>בדרך אליי — אחזור אליך בהקדם לתיאום שיחת ההתאמה.</p>
             </div>
 
             <div class="contact-social">
@@ -1867,17 +1867,38 @@
       document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
       setTimeout(() => document.getElementById('lname').focus({ preventScroll: true }), 900);
     }
-    function submitLead(name, phone, formEl, okEl) {
+    // הפרטים נשלחים אוטומטית למייל המאמן דרך FormSubmit (בלי שהמשתמש שולח מייל בעצמו)
+    const LEAD_ENDPOINT = 'https://formsubmit.co/ajax/zoharhalevie@gmail.com';
+    async function submitLead(name, phone, formEl, okEl, btn) {
       if (!name || !phone) { alert('אנא מלא/י שם וטלפון.'); return false; }
-      const body = ['ליד חדש מהאתר — Z90 Method','','שם: ' + name,'טלפון: ' + phone, chosenPlan ? 'מסלול שנבחר: ' + chosenPlan : ''].filter(Boolean).join('\n');
-      window.open('https://mail.google.com/mail/?view=cm&to=zoharhalevie%40gmail.com&su=' + encodeURIComponent('ליד חדש: ' + name) + '&body=' + encodeURIComponent(body), '_blank');
-      formEl.style.display = 'none'; okEl.style.display = 'block'; return true;
+      const origText = btn ? btn.querySelector('span').textContent : '';
+      if (btn) { btn.disabled = true; btn.querySelector('span').textContent = 'שולח...'; }
+      try {
+        await fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: 'ליד חדש מהאתר — Z90 Method',
+            _template: 'table',
+            'שם': name,
+            'טלפון': phone,
+            'מסלול שנבחר': chosenPlan || '—',
+            'מקור': 'אתר Z90'
+          })
+        });
+        formEl.style.display = 'none'; okEl.style.display = 'block';
+        return true;
+      } catch (e) {
+        if (btn) { btn.disabled = false; btn.querySelector('span').textContent = origText; }
+        alert('אופס, משהו השתבש בשליחה. אפשר גם לפנות אליי ישירות בוואטסאפ.');
+        return false;
+      }
     }
     function sendLead() {
-      submitLead(document.getElementById('lname').value.trim(), document.getElementById('lphone').value.trim(), document.getElementById('leadForm'), document.getElementById('sentOk'));
+      submitLead(document.getElementById('lname').value.trim(), document.getElementById('lphone').value.trim(), document.getElementById('leadForm'), document.getElementById('sentOk'), document.querySelector('#leadForm .send-btn'));
     }
     function sendHero() {
-      submitLead(document.getElementById('hname').value.trim(), document.getElementById('hphone').value.trim(), document.getElementById('heroForm'), document.getElementById('heroSentOk'));
+      submitLead(document.getElementById('hname').value.trim(), document.getElementById('hphone').value.trim(), document.getElementById('heroForm'), document.getElementById('heroSentOk'), document.querySelector('#heroForm .send-btn'));
     }
 
     /* ── offer modal ── */

@@ -370,8 +370,8 @@
           </div>
           <div class="lc-sent" id="lcSent">
             <span class="ok">✓</span>
-            <h3>הפרטים התקבלו!</h3>
-            <p>אחזור אליך בהקדם לתיאום שיחת ההתאמה.</p>
+            <h3>הפרטים נשלחו למאמן!</h3>
+            <p>בדרך אליי — אחזור אליך בהקדם לתיאום שיחת ההתאמה.</p>
           </div>
           <div class="lc-or"><span>או בוואטסאפ, מיד</span></div>
           <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90" target="_blank" rel="noopener">
@@ -541,15 +541,28 @@
       });
     });
 
-    /* lead → Gmail */
-    function sendLead() {
+    /* lead → נשלח אוטומטית למייל המאמן דרך FormSubmit */
+    const LEAD_ENDPOINT = 'https://formsubmit.co/ajax/zoharhalevie@gmail.com';
+    async function sendLead() {
       const name = document.getElementById('lname').value.trim();
       const phone = document.getElementById('lphone').value.trim();
       if (!name || !phone) { alert('אנא מלא/י שם וטלפון.'); return; }
-      const body = ['ליד חדש מעמוד הנחיתה — Z90 Method','','שם: ' + name,'טלפון: ' + phone].join('\n');
-      window.open('https://mail.google.com/mail/?view=cm&to=zoharhalevie%40gmail.com&su=' + encodeURIComponent('ליד חדש: ' + name) + '&body=' + encodeURIComponent(body), '_blank');
-      document.getElementById('leadForm').style.display = 'none';
-      document.getElementById('lcSent').style.display = 'block';
+      const btn = document.querySelector('#leadForm .send-btn');
+      const span = btn ? btn.querySelector('span') : null;
+      const orig = span ? span.textContent : '';
+      if (span) { btn.disabled = true; span.textContent = 'שולח...'; }
+      try {
+        await fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ _subject: 'ליד חדש מעמוד הנחיתה — Z90 Method', _template: 'table', 'שם': name, 'טלפון': phone, 'מקור': 'עמוד נחיתה Z90' })
+        });
+        document.getElementById('leadForm').style.display = 'none';
+        document.getElementById('lcSent').style.display = 'block';
+      } catch (e) {
+        if (span) { btn.disabled = false; span.textContent = orig; }
+        alert('אופס, משהו השתבש בשליחה. אפשר גם לפנות אליי ישירות בוואטסאפ.');
+      }
     }
 
     /* accessibility */

@@ -504,17 +504,37 @@ function submitForm(){
   lines.push((fd.sfn||fd.fn||'')+' '+(fd.sln||fd.ln||'')+' | ת.ז: '+(fd.sid||fd.fid||''));
   if(fd.isMinor) lines.push('קטין: '+(fd.mnN||'')+' | ת.ז: '+(fd.mnI||''),'הורה: '+(fd.prN||'')+' | ת.ז: '+(fd.prI||''));
   var body=lines.join('\n');
-  var subj=encodeURIComponent('שאלון אימונים - '+(fd.fn||'')+' '+(fd.ln||''));
-  var mailto='mailto:Zoharhalevie@gmail.com?subject='+subj+'&body='+encodeURIComponent(body);
-  document.getElementById('fc').innerHTML=
-    '<div class="card suc">'+
-      '<div class="ck">🎉</div>'+
-      '<h2>'+tx('succ')+'</h2>'+
-      '<p>'+tx('succMsg')+'</p>'+
-      '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="window.print()">'+tx('pBtn')+'</button>'+
-      '<a href="'+mailto+'" style="text-decoration:none"><button type="button" class="abtn" style="background:#38a169;color:#fff">'+tx('eBtn')+'</button></a>'+
-    '</div>';
+  // נשלח אוטומטית למייל המאמן דרך FormSubmit — בלי שהמשתמש שולח מייל בעצמו
+  document.getElementById('fc').innerHTML='<div class="card suc"><div class="ck">⏳</div><h2>'+(L==='he'?'שולח...':'Sending...')+'</h2></div>';
   cur=5;renderProg();window.scrollTo(0,0);
+  fetch('https://formsubmit.co/ajax/zoharhalevie@gmail.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'שאלון אימונים - '+(fd.fn||'')+' '+(fd.ln||''),
+      _template:'box',
+      'שם':(fd.fn||'')+' '+(fd.ln||''),
+      'טלפון':(fd.ph||''),
+      'מייל':(fd.em||''),
+      'פירוט מלא':body
+    })
+  }).then(function(){
+    document.getElementById('fc').innerHTML=
+      '<div class="card suc">'+
+        '<div class="ck">🎉</div>'+
+        '<h2>'+tx('succ')+'</h2>'+
+        '<p>'+tx('succMsg')+'</p>'+
+        '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="window.print()">'+tx('pBtn')+'</button>'+
+      '</div>';
+    window.scrollTo(0,0);
+  }).catch(function(){
+    document.getElementById('fc').innerHTML=
+      '<div class="card suc">'+
+        '<div class="ck">⚠️</div>'+
+        '<h2>'+(L==='he'?'שגיאה בשליחה':'Sending failed')+'</h2>'+
+        '<p>'+(L==='he'?'אנא נסו שוב, או צרו קשר בוואטסאפ.':'Please try again or contact via WhatsApp.')+'</p>'+
+      '</div>';
+  });
 }
 // Init
 document.getElementById('ttl').textContent=TX[L].title;
