@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10/dist/html2pdf.bundle.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1867,23 +1868,43 @@
       document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
       setTimeout(() => document.getElementById('lname').focus({ preventScroll: true }), 900);
     }
-    // הפרטים נשלחים אוטומטית למייל המאמן דרך FormSubmit (בלי שהמשתמש שולח מייל בעצמו)
-    const LEAD_ENDPOINT = 'https://formsubmit.co/ajax/zoharhalevie@gmail.com';
+    // הליד נשלח אוטומטית למייל המאמן כ-PDF דרך Google Apps Script
+    const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwQtt-5p7F5YvZ4W31lumhse0lP7gUGGoRAWZcEyoU3r1cJzcNv7LiaiULrskAGG_4T/exec';
+    function leadNb(s){ return String(s==null?'':s).replace(/ /g, String.fromCharCode(160)); }
+    function leadPdfHTML(rows, title){
+      var d = new Date();
+      var date = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
+      var h = '<div style="font-family:Arial,sans-serif;direction:rtl;text-align:right;width:620px;padding:28px;color:#1a202c;background:#fff;box-sizing:border-box">';
+      h += '<div style="text-align:center;border-bottom:3px solid #F4CE14;padding-bottom:12px;margin-bottom:12px">' +
+           '<div style="font-size:24px;font-weight:800;direction:ltr">Z90 Method</div>' +
+           '<div style="font-size:17px;font-weight:800;margin-top:2px">' + leadNb(title) + '</div>' +
+           '<div style="font-size:12px;color:#718096;margin-top:4px">' + leadNb('נוצר בתאריך ' + date) + '</div></div>';
+      h += '<table style="width:100%;border-collapse:collapse;font-size:15px">';
+      for (var i=0;i<rows.length;i++){ h += '<tr><td style="padding:9px;font-weight:700;color:#2d3748;white-space:nowrap;border-bottom:1px solid #edf2f7">' + leadNb(rows[i][0]) + '</td><td style="padding:9px;color:#1a202c;border-bottom:1px solid #edf2f7;overflow-wrap:anywhere">' + leadNb(rows[i][1] || '-') + '</td></tr>'; }
+      h += '</table></div>';
+      return h;
+    }
     async function submitLead(name, phone, formEl, okEl, btn) {
       if (!name || !phone) { alert('אנא מלא/י שם וטלפון.'); return false; }
       const origText = btn ? btn.querySelector('span').textContent : '';
       if (btn) { btn.disabled = true; btn.querySelector('span').textContent = 'שולח...'; }
       try {
+        const html = leadPdfHTML([['שם', name], ['טלפון', phone], ['מסלול שנבחר', chosenPlan || '—'], ['מקור', 'אתר Z90']], 'ליד חדש מהאתר');
+        const holder = document.createElement('div');
+        holder.style.position = 'fixed'; holder.style.left = '-10000px'; holder.style.top = '0';
+        holder.innerHTML = html; document.body.appendChild(holder);
+        const opt = { margin:[10,10,10,10], filename:'Z90 ליד - ' + name + '.pdf', image:{ type:'jpeg', quality:0.98 }, html2canvas:{ scale:2, useCORS:true, backgroundColor:'#ffffff' }, jsPDF:{ unit:'mm', format:'a4', orientation:'portrait' } };
+        const dataUri = await html2pdf().set(opt).from(holder.firstChild).outputPdf('datauristring');
+        if (holder.parentNode) holder.parentNode.removeChild(holder);
+        const b64 = (dataUri || '').split(',')[1] || '';
         await fetch(LEAD_ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
-            _subject: 'ליד חדש מהאתר — Z90 Method',
-            _template: 'table',
-            'שם': name,
-            'טלפון': phone,
-            'מסלול שנבחר': chosenPlan || '—',
-            'מקור': 'אתר Z90'
+            subject: 'ליד חדש מהאתר - ' + name,
+            body: 'ליד חדש מהאתר Z90\n\nשם: ' + name + '\nטלפון: ' + phone + '\nמסלול: ' + (chosenPlan || '—'),
+            filename: opt.filename, pdfBase64: b64, name: name, phone: phone
           })
         });
         formEl.style.display = 'none'; okEl.style.display = 'block';
