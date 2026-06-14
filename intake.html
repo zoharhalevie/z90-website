@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10/dist/html2pdf.bundle.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#1a202c}
@@ -477,65 +478,84 @@ function mkSig(cv,ctx){
 }
 function clearSig(){if(sigCtx)sigCtx.clearRect(0,0,sigCv.width,sigCv.height);}
 function clearParentSig(){var pc=document.getElementById('pSigCv');if(pc)pc.getContext('2d').clearRect(0,0,pc.width,pc.height);}
+function rowPDF(label,val){return '<tr><td style="padding:5px 8px;font-weight:700;color:#2d3748;white-space:nowrap;vertical-align:top;border-bottom:1px solid #edf2f7">'+label+'</td><td style="padding:5px 8px;color:#1a202c;border-bottom:1px solid #edf2f7">'+((val===undefined||val===null||val==='')?'-':val)+'</td></tr>';}
+function secPDF(t){return '<h2 style="font-size:15px;color:#2b6cb0;border-bottom:2px solid #bee3f8;padding-bottom:4px;margin:16px 0 6px">'+t+'</h2>';}
+function buildSummaryHTML(sigImg,pSigImg){
+  var mqs=TX['he'].medQs;
+  var yn=function(k){return(fd[k]==='כן'||fd[k]==='Yes')?'כן':(fd[k]==='לא'||fd[k]==='No')?'לא':'-';};
+  var d=new Date();
+  var dateStr=d.toLocaleDateString('he-IL')+' '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+  var h='<div style="font-family:Arial,sans-serif;direction:rtl;text-align:right;width:760px;padding:26px;color:#1a202c;background:#fff;box-sizing:border-box">';
+  h+='<div style="text-align:center;border-bottom:3px solid #3182ce;padding-bottom:12px;margin-bottom:6px">'+
+     '<div style="font-size:21px;font-weight:800;color:#1a202c">Z90 Method — שאלון תחילת תכנית אימונים</div>'+
+     '<div style="font-size:12px;color:#718096;margin-top:4px">נוצר בתאריך '+dateStr+'</div></div>';
+  h+=secPDF('פרטים אישיים')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('שם מלא',(fd.fn||'')+' '+(fd.ln||''))+rowPDF('ת.ז',fd.fid)+rowPDF('תאריך לידה',fd.dob)+
+     rowPDF('מין',fd.gender)+rowPDF('טלפון',fd.ph)+rowPDF('מייל',fd.em)+'</table>';
+  h+=secPDF('ניסיון עבר')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('עסק בעבר',yn('pastAct')+((fd.pastAct==='כן')?' ('+(fd.pT||'-')+', '+(fd.pFr||'-')+' בשבוע, '+(fd.pDu||'-')+')':''))+
+     rowPDF('פעיל כיום',yn('currAct')+((fd.currAct==='כן')?' ('+(fd.cT||'-')+', '+(fd.cFr||'-')+' בשבוע, '+(fd.cPe||'-')+')':''))+'</table>';
+  h+=secPDF('מטרות ויעדים')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('מטרות',(fd.goals||[]).join(', '))+rowPDF('הצלחה אחרי 90 יום',fd.s90)+
+     rowPDF('זמינות שבועית',(fd.avail?fd.avail+' פעמים בשבוע':'-'))+rowPDF('מוכנות לשינוי',(fd.motiv?fd.motiv+'/10':'-'))+
+     rowPDF('מכשולים',[fd.o1,fd.o2,fd.o3].filter(Boolean).join(' | '))+
+     rowPDF('מסייעים',[fd.h1,fd.h2,fd.h3].filter(Boolean).join(' | '))+'</table>';
+  h+=secPDF('אורח חיים ותרגילים')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('סגנון חיים',fd.lifestyle)+rowPDF('שעות ישיבה ביום',fd.sitHours)+rowPDF('שעות שינה',fd.sleepHours)+rowPDF('רמת אנרגיה',fd.energy)+
+     rowPDF('תרגילים אהובים',((fd.likes||[]).join(', '))+(fd.lkO?', '+fd.lkO:''))+
+     rowPDF('תרגילים לא אהובים',((fd.dislikes||[]).join(', '))+(fd.dlO?', '+fd.dlO:''))+'</table>';
+  h+=secPDF('שאלון רפואי')+'<table style="width:100%;border-collapse:collapse;font-size:13px">';
+  for(var i=0;i<mqs.length;i++){
+    var ans=yn(mqs[i].id),color=(ans==='כן')?'#c53030':'#2f855a';
+    h+='<tr><td style="padding:4px 8px;color:#1a202c;border-bottom:1px solid #edf2f7">'+(i+1)+'. '+mqs[i].q+'</td><td style="padding:4px 8px;font-weight:700;color:'+color+';white-space:nowrap;border-bottom:1px solid #edf2f7">'+ans+'</td></tr>';
+    if(mqs[i].subs){for(var j=0;j<mqs[i].subs.length;j++){var sk=mqs[i].id+'_'+j;if(fd[sk])h+='<tr><td style="padding:2px 22px;color:#4a5568;font-size:12px">– '+mqs[i].subs[j]+'</td><td style="padding:2px 8px;font-size:12px;color:#1a202c">'+yn(sk)+'</td></tr>';}}
+  }
+  h+='</table>';
+  h+=secPDF('כאבים ומגבלות')+'<div style="font-size:13px;padding:4px 8px;min-height:28px">'+(fd.pain||'-')+'</div>';
+  h+='<div style="margin-top:12px;padding:10px;background:#fffbeb;border:1px solid #f6e05e;border-radius:6px;font-size:12px;color:#744210">'+TX['he'].healthDecl+'</div>';
+  h+=secPDF('חתימה')+'<div style="font-size:13px;padding:4px 8px">'+
+     '<div style="font-weight:700;margin-bottom:5px">'+(fd.sfn||fd.fn||'')+' '+(fd.sln||fd.ln||'')+' &nbsp;|&nbsp; ת.ז: '+(fd.sid||fd.fid||'')+'</div>'+
+     (sigImg?'<img src="'+sigImg+'" style="border:1px solid #e2e8f0;border-radius:6px;width:300px;height:90px;object-fit:contain;background:#fff">':'<div style="color:#c53030">(לא נחתם)</div>')+'</div>';
+  if(fd.isMinor){
+    h+='<div style="margin-top:8px;border-top:1px dashed #cbd5e0;padding-top:8px;font-size:13px;padding-right:8px">'+
+       '<div style="font-weight:700;margin-bottom:4px">פרטי קטין / אפוטרופוס</div>'+
+       'קטין: '+(fd.mnN||'-')+' (ת.ז '+(fd.mnI||'-')+') &nbsp;|&nbsp; הורה: '+(fd.prN||'-')+' (ת.ז '+(fd.prI||'-')+')'+
+       (pSigImg?'<br><img src="'+pSigImg+'" style="border:1px solid #e2e8f0;border-radius:6px;width:300px;height:80px;object-fit:contain;background:#fff;margin-top:6px">':'')+'</div>';
+  }
+  h+='</div>';
+  return h;
+}
+function genPDF(){
+  var holder=document.createElement('div');
+  holder.style.position='fixed';holder.style.left='-10000px';holder.style.top='0';
+  holder.innerHTML=window._z90summary;
+  document.body.appendChild(holder);
+  return html2pdf().set(window._z90opt).from(holder.firstChild).save().then(function(){if(holder.parentNode)holder.parentNode.removeChild(holder);}).catch(function(){if(holder.parentNode)holder.parentNode.removeChild(holder);});
+}
 function submitForm(){
   save();
   if(!validate()){window.scrollTo(0,0);return;}
-  var mqs=TX['he'].medQs;
-  var yn=function(k){return(fd[k]==='כן'||fd[k]==='Yes')?'כן':(fd[k]==='לא'||fd[k]==='No')?'לא':'-';};
-  var lines=['שאלון תחילת תכנית אימונים','===',
-    'שם: '+(fd.fn||'')+' '+(fd.ln||''),'ת.ז: '+(fd.fid||''),'ת.לידה: '+(fd.dob||''),
-    'מין: '+(fd.gender||''),'טלפון: '+(fd.ph||''),'מייל: '+(fd.em||''),'',
-    '=== ניסיון עבר ===',
-    'עבר: '+yn('pastAct')+' | סוג: '+(fd.pT||'-')+' | פעמים: '+(fd.pFr||'-')+' | משך: '+(fd.pDu||'-'),
-    'כיום: '+yn('currAct')+' | סוג: '+(fd.cT||'-')+' | פעמים: '+(fd.cFr||'-')+' | תקופה: '+(fd.cPe||'-'),'',
-    '=== מטרות ===',
-    'מטרות: '+((fd.goals||[]).join(', ')||'-'),
-    'הצלחה 90 יום: '+(fd.s90||'-'),
-    'זמינות: '+(fd.avail||'-')+'x/שבוע | מוטיבציה: '+(fd.motiv||'-')+'/10',
-    'מכשולים: '+(fd.o1||'-')+' | '+(fd.o2||'-')+' | '+(fd.o3||'-'),
-    'מסייעים: '+(fd.h1||'-')+' | '+(fd.h2||'-')+' | '+(fd.h3||'-'),'',
-    '=== תרגילים ===',
-    'אוהב: '+((fd.likes||[]).join(', ')||'-')+(fd.lkO?', '+fd.lkO:''),
-    'לא אוהב: '+((fd.dislikes||[]).join(', ')||'-')+(fd.dlO?', '+fd.dlO:''),'',
-    '=== אורח חיים ===',
-    'סגנון: '+(fd.lifestyle||'-')+' | ישיבה: '+(fd.sitHours||'-')+' | שינה: '+(fd.sleepHours||'-')+' | אנרגיה: '+(fd.energy||'-'),'',
-    '=== שאלון רפואי ==='];
-  for(var i=0;i<mqs.length;i++) lines.push((i+1)+'. '+mqs[i].q+' -> '+yn(mqs[i].id));
-  lines.push('','כאבים: '+(fd.pain||'-'),'','=== חתימה ===');
-  lines.push((fd.sfn||fd.fn||'')+' '+(fd.sln||fd.ln||'')+' | ת.ז: '+(fd.sid||fd.fid||''));
-  if(fd.isMinor) lines.push('קטין: '+(fd.mnN||'')+' | ת.ז: '+(fd.mnI||''),'הורה: '+(fd.prN||'')+' | ת.ז: '+(fd.prI||''));
-  var body=lines.join('\n');
-  // נשלח אוטומטית למייל המאמן דרך FormSubmit — בלי שהמשתמש שולח מייל בעצמו
-  document.getElementById('fc').innerHTML='<div class="card suc"><div class="ck">⏳</div><h2>'+(L==='he'?'שולח...':'Sending...')+'</h2></div>';
+  var sigImg='',pSigImg='';
+  try{if(sigCv)sigImg=sigCv.toDataURL('image/png');}catch(e){}
+  try{var pc=document.getElementById('pSigCv');if(pc)pSigImg=pc.toDataURL('image/png');}catch(e){}
+  var name=((fd.fn||'')+' '+(fd.ln||'')).trim()||'מתאמן';
+  window._z90summary=buildSummaryHTML(sigImg,pSigImg);
+  window._z90opt={margin:[8,8,8,8],filename:'Z90 שאלון - '+name+'.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};
+  document.getElementById('fc').innerHTML='<div class="card suc"><div class="ck">⏳</div><h2>'+(L==='he'?'מכין מסמך...':'Generating document...')+'</h2></div>';
   cur=5;renderProg();window.scrollTo(0,0);
-  fetch('https://formsubmit.co/ajax/zoharhalevie@gmail.com',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({
-      _subject:'שאלון אימונים - '+(fd.fn||'')+' '+(fd.ln||''),
-      _template:'box',
-      'שם':(fd.fn||'')+' '+(fd.ln||''),
-      'טלפון':(fd.ph||''),
-      'מייל':(fd.em||''),
-      'פירוט מלא':body
-    })
-  }).then(function(){
+  var wa='https://wa.me/972546349923?text='+encodeURIComponent('היי זהר, מצורף שאלון תחילת האימון שלי — '+name);
+  function done(){
     document.getElementById('fc').innerHTML=
       '<div class="card suc">'+
         '<div class="ck">🎉</div>'+
         '<h2>'+tx('succ')+'</h2>'+
-        '<p>'+tx('succMsg')+'</p>'+
-        '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="window.print()">'+tx('pBtn')+'</button>'+
+        '<p>'+(L==='he'?'המסמך החתום ירד למכשיר שלך. שלח/י אותו למאמן בוואטסאפ — צרף/י את הקובץ שירד.':'Your signed document was downloaded. Send it to the coach on WhatsApp — attach the downloaded file.')+'</p>'+
+        '<a href="'+wa+'" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" class="abtn" style="background:#25D366;color:#fff">'+(L==='he'?'📲 שלח למאמן בוואטסאפ':'📲 Send via WhatsApp')+'</button></a>'+
+        '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="genPDF()">'+(L==='he'?'⬇️ הורד שוב':'⬇️ Download again')+'</button>'+
       '</div>';
     window.scrollTo(0,0);
-  }).catch(function(){
-    document.getElementById('fc').innerHTML=
-      '<div class="card suc">'+
-        '<div class="ck">⚠️</div>'+
-        '<h2>'+(L==='he'?'שגיאה בשליחה':'Sending failed')+'</h2>'+
-        '<p>'+(L==='he'?'אנא נסו שוב, או צרו קשר בוואטסאפ.':'Please try again or contact via WhatsApp.')+'</p>'+
-      '</div>';
-  });
+  }
+  genPDF().then(done).catch(done);
 }
 // Init
 document.getElementById('ttl').textContent=TX[L].title;
