@@ -525,12 +525,39 @@ function buildSummaryHTML(sigImg,pSigImg){
   h+='</div>';
   return h;
 }
-function genPDF(){
+var INTAKE_ENDPOINT='https://script.google.com/macros/s/AKfycbwQtt-5p7F5YvZ4W31lumhse0lP7gUGGoRAWZcEyoU3r1cJzcNv7LiaiULrskAGG_4T/exec';
+function makeHolder(){
   var holder=document.createElement('div');
   holder.style.position='fixed';holder.style.left='-10000px';holder.style.top='0';
   holder.innerHTML=window._z90summary;
   document.body.appendChild(holder);
+  return holder;
+}
+function genPDF(){
+  var holder=makeHolder();
   return html2pdf().set(window._z90opt).from(holder.firstChild).save().then(function(){if(holder.parentNode)holder.parentNode.removeChild(holder);}).catch(function(){if(holder.parentNode)holder.parentNode.removeChild(holder);});
+}
+function successScreen(){
+  document.getElementById('fc').innerHTML=
+    '<div class="card suc">'+
+      '<div class="ck">🎉</div>'+
+      '<h2>'+tx('succ')+'</h2>'+
+      '<p>'+(L==='he'?'השאלון נשלח למאמן בהצלחה. תודה!':'The form was sent to the coach successfully. Thank you!')+'</p>'+
+      '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="genPDF()">'+(L==='he'?'⬇️ הורד עותק לעצמך':'⬇️ Download a copy')+'</button>'+
+    '</div>';
+  window.scrollTo(0,0);
+}
+function errorScreen(name){
+  var wa='https://wa.me/972546349923?text='+encodeURIComponent('היי זהר, מצורף שאלון תחילת האימון שלי — '+name);
+  document.getElementById('fc').innerHTML=
+    '<div class="card suc">'+
+      '<div class="ck">⚠️</div>'+
+      '<h2>'+(L==='he'?'השליחה נכשלה':'Sending failed')+'</h2>'+
+      '<p>'+(L==='he'?'אפשר להוריד את המסמך ולשלוח למאמן בוואטסאפ.':'You can download the document and send it via WhatsApp.')+'</p>'+
+      '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="genPDF()">'+(L==='he'?'⬇️ הורד מסמך':'⬇️ Download')+'</button>'+
+      '<a href="'+wa+'" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" class="abtn" style="background:#25D366;color:#fff">'+(L==='he'?'📲 וואטסאפ':'📲 WhatsApp')+'</button></a>'+
+    '</div>';
+  window.scrollTo(0,0);
 }
 function submitForm(){
   save();
@@ -541,21 +568,19 @@ function submitForm(){
   var name=((fd.fn||'')+' '+(fd.ln||'')).trim()||'מתאמן';
   window._z90summary=buildSummaryHTML(sigImg,pSigImg);
   window._z90opt={margin:[8,8,8,8],filename:'Z90 שאלון - '+name+'.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};
-  document.getElementById('fc').innerHTML='<div class="card suc"><div class="ck">⏳</div><h2>'+(L==='he'?'מכין מסמך...':'Generating document...')+'</h2></div>';
+  document.getElementById('fc').innerHTML='<div class="card suc"><div class="ck">⏳</div><h2>'+(L==='he'?'שולח למאמן...':'Sending...')+'</h2></div>';
   cur=5;renderProg();window.scrollTo(0,0);
-  var wa='https://wa.me/972546349923?text='+encodeURIComponent('היי זהר, מצורף שאלון תחילת האימון שלי — '+name);
-  function done(){
-    document.getElementById('fc').innerHTML=
-      '<div class="card suc">'+
-        '<div class="ck">🎉</div>'+
-        '<h2>'+tx('succ')+'</h2>'+
-        '<p>'+(L==='he'?'המסמך החתום ירד למכשיר שלך. שלח/י אותו למאמן בוואטסאפ — צרף/י את הקובץ שירד.':'Your signed document was downloaded. Send it to the coach on WhatsApp — attach the downloaded file.')+'</p>'+
-        '<a href="'+wa+'" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" class="abtn" style="background:#25D366;color:#fff">'+(L==='he'?'📲 שלח למאמן בוואטסאפ':'📲 Send via WhatsApp')+'</button></a>'+
-        '<button type="button" class="abtn" style="background:#3182ce;color:#fff" onclick="genPDF()">'+(L==='he'?'⬇️ הורד שוב':'⬇️ Download again')+'</button>'+
-      '</div>';
-    window.scrollTo(0,0);
-  }
-  genPDF().then(done).catch(done);
+  var holder=makeHolder();
+  html2pdf().set(window._z90opt).from(holder.firstChild).outputPdf('datauristring').then(function(dataUri){
+    if(holder.parentNode)holder.parentNode.removeChild(holder);
+    var b64=(dataUri||'').split(',')[1]||'';
+    return fetch(INTAKE_ENDPOINT,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({filename:window._z90opt.filename,pdfBase64:b64,name:name,phone:(fd.ph||''),email:(fd.em||'')})
+    });
+  }).then(function(){ successScreen(); }).catch(function(){ if(holder.parentNode)holder.parentNode.removeChild(holder); errorScreen(name); });
 }
 // Init
 document.getElementById('ttl').textContent=TX[L].title;
