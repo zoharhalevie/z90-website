@@ -312,13 +312,13 @@
       display: flex;
       gap: 22px;
       width: max-content;
-      animation: marqueeScroll var(--mq-dur, 30s) ease-in-out infinite alternate;
+      animation: marqueeScroll var(--mq-dur, 40s) linear infinite;
     }
     .marquee:hover .marquee-track { animation-play-state: paused; }
-    /* ping-pong: runs to one side, then back, repeat. shift set in JS per width */
+    /* continuous right-to-left loop; cards duplicated in JS for seamless wrap */
     @keyframes marqueeScroll {
       from { transform: translateX(0); }
-      to   { transform: translateX(var(--mq-shift, -60%)); }
+      to   { transform: translateX(-50%); }
     }
 
     /* ───── BEFORE / AFTER GALLERY (auto-scroll under testimonials) ───── */
@@ -1752,23 +1752,14 @@
       setTimeout(() => requestAnimationFrame(tick), 500);
     })();
 
-    /* ── testimonials marquee — ping-pong: run to one side, back, repeat ── */
+    /* ── testimonials marquee — continuous right-to-left loop ── */
     (() => {
-      const marquee = document.getElementById('marquee');
       const track = document.getElementById('marqueeTrack');
-      if (!marquee || !track) return;
+      if (!track) return;
+      track.innerHTML += track.innerHTML; /* duplicate cards for seamless wrap */
       function sizeMarquee() {
-        const shift = track.scrollWidth - marquee.clientWidth;
-        if (shift > 0) {
-          track.style.setProperty('--mq-shift', `-${shift}px`);
-          track.style.setProperty('--mq-dur', Math.max(14, Math.round(shift / 55)) + 's');
-          track.style.animationName = 'marqueeScroll';
-        } else {
-          /* fits on screen — center, no motion */
-          track.style.animationName = 'none';
-          track.style.transform = 'none';
-          track.style.margin = '0 auto';
-        }
+        const oneSet = track.scrollWidth / 2;
+        track.style.setProperty('--mq-dur', Math.max(20, Math.round(oneSet / 55)) + 's');
       }
       sizeMarquee();
       addEventListener('resize', sizeMarquee);
