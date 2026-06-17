@@ -23,9 +23,10 @@ body{font-family:'Heebo',system-ui,Arial,sans-serif;font-weight:300;line-height:
 h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#fff}
 .sub{text-align:center;color:var(--faint);font-size:.95rem;margin:0 auto 22px;max-width:52ch}
 .lbar{display:flex;justify-content:center;margin-bottom:26px}
-.lb{padding:9px 30px;border:1.5px solid var(--yellow);background:transparent;color:var(--yellow);font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
-.lb:first-child{border-radius:8px 0 0 8px}.lb:last-child{border-radius:0 8px 8px 0}
-.lb.on{background:var(--yellow);color:#161616}
+.lseg{display:inline-flex;gap:4px;background:var(--card2);border:1px solid var(--line);border-radius:100px;padding:5px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.lb{padding:9px 32px;border:none;background:transparent;color:var(--soft);font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;border-radius:100px;transition:all .25s}
+.lb:hover{color:#fff}
+.lb.on{background:var(--yellow);color:#161616;box-shadow:0 6px 18px rgba(244,206,20,.35)}
 .prow{display:flex;justify-content:space-between;margin-bottom:8px}
 .sdot{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
 .dot{width:34px;height:34px;border-radius:50%;background:var(--card2);color:var(--faint);font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .3s;border:1px solid var(--line)}
@@ -62,6 +63,7 @@ h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#f
 .fu{margin-top:11px;padding:15px;background:rgba(244,206,20,.06);border-radius:10px;border:1px solid rgba(244,206,20,.25);display:none}
 .mi{padding:14px 0;border-bottom:1px solid var(--line)}
 .mi:last-child{border-bottom:none}
+.mi.mier{background:rgba(239,83,80,.07);box-shadow:inset 3px 0 0 var(--red);border-radius:6px;padding-right:10px;padding-left:10px}
 .mq{font-size:.95rem;color:var(--white);margin-bottom:9px;line-height:1.55;font-weight:400}
 .ms{margin-top:9px;padding-right:14px;border-right:3px solid rgba(244,206,20,.4);display:none}
 .ms-ltr{margin-top:9px;padding-left:14px;border-left:3px solid rgba(244,206,20,.4);display:none}
@@ -101,10 +103,10 @@ h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#f
   <div class="brand"><div class="brand-logo"><span class="bl-z90">Z90</span><span class="bl-method">METHOD</span></div></div>
   <h1 id="ttl"></h1>
   <p class="sub" id="sub"></p>
-  <div class="lbar">
+  <div class="lbar"><div class="lseg">
     <button class="lb on" id="bHe" onclick="setLang('he')">עברית</button>
     <button class="lb" id="bEn" onclick="setLang('en')">English</button>
-  </div>
+  </div></div>
   <div class="prow" id="prow"></div>
   <div class="pbar"><div class="pfill" id="pfill"></div></div>
   <div id="fc"></div>
@@ -310,6 +312,19 @@ function validate(){
   function ci(id){var el=document.getElementById(id);if(!el)return;var emp=!el.value.trim();el.classList.toggle('er',emp);var em=document.getElementById('e-'+id);if(em)em.style.display=emp?'block':'none';if(emp)ok=false;}
   function co(gid,key){var filled=fd[key]&&(Array.isArray(fd[key])?fd[key].length>0:true);var g=document.getElementById(gid);if(g)g.classList.toggle('er',!filled);var em=document.getElementById('e-'+gid);if(em)em.style.display=!filled?'block':'none';if(!filled)ok=false;}
   if(cur===0){ci('fn');ci('ln');ci('fid');ci('dob');ci('ph');co('gOg','gender');}
+  if(cur===3){
+    var mqs=TX[L].medQs;
+    for(var i=0;i<mqs.length;i++){
+      var q=mqs[i],a=fd[q.id],bad=false;
+      if(!a) bad=true;
+      else if(a===tx('yes')&&q.subs){for(var j=0;j<q.subs.length;j++){if(!fd[q.id+'_'+j]){bad=true;break;}}}
+      var em=document.getElementById('eq-'+q.id);
+      if(em) em.style.display=bad?'block':'none';
+      var mi=document.getElementById('mi_'+q.id);
+      if(mi) mi.classList.toggle('mier',bad);
+      if(bad) ok=false;
+    }
+  }
   if(cur===4){ci('sfn');ci('sln');ci('sid');}
   return ok;
 }
@@ -412,7 +427,7 @@ function step4(){
     '<div class="card"><div class="ctitle">🏥 '+(L==='he'?'שאלון רפואי':'Medical Questionnaire')+'</div>';
   for(var i=0;i<mqs.length;i++){
     var q=mqs[i],ys=fd[q.id]===yv?' on':'',ns=fd[q.id]===nv?' on':'';
-    h+='<div class="mi"><div class="mq">'+(i+1)+'. '+q.q+'</div>'+
+    h+='<div class="mi" id="mi_'+q.id+'"><div class="mq">'+(i+1)+'. '+q.q+'</div>'+
        '<div class="ynr">'+
          '<button type="button" class="yb y'+ys+'" data-yn="'+q.id+'" data-isyes="1" data-fu="" data-med="1">'+yv+'</button>'+
          '<button type="button" class="yb n'+ns+'" data-yn="'+q.id+'" data-isyes="0" data-fu="" data-med="1">'+nv+'</button>'+
@@ -430,6 +445,7 @@ function step4(){
       }
       h+='</div>';
     }
+    h+='<span class="emsg" id="eq-'+q.id+'">'+(L==='he'?'חובה לענות על שאלה זו':'Please answer this question')+'</span>';
     h+='</div>';
   }
   h+='</div><div class="card"><div class="ctitle">🩹 '+(L==='he'?'כאבים ומגבלות':'Pain & Limitations')+'</div>'+
