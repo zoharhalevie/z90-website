@@ -230,7 +230,7 @@
     .ba-marquee { position: relative; overflow: hidden; padding: 6px 0;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
-    .ba-track { display: flex; gap: 16px; width: max-content; animation: baScroll 48s linear infinite; }
+    .ba-track { display: flex; gap: 16px; width: max-content; animation: baScroll var(--ba-dur, 48s) linear infinite; }
     .ba-marquee:hover .ba-track { animation-play-state: paused; }
     @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .ba-card { width: 280px; flex-shrink: 0; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: rgba(0,0,0,0.25) 0px 10px 30px; }
@@ -543,17 +543,27 @@
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
     document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-    /* before/after gallery: duplicate cards for seamless loop */
-    (() => { const t = document.getElementById('baTrack'); if (t) t.innerHTML += t.innerHTML; })();
-    /* testimonials marquee — continuous right-to-left loop */
-    (() => {
-      const track = document.getElementById('marqueeTrack');
+    /* ── marquees: fill the whole screen so a card is ALWAYS visible, continuous RTL loop ── */
+    function z90Loop(trackId, durVar, pxPerSec) {
+      const track = document.getElementById(trackId);
       if (!track) return;
-      track.innerHTML += track.innerHTML;
-      function sizeMarquee(){ const oneSet = track.scrollWidth / 2; track.style.setProperty('--mq-dur', Math.max(20, Math.round(oneSet / 55)) + 's'); }
-      sizeMarquee(); addEventListener('resize', sizeMarquee);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeMarquee);
-    })();
+      const original = track.getAttribute('data-orig') || track.innerHTML;
+      track.setAttribute('data-orig', original);
+      function build() {
+        track.innerHTML = original;
+        let guard = 0;
+        while (track.scrollWidth < window.innerWidth + 200 && guard < 40) { track.innerHTML += original; guard++; }
+        const unit = track.innerHTML;
+        track.innerHTML = unit + unit;
+        const oneSet = track.scrollWidth / 2;
+        track.style.setProperty(durVar, Math.max(18, Math.round(oneSet / pxPerSec)) + 's');
+      }
+      build();
+      addEventListener('resize', build);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+    }
+    z90Loop('marqueeTrack', '--mq-dur', 55);
+    z90Loop('baTrack', '--ba-dur', 55);
 
     /* FAQ */
     document.querySelectorAll('.faq-item').forEach(item => {
