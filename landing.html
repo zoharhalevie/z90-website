@@ -545,25 +545,25 @@
 
     /* ── marquees: fill the whole screen so a card is ALWAYS visible, continuous RTL loop ── */
     function z90Loop(trackId, durVar, pxPerSec) {
-      const track = document.getElementById(trackId);
+      var track = document.getElementById(trackId);
       if (!track) return;
-      const original = track.getAttribute('data-orig') || track.innerHTML;
-      track.setAttribute('data-orig', original);
+      if (track.getAttribute('data-orig') === null) track.setAttribute('data-orig', track.innerHTML);
+      var original = track.getAttribute('data-orig');
       function build() {
         track.innerHTML = original;
-        let guard = 0;
-        while (track.scrollWidth < window.innerWidth + 200 && guard < 40) { track.innerHTML += original; guard++; }
-        const unit = track.innerHTML;
-        track.innerHTML = unit + unit;
-        const oneSet = track.scrollWidth / 2;
-        track.style.setProperty(durVar, Math.max(18, Math.round(oneSet / pxPerSec)) + 's');
+        if (track.scrollWidth < 2) { setTimeout(build, 150); return; } /* wait for layout */
+        var need = window.innerWidth + 400, guard = 0;
+        while (track.scrollWidth < need && guard < 60) { track.insertAdjacentHTML('beforeend', original); guard++; }
+        track.innerHTML = track.innerHTML + track.innerHTML; /* two identical halves -> seamless at -50% */
+        track.style.setProperty(durVar, Math.max(18, Math.round((track.scrollWidth / 2) / pxPerSec)) + 's');
       }
       build();
       addEventListener('resize', build);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
     }
-    z90Loop('marqueeTrack', '--mq-dur', 55);
-    z90Loop('baTrack', '--ba-dur', 55);
+    function z90LoopAll() { z90Loop('marqueeTrack', '--mq-dur', 55); z90Loop('baTrack', '--ba-dur', 55); }
+    if (document.readyState === 'complete') z90LoopAll();
+    else addEventListener('load', z90LoopAll);
 
     /* FAQ */
     document.querySelectorAll('.faq-item').forEach(item => {
