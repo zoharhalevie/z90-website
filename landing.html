@@ -219,7 +219,8 @@
 
     /* testimonials marquee — continuous right-to-left loop */
     .marquee { position: relative; overflow: hidden; padding: 8px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-    .marquee-track { display: flex; gap: 18px; width: max-content; animation: marqueeScroll var(--mq-dur, 40s) linear infinite; }
+    .marquee-track { display: flex; gap: 18px; width: max-content; direction: ltr; animation: marqueeScroll var(--mq-dur, 40s) linear infinite; }
+    .marquee-track .tcard { direction: rtl; }
     .marquee:hover .marquee-track { animation-play-state: paused; }
     .marquee .tcard { width: 340px; flex-shrink: 0; }
     @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -230,7 +231,8 @@
     .ba-marquee { position: relative; overflow: hidden; padding: 6px 0;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
-    .ba-track { display: flex; gap: 16px; width: max-content; animation: baScroll var(--ba-dur, 48s) linear infinite; }
+    .ba-track { display: flex; gap: 16px; width: max-content; direction: ltr; animation: baScroll var(--ba-dur, 48s) linear infinite; }
+    .ba-track .ba-card { direction: rtl; }
     .ba-marquee:hover .ba-track { animation-play-state: paused; }
     @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .ba-card { width: 280px; flex-shrink: 0; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: rgba(0,0,0,0.25) 0px 10px 30px; }
@@ -436,6 +438,7 @@
             <div class="tcard"><div class="stars">★★★★★</div><div class="q">"חשבתי שהגוף שלי כבר 'נגמר'. אחרי מחזור אחד אני חזק יותר ממה שהייתי שנים. פשוט עבודה נכונה."</div><div class="who"><div class="av">ר</div><div><div class="nm">רונן</div><div class="mt">Z90 Elite</div></div></div></div>
           </div>
         </div>
+        <script>(function(){var t=document.getElementById('marqueeTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o+o+o;}})();</script>
 
         <!-- before/after gallery — runs under the testimonials -->
         <p class="ba-head rv">תוצאות אמיתיות · לפני ואחרי</p>
@@ -450,6 +453,7 @@
           <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">שרון<small>חזרה לעצמה</small></div></div>
         </div>
       </div>
+      <script>(function(){var t=document.getElementById('baTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o;}})();</script>
     </section>
 
     <!-- COACH -->
@@ -543,30 +547,7 @@
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
     document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-    /* ── marquees: fill the whole screen so a card is ALWAYS visible, continuous RTL loop ── */
-    function z90Loop(trackId, durVar, pxPerSec) {
-      var track = document.getElementById(trackId);
-      if (!track) return;
-      if (track.getAttribute('data-orig') === null) track.setAttribute('data-orig', track.innerHTML);
-      var original = track.getAttribute('data-orig');
-      function build() {
-        try {
-          track.innerHTML = original;
-          var oneW = track.scrollWidth;
-          if (oneW < 2) { setTimeout(build, 200); return; } /* not laid out yet */
-          var target = Math.max(window.innerWidth * 1.5, 1600) + 600;
-          var reps = Math.min(14, Math.max(2, Math.ceil(target / oneW)));
-          var half = new Array(reps + 1).join(original); /* original repeated 'reps' times */
-          track.innerHTML = half + half; /* two identical halves -> seamless at -50% */
-          track.style.setProperty(durVar, Math.max(18, Math.round((track.scrollWidth / 2) / pxPerSec)) + 's');
-        } catch (e) {}
-      }
-      requestAnimationFrame(build);
-      addEventListener('resize', build);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
-    }
-    z90Loop('marqueeTrack', '--mq-dur', 55);
-    z90Loop('baTrack', '--ba-dur', 55);
+    /* marquees are duplicated by small isolated <script> tags right after each track (see markup) */
 
     /* FAQ */
     document.querySelectorAll('.faq-item').forEach(item => {

@@ -312,8 +312,10 @@
       display: flex;
       gap: 22px;
       width: max-content;
+      direction: ltr; /* lay cards left-to-right so the leftward loop never empties (page is RTL) */
       animation: marqueeScroll var(--mq-dur, 40s) linear infinite;
     }
+    .marquee-track .tcard { direction: rtl; } /* keep Hebrew text inside each card RTL */
     .marquee:hover .marquee-track { animation-play-state: paused; }
     /* continuous right-to-left loop; cards duplicated in JS for seamless wrap */
     @keyframes marqueeScroll {
@@ -328,7 +330,8 @@
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
     }
-    .ba-track { display: flex; gap: 18px; width: max-content; animation: baScroll var(--ba-dur, 50s) linear infinite; }
+    .ba-track { display: flex; gap: 18px; width: max-content; direction: ltr; animation: baScroll var(--ba-dur, 50s) linear infinite; }
+    .ba-track .ba-card { direction: rtl; }
     .ba-marquee:hover .ba-track { animation-play-state: paused; }
     @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .ba-card { width: 300px; flex-shrink: 0; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: rgba(0,0,0,0.25) 0px 10px 30px; }
@@ -1237,6 +1240,7 @@
           </div>
         </div>
       </div>
+      <script>(function(){var t=document.getElementById('marqueeTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o;}})();</script>
 
       <!-- before/after gallery — runs under the testimonials -->
       <div class="container"><p class="ba-head" data-aos="fade-down">תוצאות אמיתיות · לפני ואחרי</p></div>
@@ -1280,6 +1284,7 @@
           </div>
         </div>
       </div>
+      <script>(function(){var t=document.getElementById('baTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o;}})();</script>
     </section>
 
     <!-- ═══════ ג · METHOD ═══════ -->
@@ -1752,30 +1757,7 @@
       setTimeout(() => requestAnimationFrame(tick), 500);
     })();
 
-    /* ── marquees: fill the whole screen so a card is ALWAYS visible, continuous RTL loop ── */
-    function z90Loop(trackId, durVar, pxPerSec) {
-      var track = document.getElementById(trackId);
-      if (!track) return;
-      if (track.getAttribute('data-orig') === null) track.setAttribute('data-orig', track.innerHTML);
-      var original = track.getAttribute('data-orig');
-      function build() {
-        try {
-          track.innerHTML = original;
-          var oneW = track.scrollWidth;
-          if (oneW < 2) { setTimeout(build, 200); return; } /* not laid out yet */
-          var target = Math.max(window.innerWidth * 1.5, 1600) + 600;
-          var reps = Math.min(14, Math.max(2, Math.ceil(target / oneW)));
-          var half = new Array(reps + 1).join(original); /* original repeated 'reps' times */
-          track.innerHTML = half + half; /* two identical halves -> seamless at -50% */
-          track.style.setProperty(durVar, Math.max(18, Math.round((track.scrollWidth / 2) / pxPerSec)) + 's');
-        } catch (e) {}
-      }
-      requestAnimationFrame(build);
-      addEventListener('resize', build);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
-    }
-    z90Loop('marqueeTrack', '--mq-dur', 55);
-    z90Loop('baTrack', '--ba-dur', 55);
+    /* marquees are duplicated by small isolated <script> tags right after each track (see markup) */
 
     /* ── THE CYCLE ── */
     const STAGES = [
