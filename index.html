@@ -305,6 +305,7 @@
       position: relative;
       overflow: hidden;
       padding: 10px 0;
+      direction: ltr; /* container LTR so the wide track overflows RIGHT (page is RTL) — keeps loop filled */
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     }
@@ -326,7 +327,7 @@
     /* ───── BEFORE / AFTER GALLERY (auto-scroll under testimonials) ───── */
     .ba-head { text-align: center; color: var(--yellow); font-weight: 800; letter-spacing: 0.12em; font-size: 0.85rem; margin: 38px 0 26px; }
     .ba-marquee {
-      position: relative; overflow: hidden; padding: 6px 0;
+      position: relative; overflow: hidden; padding: 6px 0; direction: ltr;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
     }
