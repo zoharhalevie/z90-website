@@ -305,36 +305,38 @@
       position: relative;
       overflow: hidden;
       padding: 10px 0;
-      direction: ltr; /* container LTR so the wide track overflows RIGHT (page is RTL) — keeps loop filled */
+      display: flex;
+      direction: ltr; /* page is RTL; force LTR flow so the leftward loop never empties */
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     }
     .marquee-track {
+      flex-shrink: 0;
+      min-width: 100%;            /* each group spans at least the full screen -> NEVER a gap */
       display: flex;
       gap: 22px;
-      width: max-content;
-      direction: ltr; /* lay cards left-to-right so the leftward loop never empties (page is RTL) */
-      animation: marqueeScroll var(--mq-dur, 40s) linear infinite;
+      justify-content: space-around;
+      animation: marqueeScroll var(--mq-dur, 36s) linear infinite;
     }
     .marquee-track .tcard { direction: rtl; } /* keep Hebrew text inside each card RTL */
     .marquee:hover .marquee-track { animation-play-state: paused; }
-    /* continuous right-to-left loop; cards duplicated in JS for seamless wrap */
+    /* two identical groups slide together; when one exits left the other is already filling -> seamless */
     @keyframes marqueeScroll {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to   { transform: translateX(-100%); }
     }
 
     /* ───── BEFORE / AFTER GALLERY (auto-scroll under testimonials) ───── */
     .ba-head { text-align: center; color: var(--yellow); font-weight: 800; letter-spacing: 0.12em; font-size: 0.85rem; margin: 38px 0 26px; }
     .ba-marquee {
-      position: relative; overflow: hidden; padding: 6px 0; direction: ltr;
+      position: relative; overflow: hidden; padding: 6px 0; display: flex; direction: ltr;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
     }
-    .ba-track { display: flex; gap: 18px; width: max-content; direction: ltr; animation: baScroll var(--ba-dur, 50s) linear infinite; }
+    .ba-track { flex-shrink: 0; min-width: 100%; display: flex; gap: 18px; justify-content: space-around; animation: baScroll var(--ba-dur, 44s) linear infinite; }
     .ba-track .ba-card { direction: rtl; }
     .ba-marquee:hover .ba-track { animation-play-state: paused; }
-    @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
     .ba-card { width: 300px; flex-shrink: 0; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: rgba(0,0,0,0.25) 0px 10px 30px; }
     .ba-imgs { display: flex; gap: 2px; }
     .ba-half { position: relative; flex: 1; aspect-ratio: 3/4; background: linear-gradient(160deg, #3c3c3c, #2a2a2a); overflow: hidden; }
@@ -1241,7 +1243,7 @@
           </div>
         </div>
       </div>
-      <script>(function(){var t=document.getElementById('marqueeTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o;}})();</script>
+      <script>(function(){var t=document.getElementById('marqueeTrack');if(t){var c=t.cloneNode(true);c.removeAttribute('id');c.setAttribute('aria-hidden','true');t.parentNode.appendChild(c);}})();</script>
 
       <!-- before/after gallery — runs under the testimonials -->
       <div class="container"><p class="ba-head" data-aos="fade-down">תוצאות אמיתיות · לפני ואחרי</p></div>
@@ -1285,7 +1287,7 @@
           </div>
         </div>
       </div>
-      <script>(function(){var t=document.getElementById('baTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o;}})();</script>
+      <script>(function(){var t=document.getElementById('baTrack');if(t){var c=t.cloneNode(true);c.removeAttribute('id');c.setAttribute('aria-hidden','true');t.parentNode.appendChild(c);}})();</script>
     </section>
 
     <!-- ═══════ ג · METHOD ═══════ -->

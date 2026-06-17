@@ -218,23 +218,23 @@
     @media (max-width: 820px) { .tgrid { grid-template-columns: 1fr; } }
 
     /* testimonials marquee — continuous right-to-left loop */
-    .marquee { position: relative; overflow: hidden; padding: 8px 0; direction: ltr; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-    .marquee-track { display: flex; gap: 18px; width: max-content; direction: ltr; animation: marqueeScroll var(--mq-dur, 40s) linear infinite; }
+    .marquee { position: relative; overflow: hidden; padding: 8px 0; display: flex; direction: ltr; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .marquee-track { flex-shrink: 0; min-width: 100%; display: flex; gap: 18px; justify-content: space-around; animation: marqueeScroll var(--mq-dur, 34s) linear infinite; }
     .marquee-track .tcard { direction: rtl; }
     .marquee:hover .marquee-track { animation-play-state: paused; }
     .marquee .tcard { width: 340px; flex-shrink: 0; }
-    @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
     html.acc-still .marquee-track { animation: none !important; }
 
     /* before/after gallery */
     .ba-head { text-align: center; color: var(--yellow); font-weight: 800; letter-spacing: 0.12em; font-size: 0.85rem; margin: 44px 0 24px; }
-    .ba-marquee { position: relative; overflow: hidden; padding: 6px 0; direction: ltr;
+    .ba-marquee { position: relative; overflow: hidden; padding: 6px 0; display: flex; direction: ltr;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
       mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
-    .ba-track { display: flex; gap: 16px; width: max-content; direction: ltr; animation: baScroll var(--ba-dur, 48s) linear infinite; }
+    .ba-track { flex-shrink: 0; min-width: 100%; display: flex; gap: 16px; justify-content: space-around; animation: baScroll var(--ba-dur, 42s) linear infinite; }
     .ba-track .ba-card { direction: rtl; }
     .ba-marquee:hover .ba-track { animation-play-state: paused; }
-    @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes baScroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
     .ba-card { width: 280px; flex-shrink: 0; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: rgba(0,0,0,0.25) 0px 10px 30px; }
     .ba-imgs { display: flex; gap: 2px; }
     .ba-half { position: relative; flex: 1; aspect-ratio: 3/4; background: linear-gradient(160deg, #3c3c3c, #2a2a2a); overflow: hidden; }
@@ -438,7 +438,7 @@
             <div class="tcard"><div class="stars">★★★★★</div><div class="q">"חשבתי שהגוף שלי כבר 'נגמר'. אחרי מחזור אחד אני חזק יותר ממה שהייתי שנים. פשוט עבודה נכונה."</div><div class="who"><div class="av">ר</div><div><div class="nm">רונן</div><div class="mt">Z90 Elite</div></div></div></div>
           </div>
         </div>
-        <script>(function(){var t=document.getElementById('marqueeTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o+o+o;}})();</script>
+        <script>(function(){var t=document.getElementById('marqueeTrack');if(t){var c=t.cloneNode(true);c.removeAttribute('id');c.setAttribute('aria-hidden','true');t.parentNode.appendChild(c);}})();</script>
 
         <!-- before/after gallery — runs under the testimonials -->
         <p class="ba-head rv">תוצאות אמיתיות · לפני ואחרי</p>
@@ -453,7 +453,7 @@
           <div class="ba-card"><div class="ba-imgs"><div class="ba-half"><span class="ba-lbl before">לפני</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM28 130c0-26 9-44 22-44s22 18 22 44z"/></svg></div></div><div class="ba-half"><span class="ba-lbl after">אחרי</span><div class="ba-ph"><svg viewBox="0 0 100 130"><path d="M50 18a13 13 0 100 26 13 13 0 000-26zM26 130c0-28 10-46 24-46s24 18 24 46z"/></svg></div></div></div><div class="ba-cap">שרון<small>חזרה לעצמה</small></div></div>
         </div>
       </div>
-      <script>(function(){var t=document.getElementById('baTrack');if(t){var o=t.innerHTML;t.innerHTML=o+o+o+o;}})();</script>
+      <script>(function(){var t=document.getElementById('baTrack');if(t){var c=t.cloneNode(true);c.removeAttribute('id');c.setAttribute('aria-hidden','true');t.parentNode.appendChild(c);}})();</script>
     </section>
 
     <!-- COACH -->
