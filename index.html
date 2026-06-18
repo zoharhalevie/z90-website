@@ -123,6 +123,15 @@
       transition: background 0.25s !important;
     }
     .nav-cta:hover { background: var(--yellow-dark); }
+    .nav-call {
+      display: inline-flex !important; align-items: center; gap: 7px;
+      color: var(--yellow) !important; font-weight: 800 !important;
+      border: 1.5px solid var(--yellow-line); border-radius: 5px;
+      padding: 7px 13px !important; direction: ltr;
+    }
+    .nav-call svg { width: 15px; height: 15px; fill: currentColor; }
+    .nav-call:hover { background: var(--yellow); color: var(--black-1) !important; }
+    .header-nav ul li a.nav-call::after { display: none !important; }
 
     .nav-hamburger {
       display: none;
@@ -1163,6 +1172,7 @@
           <li><a href="#about" data-spy="about">אודות</a></li>
           <li><a href="#packages" data-spy="packages">מסלולים</a></li>
           <li><a href="#faq" data-spy="faq">שאלות</a></li>
+          <li><a href="tel:+972546349923" class="nav-call" aria-label="התקשרו אליי"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>054-634-9923</a></li>
           <li><a href="#contact" class="nav-cta">לשיחת התאמה</a></li>
         </ul>
       </nav>
