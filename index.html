@@ -524,13 +524,21 @@
     .about-sig { font-size: 1.2rem; font-weight: 800; color: var(--yellow); }
 
     /* ───── RESULT / BEFORE-DURING SHOTS ───── */
-    .result-shot { position: relative; max-width: 560px; min-height: 340px; margin: 40px auto 0; border-radius: 14px; overflow: hidden; box-shadow: rgba(0,0,0,0.4) 0px 18px 50px; border: 1px solid var(--line); background: var(--card-2); display: flex; align-items: center; justify-content: center; }
+    .result-inset { display: flex; align-items: center; gap: 30px; max-width: 800px; margin: 44px auto 0; }
+    .result-inset.flip { flex-direction: row-reverse; }
+    .result-shot { position: relative; width: 290px; flex-shrink: 0; border-radius: 14px; overflow: hidden; box-shadow: rgba(0,0,0,0.45) 0px 16px 44px; border: 1px solid var(--line); background: var(--card-2); }
     .result-shot img { width: 100%; display: block; }
-    .result-shot .rs-lbl { position: absolute; top: 14px; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.04em; padding: 6px 18px; border-radius: 100px; white-space: nowrap; z-index: 2; }
-    .result-shot .rs-lbl.before { left: 14px; background: rgba(0,0,0,0.72); color: #fff; }
-    .result-shot .rs-lbl.during { right: 14px; background: var(--yellow); color: var(--black-1); }
-    .result-cap { text-align: center; color: var(--faint); font-size: 0.88rem; margin-top: 12px; }
-    .result-cap strong { color: var(--yellow); font-weight: 700; }
+    .result-shot .rs-lbl { position: absolute; top: 11px; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.03em; padding: 5px 15px; border-radius: 100px; white-space: nowrap; z-index: 2; }
+    .result-shot .rs-lbl.before { left: 11px; background: rgba(0,0,0,0.72); color: #fff; }
+    .result-shot .rs-lbl.during { right: 11px; background: var(--yellow); color: var(--black-1); }
+    .ri-text { flex: 1; min-width: 0; }
+    .ri-text .ri-badge { color: var(--yellow); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.14em; display: block; margin-bottom: 10px; }
+    .ri-text h4 { color: #fff; font-size: 1.25rem; font-weight: 800; margin-bottom: 10px; }
+    .ri-text p { color: var(--soft); font-size: 0.98rem; line-height: 1.75; }
+    @media (max-width: 680px) {
+      .result-inset, .result-inset.flip { flex-direction: column; text-align: center; gap: 18px; }
+      .result-shot { width: 250px; }
+    }
 
     @media (max-width: 860px) {
       .about-grid { grid-template-columns: 1fr; }
@@ -1371,12 +1379,18 @@
             <p>מעקב אחרי כל אימון, התאמות בכל שבוע, ועין מקצועית לאורך הדרך.</p>
           </div>
         </div>
-        <div class="result-shot" data-aos="fade-down">
-          <span class="rs-lbl before">לפני</span>
-          <span class="rs-lbl during">בתהליך</span>
-          <img src="result-2.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy" />
+        <div class="result-inset" data-aos="fade-down">
+          <div class="result-shot">
+            <span class="rs-lbl before">לפני</span>
+            <span class="rs-lbl during">בתהליך</span>
+            <img src="result-2.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy" />
+          </div>
+          <div class="ri-text">
+            <span class="ri-badge">תוצאה אמיתית</span>
+            <h4>ככה נראה תהליך אמיתי</h4>
+            <p>שינוי של מתאמן ב-Z90 — לא קסם, אלא עבודה נכונה, הדרגתית ועקבית לאורך כל הדרך.</p>
+          </div>
         </div>
-        <p class="result-cap">תוצאה אמיתית של מתאמן · <strong>לפני ובתהליך</strong></p>
       </div>
     </section>
 
@@ -1428,12 +1442,18 @@
             <p class="about-sig">— זהר הלוי</p>
           </div>
         </div>
-        <div class="result-shot" data-aos="fade-down">
-          <span class="rs-lbl before">לפני</span>
-          <span class="rs-lbl during">בתהליך</span>
-          <img src="coach-transform.jpg" alt="זהר הלוי — לפני ובתהליך" loading="lazy" />
+        <div class="result-inset flip" data-aos="fade-down">
+          <div class="result-shot">
+            <span class="rs-lbl before">לפני</span>
+            <span class="rs-lbl during">בתהליך</span>
+            <img src="coach-transform.jpg" alt="זהר הלוי — לפני ובתהליך" loading="lazy" />
+          </div>
+          <div class="ri-text">
+            <span class="ri-badge">גם אני עברתי את הדרך</span>
+            <h4>מהמקום שלך — להיום</h4>
+            <p>התחלתי קטן, רזה וחסר ביטחון. בדיוק את התהליך שאני מעביר אתכם — עברתי בעצמי. זה אפשרי, ואני יודע איך מגיעים לשם.</p>
+          </div>
         </div>
-        <p class="result-cap">גם אני עברתי את הדרך · <strong>לפני ובתהליך</strong></p>
       </div>
     </section>
 
@@ -1513,12 +1533,18 @@
           <p class="io-text">רוצה לנסות לפני? <strong>Z90 Intro</strong> — פגישת אבחון והתנסות ראשונית, בלי מחויבות להמשך.</p>
           <button class="io-btn" onclick="pickPlan('Z90 Intro')">לתיאום פגישת אבחון</button>
         </div>
-        <div class="result-shot" data-aos="fade-down">
-          <span class="rs-lbl before">לפני</span>
-          <span class="rs-lbl during">בתהליך</span>
-          <img src="result-1.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy" />
+        <div class="result-inset flip" data-aos="fade-down">
+          <div class="result-shot">
+            <span class="rs-lbl before">לפני</span>
+            <span class="rs-lbl during">בתהליך</span>
+            <img src="result-1.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy" />
+          </div>
+          <div class="ri-text">
+            <span class="ri-badge">תוצאה אמיתית</span>
+            <h4>התהליך עובד</h4>
+            <p>מתאמן נוסף, אותו תהליך של 90 יום — ליווי צמוד, מעקב והתאמות. זו רמת התוצאה שאפשר להגיע אליה.</p>
+          </div>
         </div>
-        <p class="result-cap">תוצאה אמיתית של מתאמן · <strong>לפני ובתהליך</strong></p>
       </div>
     </section>
 
