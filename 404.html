@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Z90 Method</title>
+<script>
+(function () {
+  // Strip invisible Unicode marks (RTL/LTR/zero-width) that some keyboards
+  // append to a typed URL, then redirect to the clean path if it changed.
+  try {
+    var junk = /[​-‏‪-‮⁦-⁩﻿]/g;
+    var path = decodeURIComponent(location.pathname).replace(junk, '');
+    // also drop a stray trailing slash on file-style paths
+    var cleanPath = path;
+    if (cleanPath !== decodeURIComponent(location.pathname)) {
+      location.replace(location.origin + encodeURI(cleanPath) + location.search + location.hash);
+    }
+  } catch (e) {}
+})();
+</script>
+<style>
+  html,body{margin:0;height:100%;background:#161616;color:#f5f5f5;
+    font-family:"Heebo",-apple-system,Segoe UI,Arial,sans-serif}
+  .wrap{min-height:100%;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;padding:24px;box-sizing:border-box}
+  .logo{font-weight:800;letter-spacing:2px;color:#F4CE14;font-size:22px;margin-bottom:18px}
+  h1{font-size:64px;margin:0;color:#F4CE14}
+  p{font-size:18px;line-height:1.6;color:#cfcfcf;max-width:420px}
+  .links{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  a.btn{display:inline-block;background:#F4CE14;color:#161616;text-decoration:none;
+    font-weight:700;padding:12px 22px;border-radius:999px}
+  a.ghost{background:transparent;color:#F4CE14;border:1px solid #F4CE14}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo">Z90 METHOD</div>
+    <h1>404</h1>
+    <p>העמוד לא נמצא. אולי נדבק תו נסתר לכתובת. בחר לאן להמשיך:</p>
+    <div class="links">
+      <a class="btn" href="/">לאתר הראשי</a>
+      <a class="btn ghost" href="/start">עמוד נחיתה</a>
+      <a class="btn ghost" href="/intake">שאלון</a>
+    </div>
+  </div>
+</body>
+</html>
