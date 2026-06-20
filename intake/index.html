@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html id="R" lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10/dist/html2pdf.bundle.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+:root{
+  --yellow:#F4CE14;--yellow-d:#d9b400;
+  --bg:#161616;--card:#232323;--card2:#2b2b2b;
+  --line:rgba(255,255,255,.09);
+  --white:#fff;--soft:#cfcfcf;--faint:#8c8c8c;
+  --green:#3ec46d;--red:#ef5350;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{font-family:'Heebo',system-ui,Arial,sans-serif;font-weight:300;line-height:1.7;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;background:radial-gradient(1200px 520px at 50% -8%,rgba(244,206,20,.09),transparent 60%),var(--bg)}
+.wrap{max-width:780px;margin:0 auto;padding:36px 18px 70px}
+.brand{display:flex;justify-content:center;margin-bottom:6px}
+.brand-logo{display:inline-flex;flex-direction:column;align-items:center;line-height:.95;filter:drop-shadow(0 8px 26px rgba(0,0,0,.55))}
+.bl-z90{font-weight:900;font-size:3.1rem;letter-spacing:.01em;color:#fff}
+.bl-method{font-weight:600;font-size:.98rem;letter-spacing:.52em;color:#fff;margin-top:4px;text-indent:.52em}
+h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#fff}
+.sub{text-align:center;color:var(--faint);font-size:.95rem;margin:0 auto 22px;max-width:52ch}
+.lbar{display:flex;justify-content:center;margin-bottom:26px}
+.lseg{display:inline-flex;gap:4px;background:var(--card2);border:1px solid var(--line);border-radius:100px;padding:5px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.lb{padding:9px 32px;border:none;background:transparent;color:var(--soft);font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;border-radius:100px;transition:all .25s}
+.lb:hover{color:#fff}
+.lb.on{background:var(--yellow);color:#161616;box-shadow:0 6px 18px rgba(244,206,20,.35)}
+.prow{display:flex;justify-content:space-between;margin-bottom:8px}
+.sdot{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.dot{width:34px;height:34px;border-radius:50%;background:var(--card2);color:var(--faint);font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .3s;border:1px solid var(--line)}
+.dot.act{background:var(--yellow);color:#161616;border-color:var(--yellow);box-shadow:0 0 0 5px rgba(244,206,20,.16)}
+.dot.dn{background:var(--yellow);color:#161616;border-color:var(--yellow)}
+.slbl{font-size:.68rem;color:var(--faint);text-align:center;max-width:72px;line-height:1.3}
+.slbl.act{color:var(--white);font-weight:700}
+.pbar{height:5px;background:var(--card2);border-radius:4px;margin-bottom:30px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--yellow-d),var(--yellow));border-radius:4px;transition:width .45s}
+.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-top:3px solid var(--yellow);border-radius:16px;padding:28px 24px;box-shadow:0 18px 50px rgba(0,0,0,.4);margin-bottom:22px}
+.ctitle{font-size:1.18rem;font-weight:800;color:#fff;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line);letter-spacing:.01em}
+.fld{margin-bottom:18px}
+.fld label{display:block;font-size:.9rem;font-weight:600;color:var(--soft);margin-bottom:7px}
+.fld input,.fld textarea{width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:10px;font-size:1rem;font-family:inherit;font-weight:300;color:#fff;background:rgba(255,255,255,.04);transition:all .2s}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--faint)}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 3px rgba(244,206,20,.18);background:rgba(255,255,255,.06)}
+.fld input.er{border-color:var(--red);background:rgba(239,83,80,.08)}
+.fld textarea{resize:vertical;min-height:88px}
+.emsg{color:var(--red);font-size:.78rem;margin-top:5px;display:none}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.og{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:4px}
+.og.er{border:1.5px solid var(--red);border-radius:12px;padding:9px;background:rgba(239,83,80,.06)}
+.ob{padding:9px 16px;border:1.5px solid var(--line);border-radius:30px;background:rgba(255,255,255,.03);font-size:.88rem;cursor:pointer;color:var(--soft);font-family:inherit;transition:all .2s}
+.ob:hover{border-color:var(--yellow);color:var(--yellow)}
+.ob.on{background:var(--yellow);color:#161616;border-color:var(--yellow);font-weight:700}
+.sw{display:flex;align-items:center;gap:14px}
+.sw input[type=range]{flex:1;accent-color:var(--yellow);height:6px}
+.sv{font-size:1.4rem;font-weight:900;color:var(--yellow);min-width:34px;text-align:center}
+.ynr{display:flex;gap:11px;margin-bottom:7px}
+.yb{padding:9px 26px;border-radius:9px;border:1.5px solid var(--line);font-size:.92rem;cursor:pointer;font-family:inherit;font-weight:600;transition:all .2s;background:rgba(255,255,255,.03);color:var(--soft)}
+.yb.y.on{background:var(--green);color:#fff;border-color:var(--green)}
+.yb.n.on{background:var(--red);color:#fff;border-color:var(--red)}
+.fu{margin-top:11px;padding:15px;background:rgba(244,206,20,.06);border-radius:10px;border:1px solid rgba(244,206,20,.25);display:none}
+.mi{padding:14px 0;border-bottom:1px solid var(--line)}
+.mi:last-child{border-bottom:none}
+.mi.mier{background:rgba(239,83,80,.07);box-shadow:inset 3px 0 0 var(--red);border-radius:6px;padding-right:10px;padding-left:10px}
+.mq{font-size:.95rem;color:var(--white);margin-bottom:9px;line-height:1.55;font-weight:400}
+.ms{margin-top:9px;padding-right:14px;border-right:3px solid rgba(244,206,20,.4);display:none}
+.ms-ltr{margin-top:9px;padding-left:14px;border-left:3px solid rgba(244,206,20,.4);display:none}
+.ib{background:rgba(244,206,20,.07);border:1px solid rgba(244,206,20,.25);border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:.88rem;color:var(--soft);line-height:1.6}
+.wy{background:rgba(244,206,20,.1);border:1px solid rgba(244,206,20,.4);border-radius:10px;padding:14px 16px;font-size:.88rem;color:#f1d97a;line-height:1.6}
+.mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.mov.sh{display:flex}
+.mbox{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--yellow);border-radius:16px;padding:30px 26px;max-width:420px;width:90%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.mbox h3{font-size:1.25rem;font-weight:800;color:var(--yellow);margin-bottom:12px}
+.mbox p{font-size:.92rem;color:var(--soft);line-height:1.7;margin-bottom:20px}
+.mcls{padding:11px 30px;background:var(--yellow);color:#161616;border:none;border-radius:8px;font-size:.95rem;font-weight:800;cursor:pointer;font-family:inherit}
+.sigc{border:1.5px solid var(--line);border-radius:10px;background:#f7fafc;cursor:crosshair;display:block;width:100%}
+.sclr{padding:7px 15px;border-radius:8px;border:1.5px solid var(--line);background:transparent;font-size:.8rem;cursor:pointer;color:var(--faint);font-family:inherit;margin-top:7px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.bnx{padding:14px 40px;background:var(--yellow);color:#161616;border:none;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;clip-path:polygon(5% 0,100% 0,95% 100%,0 100%);transition:all .2s}
+.bnx:hover{background:var(--yellow-d)}
+.bbk{padding:13px 26px;background:transparent;color:var(--soft);border:1.5px solid var(--line);border-radius:9px;font-size:.95rem;cursor:pointer;font-family:inherit;transition:all .2s}
+.bbk:hover{border-color:var(--soft);color:#fff}
+.bsb{padding:15px 44px;background:var(--yellow);color:#161616;border:none;font-size:1.05rem;font-weight:900;cursor:pointer;font-family:inherit;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);transition:all .2s}
+.bsb:hover{background:var(--yellow-d)}
+.suc{text-align:center;padding:46px 20px}
+.suc .ck{font-size:3.6rem;margin-bottom:14px}
+.suc h2{font-size:1.6rem;font-weight:900;color:var(--yellow);margin-bottom:9px}
+.suc p{color:var(--soft);font-size:1rem;margin-bottom:22px}
+.abtn{padding:13px 28px;border:none;border-radius:9px;font-size:.95rem;font-weight:800;cursor:pointer;font-family:inherit;margin:5px;text-decoration:none;display:inline-block}
+@media(max-width:540px){.g2,.g3{grid-template-columns:1fr}.card{padding:20px 16px}.bl-z90{font-size:2.5rem}.wrap{padding:26px 14px 60px}}
+</style>
+</head>
+<body>
+<div class="mov" id="modal">
+  <div class="mbox">
+    <h3 id="mT"></h3><p id="mP"></p>
+    <button class="mcls" onclick="document.getElementById('modal').classList.remove('sh')" id="mB"></button>
+  </div>
+</div>
+<div class="wrap">
+  <div class="brand"><div class="brand-logo"><span class="bl-z90">Z90</span><span class="bl-method">METHOD</span></div></div>
+  <h1 id="ttl"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="lbar"><div class="lseg">
+    <button class="lb on" id="bHe" onclick="setLang('he')">עברית</button>
+    <button class="lb" id="bEn" onclick="setLang('en')">English</button>
+  </div></div>
+  <div class="prow" id="prow"></div>
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  <div id="fc"></div>
+</div>
+<script>
+var L='he', cur=0, fd={};
+var TX={
+he:{
+  steps:['פרטים\nאישיים','אימונים\nומטרות','אורח\nחיים','בריאות','הצהרה\nוחתימה'],
+  title:'🏋️ שאלון תחילת תכנית אימונים',
+  sub:'נא למלא את כל השדות בקפידה – המידע ישמש להתאמת תכנית אישית',
+  nx:'הבא ←',bk:'→ חזור',sb:'✅ שלח שאלון',
+  yes:'כן',no:'לא',
+  gOpts:['זכר','נקבה','אחר'],
+  goalsOpts:['ירידה במשקל','חיטוב ועיצוב','העלאת מסת שריר','שיפור כושר','שיפור בריאות','שיקום','חיזוק כללי','גמישות'],
+  lifestyleOpts:['יושבני (רוב היום יושב)','פעיל בינוני','פעיל מאוד'],
+  sitOpts:['פחות מ-4','4-6','6-8','8-10','מעל 10'],sitSuf:' שעות',
+  sleepOpts:['פחות מ-5','5-6','6-7','7-8','מעל 8'],sleepSuf:' שעות',
+  energyOpts:['נמוכה','בינונית','גבוהה','משתנה'],
+  gymExs:['סקוואט','דדליפט','לחיצת חזה','לחיצת כתפיים','מתח','שכיבות סמיכה','כפיפות בטן','פלאנק','לאנג׳','לג-פרס','חזה במכונה','כתפיים בכבלים','TRX','HIIT','אליפטיקל','הליכון','אופני כושר','חתירה','כדור כושר','גומיות','כבלים'],
+  medQs:[
+    {id:'m1',q:'האם הרופא שלך אמר לך שאתה סובל ממחלת לב?'},
+    {id:'m2',q:'האם אתה חש כאבים בחזה?',subs:['בזמן מנוחה','במהלך פעילויות שיגרה','בזמן פעילות גופנית']},
+    {id:'m3',q:'האם במהלך השנה החולפת איבדת שיווי משקל עקב סחרחורת?',subs:['איבדת שיווי משקל','איבדת את הכרתך']},
+    {id:'m4',q:'האם רופא אבחן שאתה סובל מאסתמה ובשלושת החודשים האחרונים:',subs:['נזקקת לטיפול תרופתי','סבלת מקוצר נשימה']},
+    {id:'m5',q:'האם קרוב משפחה מדרגה ראשונה נפטר ממחלת לב לפני גיל 55(גבר)/65(אישה)?'},
+    {id:'m6',q:'האם הרופא אמר לך ב-5 השנים האחרונות לפעול רק תחת השגחה רפואית?'},
+    {id:'m7',q:'האם אתה סובל ממחלה כרונית שעשויה להגביל פעילות גופנית?'},
+    {id:'m8',q:'לנשים בהריון – האם ההריון הוגדר בסיכון?'}
+  ],
+  decl:['במהלך האימונים ייעשה כל מאמץ לשמור על בריאותך. בהצטרפותך אתה מצהיר שאין מניעה רפואית.',
+        'אנו ממליצים לעבור בדיקת רופא לפני תחילת אימונים, בייחוד אם אתה סובל ממחלות לב, לחץ דם, כאבי חזה, סוכרת, אסטמה, אפילפסיה.',
+        'בחתימה על מסמך זה אתה מקבל אחריות מלאה למצבך הבריאותי.'],
+  healthDecl:'📌 אני מצהיר/ה כי מצב בריאותי תקין וכי איני סובל/ת ממחלה שתמנע השתתפות בפעילות גופנית.',
+  mTitle:'⚠️ נדרש אישור רפואי',
+  mText:'ענית "כן" על שאלה רפואית. לפני תחילת האימונים תידרש להמציא תעודה רפואית מרופא (בתוקף של עד 3 חודשים).',
+  mBtn:'הבנתי',
+  succ:'השאלון נשלח בהצלחה!',succMsg:'תודה! המאמן יעבור על הפרטים ויצור איתך קשר בקרוב.',
+  pBtn:'🖨️ הדפס / שמור PDF',eBtn:'📧 שלח למאמן במייל',
+  otherP:'כתוב תרגיל אחר...',minorTog:'המתאמן קטין (מתחת לגיל 18) – מלא פרטי הורה/אפוטרופוס',
+  sigLbl:'חתימה (שרטט כאן)',clrSig:'🗑 נקה חתימה',pSigLbl:'חתימת הורה/אפוטרופוס'
+},
+en:{
+  steps:['Personal\nInfo','Training\n& Goals','Lifestyle','Health','Declaration\n& Sign'],
+  title:'🏋️ Fitness Program Intake Form',
+  sub:'Please fill in all fields carefully – this helps tailor your personal program',
+  nx:'Next →',bk:'← Back',sb:'✅ Submit Form',
+  yes:'Yes',no:'No',
+  gOpts:['Male','Female','Other'],
+  goalsOpts:['Weight loss','Toning','Muscle gain','Fitness','Health','Rehabilitation','Strengthening','Flexibility'],
+  lifestyleOpts:['Sedentary','Moderately active','Very active'],
+  sitOpts:['Less than 4','4-6','6-8','8-10','More than 10'],sitSuf:' hrs',
+  sleepOpts:['Less than 5','5-6','6-7','7-8','More than 8'],sleepSuf:' hrs',
+  energyOpts:['Low','Moderate','High','Variable'],
+  gymExs:['Squat','Deadlift','Bench Press','Shoulder Press','Pull-up','Push-up','Crunches','Plank','Lunges','Leg Press','Chest Machine','Cable Shoulders','TRX','HIIT','Elliptical','Treadmill','Stationary Bike','Rowing','Exercise Ball','Resistance Bands','Cables'],
+  medQs:[
+    {id:'m1',q:'Has your doctor told you that you have a heart condition?'},
+    {id:'m2',q:'Do you experience chest pain?',subs:['At rest','During everyday activities','During exercise']},
+    {id:'m3',q:'Have you lost balance due to dizziness in the past year?',subs:['Lost balance','Lost consciousness']},
+    {id:'m4',q:'Has a doctor diagnosed asthma, and in the past 3 months:',subs:['Required medication','Experienced shortness of breath']},
+    {id:'m5',q:'Has a first-degree family member died of heart disease before age 55(M)/65(F)?'},
+    {id:'m6',q:'Has your doctor told you in the last 5 years to exercise only under medical supervision?'},
+    {id:'m7',q:'Do you have a chronic condition that may limit exercise?'},
+    {id:'m8',q:'For women: Is this or a previous pregnancy considered high-risk?'}
+  ],
+  decl:['Every effort will be made to maintain your health and safety. By joining you declare there is no medical reason preventing participation.',
+        'We recommend a medical check-up before starting, especially with heart conditions, high blood pressure, diabetes, asthma, or epilepsy.',
+        'By signing you accept full responsibility for your health and release the trainer from all liability.'],
+  healthDecl:'📌 I declare that my health is good and I do not suffer from any illness that would prevent participation in physical activity.',
+  mTitle:'⚠️ Medical Clearance Required',
+  mText:'You answered "Yes" to a medical question. Before starting you will need a doctor\'s clearance letter (issued within the last 3 months).',
+  mBtn:'Understood',
+  succ:'Form Submitted Successfully!',succMsg:'Thank you! Your trainer will review the details and contact you soon.',
+  pBtn:'🖨️ Print / Save PDF',eBtn:'📧 Send to Trainer',
+  otherP:'Write another exercise...',minorTog:'Trainee is a minor (under 18) – fill in parent/guardian details',
+  sigLbl:'Signature (draw here)',clrSig:'🗑 Clear',pSigLbl:'Parent/Guardian Signature'
+}};
+function tx(k){return TX[L][k];}
+function setLang(l){
+  L=l;
+  document.getElementById('R').setAttribute('lang',l);
+  document.getElementById('R').setAttribute('dir',l==='he'?'rtl':'ltr');
+  document.getElementById('ttl').textContent=TX[l].title;
+  document.getElementById('sub').textContent=TX[l].sub;
+  document.getElementById('bHe').classList.toggle('on',l==='he');
+  document.getElementById('bEn').classList.toggle('on',l==='en');
+  document.getElementById('mT').textContent=TX[l].mTitle;
+  document.getElementById('mP').textContent=TX[l].mText;
+  document.getElementById('mB').textContent=TX[l].mBtn;
+  renderStep();
+}
+function renderProg(){
+  var steps=tx('steps'),h='';
+  for(var i=0;i<steps.length;i++){
+    var dc=i<cur?'dn':i===cur?'act':'';
+    var lc=i===cur?'act':'';
+    h+='<div class="sdot"><div class="dot '+dc+'">'+(i<cur?'✓':i+1)+'</div>'+
+       '<div class="slbl '+lc+'">'+steps[i].replace('\n','<br>')+'</div></div>';
+  }
+  document.getElementById('prow').innerHTML=h;
+  document.getElementById('pfill').style.width=(cur/(steps.length-1)*100)+'%';
+}
+function renderStep(){
+  renderProg();
+  document.getElementById('fc').innerHTML='';
+  [step1,step2,step3,step4,step5][cur]();
+}
+// ── Generic helpers ──
+function mkObs(gid,key,opts,multi){
+  var sel=multi?(fd[key]||[]):fd[key],h='';
+  for(var i=0;i<opts.length;i++){
+    var o=opts[i],on=multi?(sel.indexOf(o)>-1):(sel===o);
+    h+='<button type="button" class="ob'+(on?' on':'')+'" data-gid="'+gid+'" data-key="'+key+'" data-val="'+i+'" data-multi="'+(multi?1:0)+'">'+ o+'</button>';
+  }
+  return h;
+}
+// single delegated listener on #fc
+document.getElementById('fc').addEventListener('click',function(e){
+  var btn=e.target.closest('.ob');
+  if(!btn) return;
+  var gid=btn.getAttribute('data-gid');
+  var key=btn.getAttribute('data-key');
+  var idx=parseInt(btn.getAttribute('data-val'));
+  var multi=btn.getAttribute('data-multi')==='1';
+  var allOpts;
+  if(key==='gender') allOpts=tx('gOpts');
+  else if(key==='goals') allOpts=tx('goalsOpts');
+  else if(key==='lifestyle') allOpts=tx('lifestyleOpts');
+  else if(key==='sitHours') allOpts=tx('sitOpts');
+  else if(key==='sleepHours') allOpts=tx('sleepOpts');
+  else if(key==='energy') allOpts=tx('energyOpts');
+  else if(key==='avail') allOpts=['1','2','3','4','5','6','7'];
+  else if(key==='likes'||key==='dislikes') allOpts=tx('gymExs');
+  else allOpts=[];
+  var val=allOpts[idx];
+  if(!val) return;
+  if(multi){
+    if(!fd[key]) fd[key]=[];
+    var p=fd[key].indexOf(val);
+    if(p>-1){fd[key].splice(p,1);btn.classList.remove('on');}
+    else{fd[key].push(val);btn.classList.add('on');}
+  } else {
+    fd[key]=val;
+    var grp=document.getElementById(gid);
+    if(grp){
+      var bs=grp.querySelectorAll('.ob');
+      for(var b=0;b<bs.length;b++) bs[b].classList.remove('on');
+    }
+    btn.classList.add('on');
+    var grpEl=document.getElementById(gid);
+    if(grpEl) grpEl.classList.remove('er');
+    var em=document.getElementById('e-'+gid);
+    if(em) em.style.display='none';
+  }
+});
+function ynHtml(key,fuId){
+  var yv=tx('yes'),nv=tx('no');
+  var ys=fd[key]===yv?' on':'',ns=fd[key]===nv?' on':'';
+  return '<div class="ynr">'+
+    '<button type="button" class="yb y'+ys+'" data-yn="'+key+'" data-isyes="1" data-fu="'+fuId+'" data-med="0">'+yv+'</button>'+
+    '<button type="button" class="yb n'+ns+'" data-yn="'+key+'" data-isyes="0" data-fu="'+fuId+'" data-med="0">'+nv+'</button>'+
+    '</div>';
+}
+document.getElementById('fc').addEventListener('click',function(e){
+  var btn=e.target.closest('.yb');
+  if(!btn) return;
+  var key=btn.getAttribute('data-yn');
+  var isYes=btn.getAttribute('data-isyes')==='1';
+  var fuId=btn.getAttribute('data-fu');
+  var isMed=btn.getAttribute('data-med')==='1';
+  fd[key]=isYes?tx('yes'):tx('no');
+  var row=btn.parentElement;
+  var bs=row.querySelectorAll('.yb');
+  for(var i=0;i<bs.length;i++) bs[i].classList.remove('on');
+  btn.classList.add('on');
+  if(fuId){
+    var fu=document.getElementById(fuId);
+    if(fu) fu.style.display=isYes?'block':'none';
+  }
+  if(isMed){
+    var sub=document.getElementById('sub_'+key);
+    if(sub) sub.style.display=isYes?'block':'none';
+    if(isYes) document.getElementById('modal').classList.add('sh');
+  }
+});
+function medYnHtml(key){
+  var yv=tx('yes'),nv=tx('no');
+  var ys=fd[key]===yv?' on':'',ns=fd[key]===nv?' on':'';
+  return '<div class="ynr">'+
+    '<button type="button" class="yb y'+ys+'" data-yn="'+key+'" data-isyes="1" data-fu="" data-med="1">'+yv+'</button>'+
+    '<button type="button" class="yb n'+ns+'" data-yn="'+key+'" data-isyes="0" data-fu="" data-med="1">'+nv+'</button>'+
+    '</div>';
+}
+function e(id){return '<span class="emsg" id="e-'+id+'"></span>';}
+function inp(id,val,type){return '<input id="'+id+'" value="'+(val||'')+'"'+(type?' type="'+type+'"':'')+' >';}
+function save(){
+  var ids=['fn','ln','fid','dob','ph','em','pT','pFr','pDu','cT','cFr','cPe','s90','o1','o2','o3','h1','h2','h3','lkO','dlO','pain','sfn','sln','sid','mnN','mnI','prN','prI'];
+  for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)fd[ids[i]]=el.value;}
+  var ms=document.getElementById('motiv');if(ms)fd.motiv=ms.value;
+}
+function validate(){
+  var ok=true;
+  function ci(id){var el=document.getElementById(id);if(!el)return;var emp=!el.value.trim();el.classList.toggle('er',emp);var em=document.getElementById('e-'+id);if(em)em.style.display=emp?'block':'none';if(emp)ok=false;}
+  function co(gid,key){var filled=fd[key]&&(Array.isArray(fd[key])?fd[key].length>0:true);var g=document.getElementById(gid);if(g)g.classList.toggle('er',!filled);var em=document.getElementById('e-'+gid);if(em)em.style.display=!filled?'block':'none';if(!filled)ok=false;}
+  if(cur===0){ci('fn');ci('ln');ci('fid');ci('dob');ci('ph');co('gOg','gender');}
+  if(cur===3){
+    var mqs=TX[L].medQs;
+    for(var i=0;i<mqs.length;i++){
+      var q=mqs[i],a=fd[q.id],bad=false;
+      if(!a) bad=true;
+      else if(a===tx('yes')&&q.subs){for(var j=0;j<q.subs.length;j++){if(!fd[q.id+'_'+j]){bad=true;break;}}}
+      var em=document.getElementById('eq-'+q.id);
+      if(em) em.style.display=bad?'block':'none';
+      var mi=document.getElementById('mi_'+q.id);
+      if(mi) mi.classList.toggle('mier',bad);
+      if(bad) ok=false;
+    }
+  }
+  if(cur===4){ci('sfn');ci('sln');ci('sid');}
+  return ok;
+}
+function nextStep(){save();if(!validate()){window.scrollTo(0,0);return;}if(cur<4){cur++;renderStep();window.scrollTo(0,0);}}
+function prevStep(){save();if(cur>0){cur--;renderStep();window.scrollTo(0,0);}}
+// ── STEP 1 ──
+function step1(){
+  var h='<div class="card"><div class="ctitle">👤 '+(L==='he'?'פרטים אישיים':'Personal Information')+'</div>'+
+    '<div class="g2">'+
+      '<div class="fld"><label>'+(L==='he'?'שם פרטי *':'First Name *')+'</label>'+inp('fn',fd.fn)+'<span class="emsg" id="e-fn"></span></div>'+
+      '<div class="fld"><label>'+(L==='he'?'שם משפחה *':'Last Name *')+'</label>'+inp('ln',fd.ln)+'<span class="emsg" id="e-ln"></span></div>'+
+    '</div>'+
+    '<div class="g2">'+
+      '<div class="fld"><label>'+(L==='he'?'מספר ת.ז *':'ID Number *')+'</label><input id="fid" value="'+(fd.fid||'')+'" maxlength="9"><span class="emsg" id="e-fid"></span></div>'+
+      '<div class="fld"><label>'+(L==='he'?'תאריך לידה *':'Date of Birth *')+'</label>'+inp('dob',fd.dob,'date')+'<span class="emsg" id="e-dob"></span></div>'+
+    '</div>'+
+    '<div class="g2">'+
+      '<div class="fld"><label>'+(L==='he'?'טלפון נייד *':'Mobile Phone *')+'</label>'+inp('ph',fd.ph,'tel')+'<span class="emsg" id="e-ph"></span></div>'+
+      '<div class="fld"><label>'+(L==='he'?'כתובת דוא"ל':'Email Address')+'</label>'+inp('em',fd.em,'email')+'</div>'+
+    '</div>'+
+    '<div class="fld"><label>'+(L==='he'?'מין *':'Gender *')+'</label>'+
+      '<div class="og" id="gOg">'+mkObs('gOg','gender',tx('gOpts'),false)+'</div>'+
+      '<span class="emsg" id="e-gOg"></span>'+
+    '</div>'+
+    '</div>'+
+    '<div class="nav"><div></div><button type="button" class="bnx" onclick="nextStep()">'+tx('nx')+'</button></div>';
+  document.getElementById('fc').innerHTML=h;
+}
+// ── STEP 2 ──
+function step2(){
+  var yv=tx('yes');
+  var h='<div class="card"><div class="ctitle">🏃 '+(L==='he'?'ניסיון עבר':'Previous Activity')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'האם בעבר עסקת בפעילות גופנית?':'Have you engaged in physical activity in the past?')+'</label>'+
+    ynHtml('pastAct','fuPast')+
+    '<div class="fu" id="fuPast"'+(fd.pastAct===yv?' style="display:block"':'')+'>' +
+      '<div class="fld"><label>'+(L==='he'?'סוג הפעילות':'Type')+'</label>'+inp('pT',fd.pT)+'</div>'+
+      '<div class="g2">'+
+        '<div class="fld"><label>'+(L==='he'?'פעמים בשבוע':'Times/week')+'</label>'+inp('pFr',fd.pFr,'number')+'</div>'+
+        '<div class="fld"><label>'+(L==='he'?'כמה זמן התמדת?':'Duration')+'</label>'+inp('pDu',fd.pDu)+'</div>'+
+      '</div></div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'האם בשלושת החודשים האחרונים אתה פעיל?':'Are you currently active (past 3 months)?')+'</label>'+
+    ynHtml('currAct','fuCurr')+
+    '<div class="fu" id="fuCurr"'+(fd.currAct===yv?' style="display:block"':'')+'>' +
+      '<div class="fld"><label>'+(L==='he'?'סוג הפעילות':'Type')+'</label>'+inp('cT',fd.cT)+'</div>'+
+      '<div class="g2">'+
+        '<div class="fld"><label>'+(L==='he'?'פעמים בשבוע':'Times/week')+'</label>'+inp('cFr',fd.cFr,'number')+'</div>'+
+        '<div class="fld"><label>'+(L==='he'?'תקופת הזמן':'Duration')+'</label>'+inp('cPe',fd.cPe)+'</div>'+
+      '</div></div></div></div>'+
+    '<div class="card"><div class="ctitle">🎯 '+(L==='he'?'מטרות ויעדים':'Goals & Targets')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'מה המטרה המרכזית שלך?':'What is your main goal?')+'</label>'+
+      '<div class="og" id="gOg2">'+mkObs('gOg2','goals',tx('goalsOpts'),true)+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'מה ייחשב הצלחה עבורך אחרי 90 יום?':'What would count as success after 90 days?')+'</label>'+
+      '<textarea id="s90">'+(fd.s90||'')+'</textarea></div>'+
+    '<div class="fld"><label>'+(L==='he'?'זמינות שבועית – כמה פעמים בשבוע?':'Weekly availability – times per week?')+'</label>'+
+      '<div class="og" id="gAvail">'+mkObs('gAvail','avail',['1','2','3','4','5','6','7'],false)+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'מוכנות לשינוי (1-10)':'Readiness for change (1-10)')+'</label>'+
+      '<div class="sw"><input type="range" min="1" max="10" value="'+(fd.motiv||5)+'" id="motiv" oninput="fd.motiv=this.value;document.getElementById(\'mv\').textContent=this.value">'+
+      '<div class="sv" id="mv">'+(fd.motiv||5)+'</div></div></div></div>'+
+    '<div class="card"><div class="ctitle">🚧 '+(L==='he'?'מכשולים ומסייעים':'Obstacles & Helpers')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'גורמים שעשויים להוות מכשול':'Potential obstacles')+'</label>'+
+      '<input id="o1" value="'+(fd.o1||'')+'" style="margin-bottom:7px" placeholder="1">'+
+      '<input id="o2" value="'+(fd.o2||'')+'" style="margin-bottom:7px" placeholder="2">'+
+      '<input id="o3" value="'+(fd.o3||'')+'" placeholder="3"></div>'+
+    '<div class="fld"><label>'+(L==='he'?'גורמים שיסייעו לך להצליח':'Factors that will help you succeed')+'</label>'+
+      '<input id="h1" value="'+(fd.h1||'')+'" style="margin-bottom:7px" placeholder="1">'+
+      '<input id="h2" value="'+(fd.h2||'')+'" style="margin-bottom:7px" placeholder="2">'+
+      '<input id="h3" value="'+(fd.h3||'')+'" placeholder="3"></div></div>'+
+    '<div class="nav"><button type="button" class="bbk" onclick="prevStep()">'+tx('bk')+'</button><button type="button" class="bnx" onclick="nextStep()">'+tx('nx')+'</button></div>';
+  document.getElementById('fc').innerHTML=h;
+}
+// ── STEP 3 ──
+function step3(){
+  var exs=tx('gymExs'),sO=tx('sitOpts'),slO=tx('sleepOpts');
+  var sitH='',sleepH='';
+  for(var i=0;i<sO.length;i++) sitH+='<button type="button" class="ob'+(fd.sitHours===sO[i]?' on':'')+'" data-gid="gSit" data-key="sitHours" data-val="'+i+'" data-multi="0">'+sO[i]+tx('sitSuf')+'</button>';
+  for(var j=0;j<slO.length;j++) sleepH+='<button type="button" class="ob'+(fd.sleepHours===slO[j]?' on':'')+'" data-gid="gSleep" data-key="sleepHours" data-val="'+j+'" data-multi="0">'+slO[j]+tx('sleepSuf')+'</button>';
+  var h='<div class="card"><div class="ctitle">❤️ '+(L==='he'?'תרגילים שאתה אוהב במכון':'Gym Exercises You Enjoy')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'סמן תרגילים שאתה אוהב':'Select exercises you like')+'</label>'+
+      '<div class="og" id="gLikes">'+mkObs('gLikes','likes',exs,true)+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'תרגיל נוסף – כתוב בעצמך':'Other exercise you like')+'</label><input id="lkO" value="'+(fd.lkO||'')+'" placeholder="'+tx('otherP')+'"></div></div>'+
+    '<div class="card"><div class="ctitle">🚫 '+(L==='he'?'תרגילים שאתה לא אוהב במכון':'Gym Exercises You Dislike')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'סמן תרגילים שאתה לא אוהב':'Select exercises you dislike')+'</label>'+
+      '<div class="og" id="gDislikes">'+mkObs('gDislikes','dislikes',exs,true)+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'תרגיל נוסף – כתוב בעצמך':'Other exercise you dislike')+'</label><input id="dlO" value="'+(fd.dlO||'')+'" placeholder="'+tx('otherP')+'"></div></div>'+
+    '<div class="card"><div class="ctitle">🌙 '+(L==='he'?'אורח חיים':'Lifestyle')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'כיצד תגדיר את אורח חייך?':'How would you describe your lifestyle?')+'</label>'+
+      '<div class="og" id="gLife">'+mkObs('gLife','lifestyle',tx('lifestyleOpts'),false)+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'כמה שעות ביום אתה יושב?':'Hours per day sitting?')+'</label><div class="og" id="gSit">'+sitH+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'כמה שעות שינה בממוצע?':'Hours of sleep per night?')+'</label><div class="og" id="gSleep">'+sleepH+'</div></div>'+
+    '<div class="fld"><label>'+(L==='he'?'רמת אנרגיה כללית':'General energy level')+'</label>'+
+      '<div class="og" id="gEnergy">'+mkObs('gEnergy','energy',tx('energyOpts'),false)+'</div></div></div>'+
+    '<div class="nav"><button type="button" class="bbk" onclick="prevStep()">'+tx('bk')+'</button><button type="button" class="bnx" onclick="nextStep()">'+tx('nx')+'</button></div>';
+  document.getElementById('fc').innerHTML=h;
+}
+// ── STEP 4 ──
+function step4(){
+  var mqs=TX[L].medQs,yv=tx('yes'),nv=tx('no');
+  var sc=L==='he'?'ms':'ms-ltr';
+  var h='<div class="ib">'+(L==='he'?'ℹ️ שאלון זה נועד לבדוק את כשירותך הגופנית. כל הפרטים חסויים.':'ℹ️ This questionnaire assesses your fitness. All information is confidential.')+'</div>'+
+    '<div class="card"><div class="ctitle">🏥 '+(L==='he'?'שאלון רפואי':'Medical Questionnaire')+'</div>';
+  for(var i=0;i<mqs.length;i++){
+    var q=mqs[i],ys=fd[q.id]===yv?' on':'',ns=fd[q.id]===nv?' on':'';
+    h+='<div class="mi" id="mi_'+q.id+'"><div class="mq">'+(i+1)+'. '+q.q+'</div>'+
+       '<div class="ynr">'+
+         '<button type="button" class="yb y'+ys+'" data-yn="'+q.id+'" data-isyes="1" data-fu="" data-med="1">'+yv+'</button>'+
+         '<button type="button" class="yb n'+ns+'" data-yn="'+q.id+'" data-isyes="0" data-fu="" data-med="1">'+nv+'</button>'+
+       '</div>';
+    if(q.subs){
+      h+='<div class="'+sc+'" id="sub_'+q.id+'"'+(fd[q.id]===yv?' style="display:block"':'')+' >';
+      for(var j=0;j<q.subs.length;j++){
+        var sk=q.id+'_'+j,sys=fd[sk]===yv?' on':'',sns=fd[sk]===nv?' on':'';
+        var ltr=L==='he'?String.fromCharCode(1488+j):String.fromCharCode(65+j);
+        h+='<div class="fld"><label>'+ltr+') '+q.subs[j]+'</label>'+
+           '<div class="ynr">'+
+             '<button type="button" class="yb y'+sys+'" data-yn="'+sk+'" data-isyes="1" data-fu="">'+yv+'</button>'+
+             '<button type="button" class="yb n'+sns+'" data-yn="'+sk+'" data-isyes="0" data-fu="">'+nv+'</button>'+
+           '</div></div>';
+      }
+      h+='</div>';
+    }
+    h+='<span class="emsg" id="eq-'+q.id+'">'+(L==='he'?'חובה לענות על שאלה זו':'Please answer this question')+'</span>';
+    h+='</div>';
+  }
+  h+='</div><div class="card"><div class="ctitle">🩹 '+(L==='he'?'כאבים ומגבלות':'Pain & Limitations')+'</div>'+
+    '<div class="fld"><label>'+(L==='he'?'האם יש כאבים או מגבלות שהמאמן צריך לדעת עליהם?':'Any pain or limitations the trainer should know about?')+'</label>'+
+    '<textarea id="pain" style="min-height:90px">'+(fd.pain||'')+'</textarea></div></div>'+
+    '<div class="nav"><button type="button" class="bbk" onclick="prevStep()">'+tx('bk')+'</button><button type="button" class="bnx" onclick="nextStep()">'+tx('nx')+'</button></div>';
+  document.getElementById('fc').innerHTML=h;
+}
+// ── STEP 5 ──
+var sigCv,sigCtx;
+function step5(){
+  var decl=tx('decl'),dh='';
+  for(var i=0;i<decl.length;i++) dh+='<p>'+(i+1)+'. '+decl[i]+'</p><br>';
+  var h='<div class="card"><div class="ctitle">📋 '+(L==='he'?'הצהרה':'Declaration')+'</div>'+
+    '<div style="font-size:.85rem;color:#4a5568;line-height:1.8;margin-bottom:12px;">'+dh+'</div>'+
+    '<div class="wy">'+tx('healthDecl')+'</div></div>'+
+    '<div class="card"><div class="ctitle">✍️ '+(L==='he'?'חתימה':'Signature')+'</div>'+
+    '<div class="g3" style="margin-bottom:13px">'+
+      '<div class="fld"><label>'+(L==='he'?'שם פרטי *':'First Name *')+'</label><input id="sfn" value="'+(fd.fn||'')+'"><span class="emsg" id="e-sfn"></span></div>'+
+      '<div class="fld"><label>'+(L==='he'?'שם משפחה *':'Last Name *')+'</label><input id="sln" value="'+(fd.ln||'')+'"><span class="emsg" id="e-sln"></span></div>'+
+      '<div class="fld"><label>'+(L==='he'?'ת.ז *':'ID *')+'</label><input id="sid" value="'+(fd.fid||'')+'"><span class="emsg" id="e-sid"></span></div>'+
+    '</div>'+
+    '<div class="fld"><label>'+tx('sigLbl')+'</label>'+
+      '<canvas id="sigCv" class="sigc" width="580" height="120"></canvas>'+
+      '<button type="button" class="sclr" onclick="clearSig()">'+tx('clrSig')+'</button></div>'+
+    '<div style="margin-top:16px;padding-top:13px;border-top:2px dashed #e2e8f0;">'+
+      '<label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:.86rem;color:#4a5568;margin-bottom:9px;">'+
+        '<input type="checkbox" id="isMinor"'+(fd.isMinor?' checked':'')+' onchange="fd.isMinor=this.checked;document.getElementById(\'minSec\').style.display=this.checked?\'block\':\'none\'" style="width:16px;height:16px;">'+
+        tx('minorTog')+
+      '</label>'+
+      '<div id="minSec" style="display:'+(fd.isMinor?'block':'none')+'">'+
+        '<div class="g2">'+
+          '<div class="fld"><label>'+(L==='he'?'שם הקטין':'Minor Name')+'</label><input id="mnN" value="'+(fd.mnN||'')+'"></div>'+
+          '<div class="fld"><label>'+(L==='he'?'ת.ז הקטין':'Minor ID')+'</label><input id="mnI" value="'+(fd.mnI||'')+'"></div>'+
+        '</div>'+
+        '<div class="g2">'+
+          '<div class="fld"><label>'+(L==='he'?'שם ההורה/אפוטרופוס':'Parent/Guardian Name')+'</label><input id="prN" value="'+(fd.prN||'')+'"></div>'+
+          '<div class="fld"><label>'+(L==='he'?'ת.ז ההורה':'Parent ID')+'</label><input id="prI" value="'+(fd.prI||'')+'"></div>'+
+        '</div>'+
+        '<div class="fld"><label>'+tx('pSigLbl')+'</label>'+
+          '<canvas id="pSigCv" class="sigc" width="580" height="100"></canvas>'+
+          '<button type="button" class="sclr" onclick="clearParentSig()">'+tx('clrSig')+'</button></div>'+
+      '</div></div></div>'+
+    '<div class="nav"><button type="button" class="bbk" onclick="prevStep()">'+tx('bk')+'</button>'+
+    '<button type="button" class="bsb" onclick="submitForm()">'+tx('sb')+'</button></div>';
+  document.getElementById('fc').innerHTML=h;
+  initSig();
+}
+function initSig(){
+  sigCv=document.getElementById('sigCv');
+  sigCtx=sigCv.getContext('2d');
+  sigCtx.strokeStyle='#2d3748';sigCtx.lineWidth=2;sigCtx.lineCap='round';
+  mkSig(sigCv,sigCtx);
+  var pc=document.getElementById('pSigCv');
+  if(pc){var px=pc.getContext('2d');px.strokeStyle='#2d3748';px.lineWidth=2;px.lineCap='round';mkSig(pc,px);}
+}
+function mkSig(cv,ctx){
+  var dr=false;
+  function pos(e){var r=cv.getBoundingClientRect(),s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*cv.width/r.width,y:(s.clientY-r.top)*cv.height/r.height};}
+  cv.onmousedown=cv.ontouchstart=function(e){dr=true;var p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();};
+  cv.onmousemove=cv.ontouchmove=function(e){if(!dr)return;var p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();};
+  cv.onmouseup=cv.ontouchend=function(){dr=false;};
+}
+function clearSig(){if(sigCtx)sigCtx.clearRect(0,0,sigCv.width,sigCv.height);}
+function clearParentSig(){var pc=document.getElementById('pSigCv');if(pc)pc.getContext('2d').clearRect(0,0,pc.width,pc.height);}
+function nb(s){return String((s===undefined||s===null)?'':s).replace(/ /g,String.fromCharCode(160));}
+function rowPDF(label,val){var v=(val===undefined||val===null||val==='')?'-':val;return '<tr><td style="padding:5px 8px;font-weight:700;color:#2d3748;white-space:nowrap;vertical-align:top;border-bottom:1px solid #edf2f7">'+nb(label)+'</td><td style="padding:5px 8px;color:#1a202c;border-bottom:1px solid #edf2f7;overflow-wrap:anywhere">'+nb(v)+'</td></tr>';}
+function secPDF(t){return '<h2 style="font-size:15px;color:#2b6cb0;border-bottom:2px solid #bee3f8;padding-bottom:4px;margin:16px 0 6px">'+nb(t)+'</h2>';}
+function buildSummaryHTML(sigImg,pSigImg){
+  var mqs=TX['he'].medQs;
+  var yn=function(k){return(fd[k]==='כן'||fd[k]==='Yes')?'כן':(fd[k]==='לא'||fd[k]==='No')?'לא':'-';};
+  var d=new Date();
+  var dateStr=d.toLocaleDateString('he-IL')+' '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+  var h='<div style="font-family:Arial,sans-serif;direction:rtl;text-align:right;width:760px;padding:26px;color:#1a202c;background:#fff;box-sizing:border-box">';
+  h+='<div style="text-align:center;border-bottom:3px solid #F4CE14;padding-bottom:14px;margin-bottom:10px">'+
+     '<div style="font-weight:900;font-size:36px;letter-spacing:1px;color:#1a202c;direction:ltr;line-height:1">Z90</div>'+
+     '<div style="font-weight:600;font-size:13px;letter-spacing:7px;color:#1a202c;direction:ltr;margin-top:1px">METHOD</div>'+
+     '<div style="font-size:16px;font-weight:800;color:#1a202c;margin-top:10px">'+nb('שאלון תחילת תכנית אימונים')+'</div>'+
+     '<div style="font-size:12px;color:#718096;margin-top:4px">'+nb('נוצר בתאריך '+dateStr)+'</div></div>';
+  h+=secPDF('פרטים אישיים')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('שם מלא',(fd.fn||'')+' '+(fd.ln||''))+rowPDF('ת.ז',fd.fid)+rowPDF('תאריך לידה',fd.dob)+
+     rowPDF('מין',fd.gender)+rowPDF('טלפון',fd.ph)+rowPDF('מייל',fd.em)+'</table>';
+  h+=secPDF('ניסיון עבר')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('עסק בעבר',yn('pastAct')+((fd.pastAct==='כן')?' ('+(fd.pT||'-')+', '+(fd.pFr||'-')+' בשבוע, '+(fd.pDu||'-')+')':''))+
+     rowPDF('פעיל כיום',yn('currAct')+((fd.currAct==='כן')?' ('+(fd.cT||'-')+', '+(fd.cFr||'-')+' בשבוע, '+(fd.cPe||'-')+')':''))+'</table>';
+  h+=secPDF('מטרות ויעדים')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('מטרות',(fd.goals||[]).join(', '))+rowPDF('הצלחה אחרי 90 יום',fd.s90)+
+     rowPDF('זמינות שבועית',(fd.avail?fd.avail+' פעמים בשבוע':'-'))+rowPDF('מוכנות לשינוי',(fd.motiv?fd.motiv+'/10':'-'))+
+     rowPDF('מכשולים',[fd.o1,fd.o2,fd.o3].filter(Boolean).join(' | '))+
+     rowPDF('מסייעים',[fd.h1,fd.h2,fd.h3].filter(Boolean).join(' | '))+'</table>';
+  h+=secPDF('אורח חיים ותרגילים')+'<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+     rowPDF('סגנון חיים',fd.lifestyle)+rowPDF('שעות ישיבה ביום',fd.sitHours)+rowPDF('שעות שינה',fd.sleepHours)+rowPDF('רמת אנרגיה',fd.energy)+
+     rowPDF('תרגילים אהובים',((fd.likes||[]).join(', '))+(fd.lkO?', '+fd.lkO:''))+
+     rowPDF('תרגילים לא אהובים',((fd.dislikes||[]).join(', '))+(fd.dlO?', '+fd.dlO:''))+'</table>';
+  h+=secPDF('שאלון רפואי')+'<table style="width:100%;border-collapse:collapse;font-size:13px">';
+  for(var i=0;i<mqs.length;i++){
+    var ans=yn(mqs[i].id),color=(ans==='כן')?'#c53030':'#2f855a';
+    h+='<tr><td style="padding:4px 8px;color:#1a202c;border-bottom:1px solid #edf2f7;overflow-wrap:anywhere">'+nb((i+1)+'. '+mqs[i].q)+'</td><td style="padding:4px 8px;font-weight:700;color:'+color+';white-space:nowrap;border-bottom:1px solid #edf2f7">'+ans+'</td></tr>';
+    if(mqs[i].subs){for(var j=0;j<mqs[i].subs.length;j++){var sk=mqs[i].id+'_'+j;if(fd[sk])h+='<tr><td style="padding:2px 22px;color:#4a5568;font-size:12px">'+nb('– '+mqs[i].subs[j])+'</td><td style="padding:2px 8px;font-size:12px;color:#1a202c">'+yn(sk)+'</td></tr>';}}
+  }
+  h+='</table>';
+  h+=secPDF('כאבים ומגבלות')+'<div style="font-size:13px;padding:4px 8px;min-height:28px;overflow-wrap:anywhere">'+nb(fd.pain||'-')+'</div>';
+  h+='<div style="margin-top:12px;padding:10px;background:#fffbeb;border:1px solid #f6e05e;border-radius:6px;font-size:12px;color:#744210;overflow-wrap:anywhere">'+nb(TX['he'].healthDecl)+'</div>';
+  h+=secPDF('חתימה')+'<div style="font-size:13px;padding:4px 8px">'+
+     '<div style="font-weight:700;margin-bottom:5px">'+nb((fd.sfn||fd.fn||'')+' '+(fd.sln||fd.ln||''))+'&nbsp;|&nbsp;'+nb('ת.ז: '+(fd.sid||fd.fid||''))+'</div>'+
+     (sigImg?'<img src="'+sigImg+'" style="border:1px solid #e2e8f0;border-radius:6px;width:300px;height:90px;object-fit:contain;background:#fff">':'<div style="color:#c53030">'+nb('(לא נחתם)')+'</div>')+'</div>';
+  if(fd.isMinor){
+    h+='<div style="margin-top:8px;border-top:1px dashed #cbd5e0;padding-top:8px;font-size:13px;padding-right:8px">'+
+       '<div style="font-weight:700;margin-bottom:4px">'+nb('פרטי קטין / אפוטרופוס')+'</div>'+
+       nb('קטין: '+(fd.mnN||'-')+' (ת.ז '+(fd.mnI||'-')+')')+'&nbsp;|&nbsp;'+nb('הורה: '+(fd.prN||'-')+' (ת.ז '+(fd.prI||'-')+')')+
+       (pSigImg?'<br><img src="'+pSigImg+'" style="border:1px solid #e2e8f0;border-radius:6px;width:300px;height:80px;object-fit:contain;background:#fff;margin-top:6px">':'')+'</div>';
+  }
+  h+='</div>';
+  return h;
+}
+var INTAKE_ENDPOINT='https://script.google.com/macros/s/AKfycbwQtt-5p7F5YvZ4W31lumhse0lP7gUGGoRAWZcEyoU3r1cJzcNv7LiaiULrskAGG_4T/exec';
+function makeHolder(){
+  var holder=document.createElement('div');
+  holder.style.position='fixed';holder.style.left='-10000px';holder.style.top='0';
+  holder.innerHTML=window._z90summary;
+  document.body.appendChild(holder);
+  return holder;
+}
+function genPDF(){
+  var holder=makeHolder();
+  return html2pdf().set(window._z90opt).from(holder.firstChild).save().then(function(){if(holder.parentNode)holder.parentNode.removeChild(holder);}).catch(function(){if(holder.parentNode)holder.parentNode.removeChild(holder);});
+}
+function successScreen(){
+  document.getElementById('fc').innerHTML=
+    '<div class="card suc">'+
+      '<div class="ck">🎉</div>'+
+      '<h2>'+tx('succ')+'</h2>'+
+      '<p>'+(L==='he'?'השאלון נשלח למאמן בהצלחה. תודה!':'The form was sent to the coach successfully. Thank you!')+'</p>'+
+      '<button type="button" class="abtn" style="background:#F4CE14;color:#161616" onclick="genPDF()">'+(L==='he'?'⬇️ הורד עותק לעצמך':'⬇️ Download a copy')+'</button>'+
+    '</div>';
+  window.scrollTo(0,0);
+}
+function errorScreen(name){
+  var wa='https://wa.me/972546349923?text='+encodeURIComponent('היי זהר, מצורף שאלון תחילת האימון שלי — '+name);
+  document.getElementById('fc').innerHTML=
+    '<div class="card suc">'+
+      '<div class="ck">⚠️</div>'+
+      '<h2>'+(L==='he'?'השליחה נכשלה':'Sending failed')+'</h2>'+
+      '<p>'+(L==='he'?'אפשר להוריד את המסמך ולשלוח למאמן בוואטסאפ.':'You can download the document and send it via WhatsApp.')+'</p>'+
+      '<button type="button" class="abtn" style="background:#F4CE14;color:#161616" onclick="genPDF()">'+(L==='he'?'⬇️ הורד מסמך':'⬇️ Download')+'</button>'+
+      '<a href="'+wa+'" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" class="abtn" style="background:#25D366;color:#fff">'+(L==='he'?'📲 וואטסאפ':'📲 WhatsApp')+'</button></a>'+
+    '</div>';
+  window.scrollTo(0,0);
+}
+function submitForm(){
+  save();
+  if(!validate()){window.scrollTo(0,0);return;}
+  var sigImg='',pSigImg='';
+  try{if(sigCv)sigImg=sigCv.toDataURL('image/png');}catch(e){}
+  try{var pc=document.getElementById('pSigCv');if(pc)pSigImg=pc.toDataURL('image/png');}catch(e){}
+  var name=((fd.fn||'')+' '+(fd.ln||'')).trim()||'מתאמן';
+  window._z90summary=buildSummaryHTML(sigImg,pSigImg);
+  window._z90opt={margin:[8,8,8,8],filename:'Z90 שאלון - '+name+'.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};
+  document.getElementById('fc').innerHTML='<div class="card suc"><div class="ck">⏳</div><h2>'+(L==='he'?'שולח למאמן...':'Sending...')+'</h2></div>';
+  cur=5;renderProg();window.scrollTo(0,0);
+  var holder=makeHolder();
+  html2pdf().set(window._z90opt).from(holder.firstChild).outputPdf('datauristring').then(function(dataUri){
+    if(holder.parentNode)holder.parentNode.removeChild(holder);
+    var b64=(dataUri||'').split(',')[1]||'';
+    return fetch(INTAKE_ENDPOINT,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({filename:window._z90opt.filename,pdfBase64:b64,name:name,phone:(fd.ph||''),email:(fd.em||'')})
+    });
+  }).then(function(){ successScreen(); }).catch(function(){ if(holder.parentNode)holder.parentNode.removeChild(holder); errorScreen(name); });
+}
+// Init
+document.getElementById('ttl').textContent=TX[L].title;
+document.getElementById('sub').textContent=TX[L].sub;
+document.getElementById('mT').textContent=TX[L].mTitle;
+document.getElementById('mP').textContent=TX[L].mText;
+document.getElementById('mB').textContent=TX[L].mBtn;
+renderStep();
+</script>
+</body>
+</html>
