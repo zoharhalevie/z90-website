@@ -512,7 +512,7 @@
       <a class="ig" href="https://www.instagram.com/zoharhalevie_fitness/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg width="20" height="20" viewBox="0 0 448 512" fill="#fff"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a>
       <a class="ph" href="tel:+972546349923" aria-label="התקשרו אליי"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
     </div>
-    <div class="f-legal">© 2026 Z90 Method · כל הזכויות שמורות · <button id="accStmtFooter">הצהרת נגישות</button></div>
+    <div class="f-legal">© 2026 Z90 Method · כל הזכויות שמורות · <a href="/cookies" style="color:inherit">מדיניות פרטיות ועוגיות</a> · <button id="accStmtFooter">הצהרת נגישות</button></div>
   </footer>
 
   <!-- STICKY MOBILE CTA -->
@@ -637,5 +637,38 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { accModal.classList.remove('open'); accPanel.classList.remove('open'); } });
     apply();
   </script>
+<!-- ═══════ COOKIE CONSENT (Z90) ═══════ -->
+<style id="z90ck-style">
+.z90ck-bar{position:fixed;left:0;right:0;bottom:0;z-index:99995;background:#1a1a1a;border-top:2px solid #F4CE14;box-shadow:0 -8px 30px rgba(0,0,0,.55);padding:16px 18px;display:none;font-family:"Heebo",-apple-system,Segoe UI,Arial,sans-serif}
+.z90ck-bar.show{display:block}
+.z90ck-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}
+.z90ck-txt{color:#e8e8e8;font-size:.92rem;line-height:1.6;flex:1;min-width:230px}
+.z90ck-txt a{color:#F4CE14;text-decoration:underline}
+.z90ck-btns{display:flex;gap:10px;flex-wrap:wrap}
+.z90ck-btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.9rem;padding:11px 22px;border-radius:999px}
+.z90ck-accept{background:#F4CE14;color:#161616}
+.z90ck-reject{background:transparent;color:#F4CE14;border:1px solid #F4CE14}
+@media(max-width:600px){.z90ck-in{flex-direction:column;align-items:stretch}.z90ck-btns{justify-content:center}.z90ck-btn{flex:1}}
+</style>
+<div class="z90ck-bar" id="z90ckBar" role="dialog" aria-label="הסכמה לשימוש בעוגיות">
+  <div class="z90ck-in">
+    <div class="z90ck-txt">אנחנו משתמשים בעוגיות (cookies) חיוניות לתפעול האתר ולשיפור החוויה שלך. בלחיצה על "אני מסכים/ה" תאשר/י שימוש בכל העוגיות. למידע נוסף: <a href="/cookies">מדיניות פרטיות ועוגיות</a>.</div>
+    <div class="z90ck-btns">
+      <button class="z90ck-btn z90ck-reject" id="z90ckReject">רק הכרחי</button>
+      <button class="z90ck-btn z90ck-accept" id="z90ckAccept">אני מסכים/ה</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){try{
+  var KEY='z90_cookie_consent',bar=document.getElementById('z90ckBar');
+  if(!bar)return;
+  if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
+  function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
+  document.getElementById('z90ckAccept').onclick=function(){set('all');};
+  document.getElementById('z90ckReject').onclick=function(){set('necessary');};
+}catch(e){}})();
+</script>
+
 </body>
 </html>
