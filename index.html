@@ -1770,7 +1770,10 @@
     <hr />
     <div class="container copyrights">
       <div>© 2026 Z90 Method · כל הזכויות שמורות</div>
-      <button class="acc-statement-link" id="accStatementFooter">הצהרת נגישות</button>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <a href="/cookies" class="acc-statement-link" style="text-decoration:underline">מדיניות פרטיות ועוגיות</a>
+        <button class="acc-statement-link" id="accStatementFooter">הצהרת נגישות</button>
+      </div>
     </div>
   </footer>
 
@@ -2051,5 +2054,38 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { accModal.classList.remove('open'); accPanel.classList.remove('open'); } });
     applyAcc();
   </script>
+<!-- ═══════ COOKIE CONSENT (Z90) ═══════ -->
+<style id="z90ck-style">
+.z90ck-bar{position:fixed;left:0;right:0;bottom:0;z-index:99995;background:#1a1a1a;border-top:2px solid #F4CE14;box-shadow:0 -8px 30px rgba(0,0,0,.55);padding:16px 18px;display:none;font-family:"Heebo",-apple-system,Segoe UI,Arial,sans-serif}
+.z90ck-bar.show{display:block}
+.z90ck-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}
+.z90ck-txt{color:#e8e8e8;font-size:.92rem;line-height:1.6;flex:1;min-width:230px}
+.z90ck-txt a{color:#F4CE14;text-decoration:underline}
+.z90ck-btns{display:flex;gap:10px;flex-wrap:wrap}
+.z90ck-btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.9rem;padding:11px 22px;border-radius:999px}
+.z90ck-accept{background:#F4CE14;color:#161616}
+.z90ck-reject{background:transparent;color:#F4CE14;border:1px solid #F4CE14}
+@media(max-width:600px){.z90ck-in{flex-direction:column;align-items:stretch}.z90ck-btns{justify-content:center}.z90ck-btn{flex:1}}
+</style>
+<div class="z90ck-bar" id="z90ckBar" role="dialog" aria-label="הסכמה לשימוש בעוגיות">
+  <div class="z90ck-in">
+    <div class="z90ck-txt">אנחנו משתמשים בעוגיות (cookies) חיוניות לתפעול האתר ולשיפור החוויה שלך. בלחיצה על "אני מסכים/ה" תאשר/י שימוש בכל העוגיות. למידע נוסף: <a href="/cookies">מדיניות פרטיות ועוגיות</a>.</div>
+    <div class="z90ck-btns">
+      <button class="z90ck-btn z90ck-reject" id="z90ckReject">רק הכרחי</button>
+      <button class="z90ck-btn z90ck-accept" id="z90ckAccept">אני מסכים/ה</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){try{
+  var KEY='z90_cookie_consent',bar=document.getElementById('z90ckBar');
+  if(!bar)return;
+  if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
+  function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
+  document.getElementById('z90ckAccept').onclick=function(){set('all');};
+  document.getElementById('z90ckReject').onclick=function(){set('necessary');};
+}catch(e){}})();
+</script>
+
 </body>
 </html>
