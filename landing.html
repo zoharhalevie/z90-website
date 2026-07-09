@@ -336,7 +336,7 @@
 
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .rv.in { opacity: 1; transform: none; }
-  </style>
+  .result-inset{display:flex;align-items:center;gap:30px;max-width:800px;margin:44px auto 0}.result-inset.flip{flex-direction:row-reverse}.result-shot{position:relative;width:290px;flex-shrink:0;border-radius:14px;overflow:hidden;box-shadow:rgba(0,0,0,0.45) 0px 16px 44px;border:1px solid var(--line);background:var(--card-2)}.result-shot img{width:100%;display:block}.result-shot .rs-lbl{position:absolute;top:11px;font-size:0.74rem;font-weight:800;letter-spacing:0.03em;padding:5px 15px;border-radius:100px;white-space:nowrap;z-index:2}.result-shot .rs-lbl.before{left:11px;background:rgba(0,0,0,0.72);color:#fff}.result-shot .rs-lbl.during{right:11px;background:var(--yellow);color:var(--black-1)}.ri-text{flex:1;min-width:0}.ri-text .ri-badge{color:var(--yellow);font-weight:800;font-size:0.78rem;letter-spacing:0.14em;display:block;margin-bottom:10px}.ri-text h4{color:#fff;font-size:1.25rem;font-weight:800;margin-bottom:10px}.ri-text p{color:var(--soft);font-size:0.98rem;line-height:1.75}@media (max-width:680px){.result-inset,.result-inset.flip{flex-direction:column;text-align:center;gap:18px}.result-shot{width:250px}}</style>
 </head>
 <body>
 
@@ -414,7 +414,7 @@
           <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M7 21h10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>גב חזק ויציב</h3><p>פחות כאבים, יותר ביטחון בכל תנועה יומיומית.</p></div></div>
           <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round"/></svg></div><div><h3>תנועה חופשית</h3><p>טווחי תנועה וגמישות — בלי נוקשות בבוקר.</p></div></div>
           <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5h6L11 22l8.5-11.5h-6L13 2z" stroke-linejoin="round"/></svg></div><div><h3>אנרגיה לאורך היום</h3><p>אימון שמטעין, לא ששואב. אנרגיה יציבה.</p></div></div>
-          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>ליווי שלא עוזב</h3><p>מעקב אחרי כל אימון והתאמות שבועיות.</p></div></div>
+          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>ליווי שלא עוזב</h3><p>מעקב אחרי כל אימון והתאמות שבועיות.</p></div></div><div class="result-inset rv" style="grid-column:1/-1;margin:30px auto 0"><div class="result-shot"><span class="rs-lbl before">לפני</span><span class="rs-lbl during">בתהליך</span><img src="result-2.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy"></div><div class="ri-text"><span class="ri-badge">תוצאה אמיתית</span><h4>ככה נראה תהליך אמיתי</h4><p>שינוי של מתאמן ב-Z90 — לא קסם, אלא עבודה נכונה, הדרגתית ועקבית לאורך כל הדרך.</p></div></div>
         </div>
       </div>
     </section>
@@ -464,7 +464,7 @@
             <h2>אני זהר הלוי</h2>
             <p>מאמן כושר אישי, מלווה מתאמנים בתהליכי שינוי פיזיים ומנטליים כבר 11 שנים.</p>
             <p><strong>אני לא מעביר אימונים — אני בונה תהליכים.</strong> כל מתאמן מתחיל עם אבחון, מקבל תוכנית מותאמת, ועובד לפי מחזורים מסודרים של 90 יום.</p>
-            <p>בלי קיצורי דרך, בלי הבטחות ריקות — עבודה נכונה, מדויקת ובטוחה, שמחזירה לך שליטה בגוף.</p>
+            <p>בלי קיצורי דרך, בלי הבטחות ריקות — עבודה נכונה, מדויקת ובטוחה, שמחזירה לך שליטה בגוף.</p><div class="result-inset rv" style="margin:26px 0 0;gap:22px;max-width:none"><div class="result-shot" style="width:210px"><span class="rs-lbl before">לפני</span><span class="rs-lbl during">היום</span><img src="coach-transform.jpg" alt="זהר הלוי — לפני והיום" loading="lazy"></div><div class="ri-text"><span class="ri-badge">גם אני עברתי את הדרך</span><h4>מהמקום שלך — להיום</h4><p>התחלתי קטן, רזה וחסר ביטחון. בדיוק את התהליך שאני מעביר אתכם — עברתי בעצמי. זה אפשרי, ואני יודע איך מגיעים לשם.</p></div></div>
             <div class="coach-creds">
               <div><span class="c-top">11+</span><span class="c-bot">שנות ניסיון</span></div>
               <div><span class="c-top">מאות</span><span class="c-bot">מתאמנים</span></div>
@@ -489,7 +489,7 @@
     </section>
   </main>
 
-  <!-- FINAL CTA -->
+  <section class="sec alt" style="padding:64px 0"><div class="container"><div class="result-inset flip rv"><div class="result-shot"><span class="rs-lbl before">לפני</span><span class="rs-lbl during">בתהליך</span><img src="result-1.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy"></div><div class="ri-text"><span class="ri-badge">תוצאה אמיתית</span><h4>התהליך עובד</h4><p>מתאמן נוסף, אותו תהליך של 90 יום — ליווי צמוד, מעקב והתאמות. זו רמת התוצאה שאפשר להגיע אליה.</p></div></div></div></section><!-- FINAL CTA -->
   <section class="final">
     <div class="final-bg"></div>
     <h2>מוכן/ה לעשות את הצעד הראשון?</h2>
@@ -650,7 +650,7 @@
 .z90ck-accept{background:#F4CE14;color:#161616}
 .z90ck-reject{background:transparent;color:#F4CE14;border:1px solid #F4CE14}
 @media(max-width:600px){.z90ck-in{flex-direction:column;align-items:stretch}.z90ck-btns{justify-content:center}.z90ck-btn{flex:1}}
-</style>
+.result-inset{display:flex;align-items:center;gap:30px;max-width:800px;margin:44px auto 0}.result-inset.flip{flex-direction:row-reverse}.result-shot{position:relative;width:290px;flex-shrink:0;border-radius:14px;overflow:hidden;box-shadow:rgba(0,0,0,0.45) 0px 16px 44px;border:1px solid var(--line);background:var(--card-2)}.result-shot img{width:100%;display:block}.result-shot .rs-lbl{position:absolute;top:11px;font-size:0.74rem;font-weight:800;letter-spacing:0.03em;padding:5px 15px;border-radius:100px;white-space:nowrap;z-index:2}.result-shot .rs-lbl.before{left:11px;background:rgba(0,0,0,0.72);color:#fff}.result-shot .rs-lbl.during{right:11px;background:var(--yellow);color:var(--black-1)}.ri-text{flex:1;min-width:0}.ri-text .ri-badge{color:var(--yellow);font-weight:800;font-size:0.78rem;letter-spacing:0.14em;display:block;margin-bottom:10px}.ri-text h4{color:#fff;font-size:1.25rem;font-weight:800;margin-bottom:10px}.ri-text p{color:var(--soft);font-size:0.98rem;line-height:1.75}@media (max-width:680px){.result-inset,.result-inset.flip{flex-direction:column;text-align:center;gap:18px}.result-shot{width:250px}}</style>
 <div class="z90ck-bar" id="z90ckBar" role="dialog" aria-label="הסכמה לשימוש בעוגיות">
   <div class="z90ck-in">
     <div class="z90ck-txt">אנחנו משתמשים בעוגיות (cookies) חיוניות לתפעול האתר ולשיפור החוויה שלך. בלחיצה על "אני מסכים/ה" תאשר/י שימוש בכל העוגיות. למידע נוסף: <a href="/cookies">מדיניות פרטיות ועוגיות</a>.</div>
