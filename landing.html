@@ -337,6 +337,34 @@
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .rv.in { opacity: 1; transform: none; }
   .result-inset{display:flex;align-items:center;gap:30px;max-width:800px;margin:44px auto 0}.result-inset.flip{flex-direction:row-reverse}.result-shot{position:relative;width:290px;flex-shrink:0;border-radius:14px;overflow:hidden;box-shadow:rgba(0,0,0,0.45) 0px 16px 44px;border:1px solid var(--line);background:var(--card-2)}.result-shot img{width:100%;display:block}.result-shot .rs-lbl{position:absolute;top:11px;font-size:0.74rem;font-weight:800;letter-spacing:0.03em;padding:5px 15px;border-radius:100px;white-space:nowrap;z-index:2}.result-shot .rs-lbl.before{left:11px;background:rgba(0,0,0,0.72);color:#fff}.result-shot .rs-lbl.during{right:11px;background:var(--yellow);color:var(--black-1)}.ri-text{flex:1;min-width:0}.ri-text .ri-badge{color:var(--yellow);font-weight:800;font-size:0.78rem;letter-spacing:0.14em;display:block;margin-bottom:10px}.ri-text h4{color:#fff;font-size:1.25rem;font-weight:800;margin-bottom:10px}.ri-text p{color:var(--soft);font-size:0.98rem;line-height:1.75}@media (max-width:680px){.result-inset,.result-inset.flip{flex-direction:column;text-align:center;gap:18px}.result-shot{width:250px}}</style>
+<!-- ═══════ META PIXEL (Z90) — נטען רק לאחר הסכמה לעוגיות שיווקיות ═══════ -->
+<script>
+(function(){
+  var Z90_PIXEL_ID = '931255999991314';
+  window.z90LoadMetaPixel = function(){
+    if (window.fbq) return; // הגנה מפני התקנה כפולה
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', Z90_PIXEL_ID);
+    fbq('track', 'PageView');
+  };
+  window.z90TrackLead = function(formId){
+    try {
+      window.__z90LeadFired = window.__z90LeadFired || {};
+      var key = formId || 'lead';
+      if (window.__z90LeadFired[key]) return; // מונע שליחת Lead כפולה
+      window.__z90LeadFired[key] = true;
+      if (window.fbq) { fbq('track', 'Lead'); }
+    } catch(e){}
+  };
+  try {
+    if (localStorage.getItem('z90_cookie_consent') === 'all') { window.z90LoadMetaPixel(); }
+  } catch(e){}
+})();
+</script>
 </head>
 <body>
 
@@ -608,6 +636,7 @@
         });
         document.getElementById('leadForm').style.display = 'none';
         document.getElementById('lcSent').style.display = 'block';
+        if (window.z90TrackLead) window.z90TrackLead('leadForm');
       } catch (e) {
         if (span) { btn.disabled = false; span.textContent = orig; }
         alert('אופס, משהו השתבש בשליחה. אפשר גם לפנות אליי ישירות בוואטסאפ.');
@@ -666,7 +695,7 @@
   if(!bar)return;
   if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
   function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
-  document.getElementById('z90ckAccept').onclick=function(){set('all');};
+  document.getElementById('z90ckAccept').onclick=function(){set('all'); if (window.z90LoadMetaPixel) window.z90LoadMetaPixel();};
   document.getElementById('z90ckReject').onclick=function(){set('necessary');};
 }catch(e){}})();
 </script>
