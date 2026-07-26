@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Z90 Method — מחזיר לך שליטה על הגוף | אימון אישי 40–60</title>
-  <meta name="description" content="תהליך אישי של 90 יום לגברים ונשים בגילאי 40–60. אבחון, תוכנית מותאמת, ליווי צמוד — שליטה מחדש על הגוף שלך." />
+  <title>Z90 Method — מחזיר לך שליטה על הגוף | אימון אישי פרטי</title>
+  <meta name="description" content="תהליך אישי של 90 יום שמחזיר לך שליטה על הגוף. אבחון, תוכנית מותאמת, ליווי צמוד — שליטה מחדש על הגוף שלך." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -32,6 +32,7 @@
     }
 
     html { scroll-behavior: smooth; overflow-x: hidden; }
+#reviews, #method, #about, #packages, #faq, #contact { scroll-margin-top: 100px; }
 
     body {
       font-family: 'Heebo', system-ui, sans-serif;
@@ -1985,9 +1986,17 @@
 
     /* ── leads ── */
     let chosenPlan = '';
+    function scrollToContact() {
+      const el = document.getElementById('contact');
+      if (!el) return;
+      const headerEl = document.querySelector('.header');
+      const headerH = headerEl ? headerEl.getBoundingClientRect().height : 80;
+      const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
+      window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+    }
     function pickPlan(plan) {
       chosenPlan = plan;
-      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      scrollToContact();
       setTimeout(() => document.getElementById('lname').focus({ preventScroll: true }), 900);
     }
     // הליד נשלח אוטומטית למייל המאמן כ-PDF דרך Google Apps Script
