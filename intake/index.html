@@ -21,6 +21,7 @@ body{font-family:'Heebo',system-ui,Arial,sans-serif;font-weight:300;line-height:
 .brand-logo{display:inline-flex;flex-direction:column;align-items:center;line-height:.95;filter:drop-shadow(0 8px 26px rgba(0,0,0,.55))}
 .bl-z90{font-weight:900;font-size:3.1rem;letter-spacing:.01em;color:#fff}
 .bl-method{font-weight:600;font-size:.98rem;letter-spacing:.52em;color:#fff;margin-top:4px;text-indent:.52em}
+.brand-logo-img{height:88px;width:auto;display:block;margin:0 auto;filter:drop-shadow(0 8px 26px rgba(0,0,0,.55))}
 h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#fff}
 .sub{text-align:center;color:var(--faint);font-size:.95rem;margin:0 auto 22px;max-width:52ch}
 .lbar{display:flex;justify-content:center;margin-bottom:26px}
@@ -90,36 +91,8 @@ h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#f
 .suc h2{font-size:1.6rem;font-weight:900;color:var(--yellow);margin-bottom:9px}
 .suc p{color:var(--soft);font-size:1rem;margin-bottom:22px}
 .abtn{padding:13px 28px;border:none;border-radius:9px;font-size:.95rem;font-weight:800;cursor:pointer;font-family:inherit;margin:5px;text-decoration:none;display:inline-block}
-@media(max-width:540px){.g2,.g3{grid-template-columns:1fr}.card{padding:20px 16px}.bl-z90{font-size:2.5rem}.wrap{padding:26px 14px 60px}}
+@media(max-width:540px){.g2,.g3{grid-template-columns:1fr}.card{padding:20px 16px}.bl-z90{font-size:2.5rem}.brand-logo-img{height:64px}.wrap{padding:26px 14px 60px}}
 </style>
-<!-- ═══════ META PIXEL (Z90) — נטען רק לאחר הסכמה לעוגיות שיווקיות ═══════ -->
-<script>
-(function(){
-  var Z90_PIXEL_ID = '931255999991314';
-  window.z90LoadMetaPixel = function(){
-    if (window.fbq) return; // הגנה מפני התקנה כפולה
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', Z90_PIXEL_ID);
-    fbq('track', 'PageView');
-  };
-  window.z90TrackLead = function(formId){
-    try {
-      window.__z90LeadFired = window.__z90LeadFired || {};
-      var key = formId || 'lead';
-      if (window.__z90LeadFired[key]) return; // מונע שליחת Lead כפולה
-      window.__z90LeadFired[key] = true;
-      if (window.fbq) { fbq('track', 'Lead'); }
-    } catch(e){}
-  };
-  try {
-    if (localStorage.getItem('z90_cookie_consent') === 'all') { window.z90LoadMetaPixel(); }
-  } catch(e){}
-})();
-</script>
 </head>
 <body>
 <div class="mov" id="modal">
@@ -129,7 +102,7 @@ h1{text-align:center;font-size:1.55rem;font-weight:800;margin:2px 0 4px;color:#f
   </div>
 </div>
 <div class="wrap">
-  <div class="brand"><div class="brand-logo"><span class="bl-z90">Z90</span><span class="bl-method">METHOD</span></div></div>
+  <div class="brand"><img src="/z90-logo-white.png" alt="Z90 METHOD" class="brand-logo-img"></div>
   <h1 id="ttl"></h1>
   <p class="sub" id="sub"></p>
   <div class="lbar"><div class="lseg">
@@ -683,7 +656,7 @@ renderStep();
   if(!bar)return;
   if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
   function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
-  document.getElementById('z90ckAccept').onclick=function(){set('all'); if (window.z90LoadMetaPixel) window.z90LoadMetaPixel();};
+  document.getElementById('z90ckAccept').onclick=function(){set('all');};
   document.getElementById('z90ckReject').onclick=function(){set('necessary');};
 }catch(e){}})();
 </script>
