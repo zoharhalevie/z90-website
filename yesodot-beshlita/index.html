@@ -147,11 +147,13 @@
   .promise .p-kick { color: var(--yellow); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.18em; margin-bottom: 16px; display: block; }
   .promise p { font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 700; line-height: 1.6; color: var(--white); }
   .promise p strong { color: var(--yellow); }
-  .outcomes { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; margin-top: 50px; max-width: 1000px; margin-inline: auto; }
-  .outcome { text-align: center; padding: 20px 14px; }
-  .outcome .o-num { font-size: 1.8rem; font-weight: 900; color: var(--yellow); display: block; margin-bottom: 8px; }
-  .outcome p { font-size: 0.88rem; color: var(--soft); }
-  @media (max-width: 520px) { .outcomes { grid-template-columns: 1fr; } }
+  .outcomes { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 22px; margin-top: 50px; max-width: 960px; margin-inline: auto; }
+  .outcome { flex: 0 1 268px; max-width: 268px; background: var(--card-2); border-radius: 8px; padding: 30px 22px; text-align: center; box-shadow: rgba(0,0,0,0.18) 0px 10px 30px 0px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .outcome:hover { transform: translateY(-4px); box-shadow: rgba(0,0,0,0.32) 0px 16px 40px 0px; }
+  .outcome .o-num { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; border-radius: 50%; background: var(--yellow-faint); border: 2px solid var(--yellow-line); color: var(--yellow); font-size: 1.1rem; font-weight: 900; }
+  .outcome p { font-size: 0.92rem; color: var(--soft); line-height: 1.6; }
+  @media (max-width: 860px) { .outcome { flex-basis: 45%; } }
+  @media (max-width: 560px) { .outcome { flex-basis: 100%; max-width: 320px; } }
 
   /* ───── PROGRAM STEPPER ───── */
   .stepper { display: flex; justify-content: space-between; align-items: flex-start; max-width: 920px; margin: 0 auto 56px; position: relative; }
