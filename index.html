@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Z90 Method — מחזיר לך שליטה על הגוף | אימון אישי 40–60</title>
+  <title>Z90 Method — מחזיר לך שליטה על הגוף | אימון אישי פרימיום</title>
   <meta name="description" content="תהליך אישי של 90 יום לגברים ונשים בגילאי 40–60. אבחון, תוכנית מותאמת, ליווי צמוד — שליטה מחדש על הגוף שלך." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -961,41 +961,6 @@
     .tooltip-container .icon:hover .layer span:nth-child(4) { opacity: 0.8; transform: translate(16px, -16px); }
     .tooltip-container .icon:hover .instagramSVG { transform: translate(20px, -20px); }
 
-    /* ───── OFFER MODAL ───── */
-    .offerModal {
-      position: fixed;
-      bottom: 30px; right: -120%;
-      z-index: 350;
-      animation: movemodel 0.6s ease-out 3s forwards;
-      max-width: 360px;
-    }
-    @keyframes movemodel { to { right: 26px; } }
-    .offerModal.dismissed { display: none; }
-    .modal-content {
-      background: rgba(40, 40, 40, 0.85);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid var(--line);
-      border-top: 4px solid var(--yellow);
-      border-radius: 8px;
-      padding: 26px 28px;
-      box-shadow: rgba(0,0,0,0.5) 0px 24px 70px;
-    }
-    .modal-content h2 { font-size: 1.2rem; font-weight: 900; color: var(--yellow); margin-bottom: 8px; }
-    .modal-content p { font-size: 0.9rem; color: var(--soft); margin-bottom: 16px; }
-    .modal-content .modal-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-    .modal-content .modal-buttons button {
-      font-family: inherit; font-weight: 800; font-size: 0.86rem;
-      padding: 11px 20px; border: none; cursor: pointer;
-      clip-path: polygon(5% 0, 100% 0%, 95% 100%, 0% 100%);
-      transition: background 0.25s;
-    }
-    .modal-content .modal-buttons button:first-child { background: var(--yellow); color: var(--black-1); }
-    .modal-content .modal-buttons button:first-child:hover { background: var(--yellow-dark); }
-    .modal-content .modal-buttons .close-button { background: var(--card); color: var(--soft); }
-    .modal-content .modal-buttons .close-button:hover { background: var(--card-2); color: var(--white); }
-    @media (max-width: 640px) { .offerModal { display: none; } }
-
     /* ───── BACK TO TOP ───── */
     .to-top {
       position: fixed; bottom: 26px; left: 26px;
@@ -1096,7 +1061,6 @@
     html.acc-still .quick-card,
     html.acc-still .bgrid .bcard,
     html.acc-still .cards .class { opacity: 1 !important; transform: none !important; }
-    html.acc-still .offerModal { right: 26px; }
     html.acc-still .marquee-track { animation: none !important; }
     html.acc-still .ba-track { animation: none !important; }
 
@@ -1304,48 +1268,19 @@
         <div class="marquee-track" id="marqueeTrack">
           <div class="tcard">
             <div class="t-head"><div class="t-av">ד</div><div><div class="t-name">דניאל</div><div class="t-meta">עורכת דין</div></div></div>
-            <div class="t-stars">★★★★★</div>
             <div class="t-quote">מעבר לזה שהוא מקצועי וקשוב, הוא מצליח לאתגר אותי כל פעם מחדש ולשבור שיאים (בלי שאשים לב אפילו) והכל באווירה קלילה, בצחוק ובפאן, לא משנה באיזו שעה. היחיד שמצליח לגרום לי באמת להתמיד ולקום לאימונים גם אם בשש בבוקר. יחס אישי, אנרגיות טובות באמת באמת שאין תחליף!</div>
           </div>
           <div class="tcard">
             <div class="t-head"><div class="t-av">ש</div><div><div class="t-name">שי</div><div class="t-meta">סמנכ״ל</div></div></div>
-            <div class="t-stars">★★★★★</div>
             <div class="t-quote">אחת ההחלטות הכי טובות שעשיתי בחיי. לקבל ערך אמיתי ומעל לכל גוף חדש ובריא ללא כאבי גב. מטורף. תמיד עם חיוך, מסביר ומתקן. זהר מקצוען אמיתי. להגיע ולצאת עם חיוך. אל תוותרו. מומלץ מומלץ מומלץ ושוב מומלץ!!!!</div>
           </div>
           <div class="tcard">
             <div class="t-head"><div class="t-av">ד</div><div><div class="t-name">דן</div><div class="t-meta">רופא גינקולוג</div></div></div>
-            <div class="t-stars">★★★★★</div>
             <div class="t-quote">אם אתה באמת רוצה לחזור 10 שנים אחורה ושוב להרגיש צעיר וחזק — אז זהר הוא הכתובת!</div>
           </div>
           <div class="tcard">
-            <div class="t-head"><div class="t-av">י</div><div><div class="t-name">יובל</div><div class="t-meta">עורכת וידאו</div></div></div>
-            <div class="t-stars">★★★★★</div>
-            <div class="t-quote">מקצועי ובאותו זמן ממש כיף איתך באימונים, הווייב תמיד כייפי ונוח ובזכותך ממש נכנסתי לאורח חיים יותר ספורטיבי!!! שלא לדבר על התוצאות שהשגתי בדרך ועל המחמאות שאני מקבלת מחברים בזכותך. אם חברים היו שואלים אותי עליך הייתי אומרת כן בלי להסס!</div>
-          </div>
-          <div class="tcard">
-            <div class="t-head"><div class="t-av">נ</div><div><div class="t-name">נדב</div><div class="t-meta">תלמיד</div></div></div>
-            <div class="t-stars">★★★★★</div>
-            <div class="t-quote">התקדמתי מאוד. המשקלים שאני מרים עלו משמעותית, ובאופן כללי אני מרגיש שהתקדמתי מאוד מבחינה פיזית. אתה תמיד יודע להתאים לי את המשקלים והעומס הנכונים, וגם כשאני חושב שמשהו יהיה כבד מדי — בסוף מתברר שאתה צודק!</div>
-          </div>
-          <div class="tcard">
             <div class="t-head"><div class="t-av">א</div><div><div class="t-name">אתי</div><div class="t-meta">פסיכולוגית קלינית</div></div></div>
-            <div class="t-stars">★★★★★</div>
             <div class="t-quote">זוהר הוא מאמן מקצועי, קשוב ותומך, המלווה אותי באימונים כ-3 חודשים. זוהר מגלה ידע רחב, תוך הקפדה על התאמת האימון ליכולותיי ולמטרותיי. אני מרגישה שיפור בכושר הגופני שלי וכן שיפור ברמת המוטיבציה לפעילות בזכות עידודו וגישתו החיובית. ממליצה בחום על זוהר כמאמן.</div>
-          </div>
-          <div class="tcard">
-            <div class="t-head"><div class="t-av">מ</div><div><div class="t-name">מאור</div><div class="t-meta" dir="ltr">Pro Lacrosse Athlete</div></div></div>
-            <div class="t-stars">★★★★★</div>
-            <div class="t-quote" style="direction:ltr;text-align:left">My strength, agility and conditioning got so much better when working out with you — and you made me a much better all-around athlete!</div>
-          </div>
-          <div class="tcard">
-            <div class="t-head"><div class="t-av">י</div><div><div class="t-name">יונתן</div><div class="t-meta">סטודנט</div></div></div>
-            <div class="t-stars">★★★★★</div>
-            <div class="t-quote">בתור מי שהיה לו רקע אפסי בתחום וחשש להתחיל להתאמן בלי מעטפת כלשהי, מהרגע הראשון שהגעתי לזהר הרגשתי שבחרתי נכון. הוא לא ויתר לי עד שהבנתי איך לבצע כל תרגיל. כל אימון היה בווייב טוב ותמיד חיכיתי בקוצר רוח לאימון הבא. מעבר לאימונים, קיבלתי ממנו הרגלים לחיים שהפכו לחלק בלתי נפרד מהשגרה שלי. בקיצור — ממליץ לכל מי שרוצה לעשות שינוי אמיתי.</div>
-          </div>
-          <div class="tcard">
-            <div class="t-head"><div class="t-av">א</div><div><div class="t-name">אהוד</div><div class="t-meta">מנהל צוות</div></div></div>
-            <div class="t-stars">★★★★★</div>
-            <div class="t-quote">ממליץ בחום על זוהר הלוי מאמן הכושר שלי בשנה וחצי האחרונות. הגעתי אליו כדי לעבוד בעיקר על חיטוב וכוח. בזכותו הצלחתי לבצע תרגילים ומשקלים שלא חשבתי שאצליח בחיים. מעבר למקצועיות, האימונים איתו הם שילוב של רצינות מוחלטת עם המון הומור וצחוק. היחס האישי והאכפתיות שלו נותנים לי מוטיבציה להתמיד ולהגיע לאימונים פעמיים בשבוע.</div>
           </div>
         </div>
       </div>
@@ -1419,18 +1354,6 @@
             <p>מעקב אחרי כל אימון, התאמות בכל שבוע, ועין מקצועית לאורך הדרך.</p>
           </div>
         </div>
-        <div class="result-inset" data-aos="fade-down">
-          <div class="result-shot">
-            <span class="rs-lbl before">לפני</span>
-            <span class="rs-lbl during">בתהליך</span>
-            <img src="result-2.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy" />
-          </div>
-          <div class="ri-text">
-            <span class="ri-badge">תוצאה אמיתית</span>
-            <h4>ככה נראה תהליך אמיתי</h4>
-            <p>שינוי של מתאמן ב-Z90 — לא קסם, אלא עבודה נכונה, הדרגתית ועקבית לאורך כל הדרך.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1449,30 +1372,14 @@
             <p class="kick">אודות</p>
             <h2>אני זהר הלוי</h2>
             <p>
-              שלום, אני זהר הלוי, בן 29 מהרצליה, מאמן כושר אישי ומלווה מתאמנים
-              בתהליכי שינוי פיזיים ומנטליים.
-            </p>
-            <p>
-              הדרך שלי בעולם הכושר התחילה לפני 11 שנים, מתוך מקום מאוד אישי. כנער הייתי
-              קטן ורזה, וחוויתי מקרוב את חוסר הביטחון שיכול להגיע עם זה. עם הזמן, דרך אימונים,
-              התמדה ולמידה, גיליתי כמה כוח יש לתהליך נכון — לא רק בבניית הגוף, אלא גם בבניית
-              הביטחון העצמי, המשמעת והאמונה ביכולת להשתנות.
-            </p>
-            <p>
-              לאורך השנים התנסיתי במגוון שיטות אימון, למדתי מה עובד באמת ומה פחות, ופיתחתי
-              שיטת אימון אישית שמבוססת על הדרגתיות, טכניקה נכונה, התאמה אישית והתמדה לאורך זמן.
-            </p>
-            <p>
-              בשנים האחרונות ליוויתי מאות מתאמנים בתהליכים שונים — מחיזוק הגוף, ירידה
-              באחוזי שומן ועלייה במסת שריר, ועד שיפור הביטחון העצמי והתחושה הכללית ביום־יום.
+              שלום, אני זהר הלוי, מאמן כושר אישי מהרצליה. הדרך שלי בעולם הכושר התחילה
+              לפני 11 שנים ממקום אישי מאוד — כנער קטן ורזה שחווה מקרוב את חוסר הביטחון
+              שיכול להגיע עם זה. עם הזמן גיליתי כמה כוח יש לתהליך נכון, לא רק בבניית הגוף
+              אלא גם בבניית הביטחון העצמי וההתמדה.
             </p>
             <p>
               <strong>המטרה שלי היא לעזור לכם להגיע לתוצאות בצורה חכמה, בטוחה ומדויקת</strong> —
               בלי קיצורי דרך, בלי הבטחות ריקות, אלא עם תהליך מקצועי שמותאם אליכם אישית.
-            </p>
-            <p>
-              אני מאמין שאימון טוב הוא הרבה מעבר לתרגילים. הוא כלי לבניית גוף חזק יותר,
-              נפש יציבה יותר וביטחון שממשיך איתכם גם מחוץ לחדר הכושר.
             </p>
             <div class="about-creds">
               <div class="ac-item"><span class="ac-top"><span id="count11">0</span>+</span><span class="ac-bot">שנות ניסיון</span></div>
@@ -1480,18 +1387,6 @@
               <div class="ac-item"><span class="ac-top">1:1</span><span class="ac-bot">ליווי אישי</span></div>
             </div>
             <p class="about-sig">— זהר הלוי</p>
-          </div>
-        </div>
-        <div class="result-inset flip" data-aos="fade-down">
-          <div class="result-shot">
-            <span class="rs-lbl before">לפני</span>
-            <span class="rs-lbl during">בתהליך</span>
-            <img src="coach-transform.jpg" alt="זהר הלוי — לפני ובתהליך" loading="lazy" />
-          </div>
-          <div class="ri-text">
-            <span class="ri-badge">גם אני עברתי את הדרך</span>
-            <h4>מהמקום שלך — להיום</h4>
-            <p>התחלתי קטן, רזה וחסר ביטחון. בדיוק את התהליך שאני מעביר אתכם — עברתי בעצמי. זה אפשרי, ואני יודע איך מגיעים לשם.</p>
           </div>
         </div>
       </div>
@@ -1505,7 +1400,7 @@
 
         <div class="radio-container" id="planRadio" data-aos="fade-down">
           <input id="radio-essential" name="plan-radio" type="radio" value="essential" />
-          <label for="radio-essential">Remote</label>
+          <label for="radio-essential">Essential</label>
           <input checked id="radio-premium" name="plan-radio" type="radio" value="premium" />
           <label for="radio-premium">Premium</label>
           <input id="radio-elite" name="plan-radio" type="radio" value="elite" />
@@ -1515,7 +1410,7 @@
 
         <div class="cards" id="cards">
           <div class="class" data-plan="essential">
-            <h3 class="class-name">Z90 <span>Remote</span></h3>
+            <h3 class="class-name">Z90 <span>Essential</span></h3>
             <p class="card-what">מסלול ליווי מרחוק — לומדים טכניקה ומתקדמים עצמאית, עם בקרה צמודה.</p>
             <hr />
             <ul>
@@ -1524,7 +1419,7 @@
               <li>מעקב וליווי שוטף בוואטסאפ</li>
               <li>זמינות לשאלות לאורך הדרך</li>
             </ul>
-            <button class="cssbuttons-io" onclick="pickPlan('Z90 Remote')">
+            <button class="cssbuttons-io" onclick="pickPlan('Z90 Essential')">
               <span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M11 5l-7 7 7 7M4 12h16"/></svg>לשיחת התאמה</span>
             </button>
           </div>
@@ -1532,7 +1427,7 @@
           <div class="class" data-plan="premium">
             <span class="card-flag">המסלול המומלץ</span>
             <h3 class="class-name">Z90 <span>Premium</span></h3>
-            <p class="card-what">כל מה שב-Remote — עם עבודה צמודה פנים-אל-פנים פעמיים בשבוע.</p>
+            <p class="card-what">כל מה שב-Essential — עם עבודה צמודה פנים-אל-פנים פעמיים בשבוע.</p>
             <hr />
             <ul>
               <li>שני אימונים אישיים בשבוע + מעקב צמוד</li>
@@ -1567,20 +1462,8 @@
         </p>
 
         <div class="intro-offer" data-aos="fade-down">
-          <p class="io-text">רוצה לנסות לפני? <strong>Z90 Intro</strong> — פגישת אבחון והתנסות ראשונית, בלי מחויבות להמשך.</p>
-          <button class="io-btn" onclick="pickPlan('Z90 Intro')">לתיאום פגישת אבחון</button>
-        </div>
-        <div class="result-inset flip" data-aos="fade-down">
-          <div class="result-shot">
-            <span class="rs-lbl before">לפני</span>
-            <span class="rs-lbl during">בתהליך</span>
-            <img src="result-1.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy" />
-          </div>
-          <div class="ri-text">
-            <span class="ri-badge">תוצאה אמיתית</span>
-            <h4>התהליך עובד</h4>
-            <p>מתאמן נוסף, אותו תהליך של 90 יום — ליווי צמוד, מעקב והתאמות. זו רמת התוצאה שאפשר להגיע אליה.</p>
-          </div>
+          <p class="io-text">רוצה לנסות לפני? <strong>אבחון Z90</strong> — פגישת אבחון והתנסות ראשונית, בלי מחויבות להמשך.</p>
+          <button class="io-btn" onclick="pickPlan('אבחון Z90')">לתיאום פגישת אבחון</button>
         </div>
       </div>
     </section>
@@ -1703,15 +1586,9 @@
                 </a>
               </div>
             </div>
-          </div>
-
-          <div class="map-col" data-aos="fade-right">
-            <div class="map-loc">
+            <div class="map-loc" style="margin-top:20px">
               <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
               <span>מתאמנים ב<strong>הרצליה</strong> · המיקום המדויק נסגר בשיחת ההתאמה</span>
-            </div>
-            <div class="map">
-              <iframe src="https://maps.google.com/maps?q=Herzliya&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="מפת הרצליה — אזור הפעילות"></iframe>
             </div>
           </div>
         </div>
@@ -1796,14 +1673,6 @@
           <li><a href="#contact">צור קשר</a></li>
         </ul>
       </nav>
-      <div class="newsletter">
-        <h3>ניוזלטר</h3>
-        <div class="newsletter-row">
-          <input type="email" placeholder="email@domain.com" dir="ltr" aria-label="אימייל לניוזלטר" />
-          <button aria-label="הרשמה">&#10003;</button>
-        </div>
-        <p class="nl-note">טיפים על אימון נכון אחרי גיל 40 — בלי ספאם.</p>
-      </div>
     </div>
     <hr />
     <div class="container copyrights">
@@ -1814,18 +1683,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- ═══════ OFFER MODAL ═══════ -->
-  <div id="offerModal" class="offerModal" role="dialog" aria-label="הצעת היכרות">
-    <div class="modal-content">
-      <h2>Z90 Intro</h2>
-      <p>רוצה לנסות לפני? פגישת אבחון והתנסות ראשונית, בלי מחויבות להמשך.</p>
-      <div class="modal-buttons">
-        <button onclick="pickPlan('Z90 Intro'); dismissOffer();">לתיאום פגישת אבחון</button>
-        <button class="close-button" onclick="dismissOffer()">אולי אחר כך</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ═══════ BACK TO TOP ═══════ -->
   <button class="to-top" id="toTop" aria-label="חזרה לראש העמוד">↑</button>
@@ -1979,10 +1836,6 @@
         if (!isOpen) { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
       });
     });
-
-    /* ── offer modal ── */
-    function dismissOffer() { document.getElementById('offerModal').classList.add('dismissed'); sessionStorage.setItem('z90_offer_dismissed', '1'); }
-    if (sessionStorage.getItem('z90_offer_dismissed')) document.getElementById('offerModal').classList.add('dismissed');
 
     /* ── back to top ── */
     const toTop = document.getElementById('toTop');
