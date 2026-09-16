@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Z90 Method — מחזיר לך שליטה על הגוף | אימון אישי פרטי</title>
-  <meta name="description" content="תהליך אישי של 90 יום שמחזיר לך שליטה על הגוף. אבחון, תוכנית מותאמת, ליווי צמוד — שליטה מחדש על הגוף שלך." />
+  <title>Z90 Method — מחזיר לך שליטה על הגוף | אימון אישי 40–60</title>
+  <meta name="description" content="תהליך אישי של 90 יום לגברים ונשים בגילאי 40–60. אבחון, תוכנית מותאמת, ליווי צמוד — שליטה מחדש על הגוף שלך." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10/dist/html2pdf.bundle.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,7 +31,6 @@
     }
 
     html { scroll-behavior: smooth; overflow-x: hidden; }
-#reviews, #method, #about, #packages, #faq, #contact { scroll-margin-top: 100px; }
 
     body {
       font-family: 'Heebo', system-ui, sans-serif;
@@ -90,6 +88,9 @@
     .logo-lockup { display: flex; flex-direction: column; align-items: center; line-height: 0.92; direction: ltr; }
     .ll-z90 { font-weight: 900; font-size: 1.95rem; letter-spacing: 0.02em; color: #fff; }
     .ll-method { font-weight: 600; font-size: 0.72rem; letter-spacing: 0.4em; color: #fff; text-indent: 0.4em; margin-top: 3px; }
+    .logo-img { height: 42px; width: auto; display: block; }
+    .footer-logo-img { height: 34px; width: auto; display: block; margin-bottom: 4px; }
+    @media (max-width: 480px) { .logo-img { height: 34px; } }
 
     .header-nav ul {
       display: flex; align-items: center; gap: 6px; list-style: none;
@@ -266,21 +267,20 @@
       margin: 0 auto 22px;
       max-width: 18ch;
       text-shadow: 2px 5px 5px rgba(0,0,0,0.6);
-      animation: moveInRight 0.6s ease-out;
     }
     .hero-text .heading em { font-style: normal; color: var(--yellow); }
+    .hero-text .heading .word-nowrap { display: inline-block; white-space: nowrap; }
+    .hero-text .heading .letter { display: inline-block; will-change: transform, opacity; }
+    .hero-eyebrow .word-mask { display: inline-block; overflow: hidden; vertical-align: top; }
+    .hero-eyebrow .word-mask > span { display: inline-block; will-change: transform; }
     .hero-text .description {
       font-size: clamp(1rem, 1.5vw, 1.15rem);
       color: var(--soft);
       max-width: 46ch;
       margin: 0 auto 34px;
-      animation: moveInLeft 0.6s ease-out;
     }
     .hero-text .description strong { color: var(--white); font-weight: 600; }
-    .hero-box-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: moveInLeft 0.7s ease-out; }
-
-    @keyframes moveInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: none; } }
-    @keyframes moveInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: none; } }
+    .hero-box-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
     .hero-strip {
       margin-top: 40px; padding-top: 26px;
@@ -300,7 +300,7 @@
       border-radius: 8px;
       padding: 32px clamp(22px, 3vw, 34px);
       box-shadow: rgba(0,0,0,0.45) 0px 24px 60px;
-      animation: moveInLeft 0.7s ease-out;
+      will-change: transform, opacity;
     }
     .quick-card h3 { font-size: 1.25rem; font-weight: 900; margin-bottom: 6px; }
     .quick-card p { font-size: 0.9rem; color: var(--soft); margin-bottom: 22px; }
@@ -1091,6 +1091,12 @@
     html.acc-font body, html.acc-font body * { font-family: Arial, Helvetica, sans-serif !important; }
     html.acc-still *, html.acc-still *::before, html.acc-still *::after { animation: none !important; transition: none !important; }
     html.acc-still [data-aos] { opacity: 1 !important; transform: none !important; }
+    html.acc-still .word-mask > span,
+    html.acc-still .heading .letter,
+    html.acc-still #header,
+    html.acc-still .quick-card,
+    html.acc-still .bgrid .bcard,
+    html.acc-still .cards .class { opacity: 1 !important; transform: none !important; }
     html.acc-still .offerModal { right: 26px; }
     html.acc-still .marquee-track { animation: none !important; }
     html.acc-still .ba-track { animation: none !important; }
@@ -1174,34 +1180,6 @@
       .tooltip { display: none; } /* tooltips are hover-only flourishes; hidden on touch to avoid stuck states */
     }
   </style>
-<!-- ═══════ META PIXEL (Z90) — נטען רק לאחר הסכמה לעוגיות שיווקיות ═══════ -->
-<script>
-(function(){
-  var Z90_PIXEL_ID = '931255999991314';
-  window.z90LoadMetaPixel = function(){
-    if (window.fbq) return; // הגנה מפני התקנה כפולה
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', Z90_PIXEL_ID);
-    fbq('track', 'PageView');
-  };
-  window.z90TrackLead = function(formId){
-    try {
-      window.__z90LeadFired = window.__z90LeadFired || {};
-      var key = formId || 'lead';
-      if (window.__z90LeadFired[key]) return; // מונע שליחת Lead כפולה
-      window.__z90LeadFired[key] = true;
-      if (window.fbq) { fbq('track', 'Lead'); }
-    } catch(e){}
-  };
-  try {
-    if (localStorage.getItem('z90_cookie_consent') === 'all') { window.z90LoadMetaPixel(); }
-  } catch(e){}
-})();
-</script>
 </head>
 <body>
 
@@ -1217,10 +1195,7 @@
           <span></span><span></span><span></span>
         </button>
         <div class="logo-content">
-          <div class="logo-lockup">
-            <span class="ll-z90">Z90</span>
-            <span class="ll-method">METHOD</span>
-          </div>
+          <img src="z90-logo-white.png" alt="Z90 Method" class="logo-img" />
         </div>
         <ul id="navMenu">
           <li><a href="#reviews" data-spy="reviews">המלצות</a></li>
@@ -1281,7 +1256,7 @@
           <div class="hero-strip">
             <div class="hs-item"><span class="hs-top"><span id="count90">0</span></span><span class="hs-bot">ימי תהליך</span></div>
             <div class="hs-item"><span class="hs-top">1:1</span><span class="hs-bot">ליווי אישי</span></div>
-            <div class="hs-item"><span class="hs-top">6</span><span class="hs-bot">שלבים</span></div>
+            <div class="hs-item"><span class="hs-top"><span id="count6">0</span></span><span class="hs-bot">שלבים</span></div>
           </div>
         </div>
       </div>
@@ -1469,7 +1444,7 @@
               נפש יציבה יותר וביטחון שממשיך איתכם גם מחוץ לחדר הכושר.
             </p>
             <div class="about-creds">
-              <div class="ac-item"><span class="ac-top">11+</span><span class="ac-bot">שנות ניסיון</span></div>
+              <div class="ac-item"><span class="ac-top"><span id="count11">0</span>+</span><span class="ac-bot">שנות ניסיון</span></div>
               <div class="ac-item"><span class="ac-top">מאות</span><span class="ac-bot">מתאמנים בליווי</span></div>
               <div class="ac-item"><span class="ac-top">1:1</span><span class="ac-bot">ליווי אישי</span></div>
             </div>
@@ -1513,10 +1488,10 @@
             <p class="card-what">מסלול ליווי מרחוק — לומדים טכניקה ומתקדמים עצמאית, עם בקרה צמודה.</p>
             <hr />
             <ul>
-              <li>2 אימוני פתיחה ללמידת טכניקה נכונה והצלחה בחדר כושר</li>
-              <li>אימון אישי פעם בחודש לבקרת טכניקה והתקדמות</li>
-              <li>מעקב שוטף בוואטסאפ ובאפליקציה ייעודית</li>
-              <li>זמינות לשאלות ועזרה לאורך הדרך</li>
+              <li>2 אימוני פתיחה ללימוד טכניקה נכונה</li>
+              <li>אימון אישי אחת לשבועיים — בדיקת התקדמות וטכניקה</li>
+              <li>מעקב וליווי שוטף בוואטסאפ</li>
+              <li>זמינות לשאלות לאורך הדרך</li>
             </ul>
             <button class="cssbuttons-io" onclick="pickPlan('Z90 Remote')">
               <span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M11 5l-7 7 7 7M4 12h16"/></svg>לשיחת התאמה</span>
@@ -1529,11 +1504,10 @@
             <p class="card-what">כל מה שב-Remote — עם עבודה צמודה פנים-אל-פנים פעמיים בשבוע.</p>
             <hr />
             <ul>
-              <li>2 אימונים אישיים שבועיים</li>
-              <li>אופציה לליווי מרחוק בזמן חופשה / לא בארץ + בניית תוכנית ייעודית לחו״ל</li>
-              <li>סיכומי אימונים בוואטסאפ ולמייל</li>
-              <li>גישה מלאה לאפליקציה ייעודית</li>
-              <li>מדידה חודשית הכוללת אחוזי שומן ומסה רזה</li>
+              <li>שני אימונים אישיים בשבוע + מעקב צמוד</li>
+              <li>אופציה לליווי מרחוק בנסיעות ובשבועות עמוסים</li>
+              <li>סיכום אימון לוואטסאפ ולמייל</li>
+              <li>זמינות וואטסאפ מלאה</li>
             </ul>
             <button class="cssbuttons-io" onclick="pickPlan('Z90 Premium')">
               <span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M11 5l-7 7 7 7M4 12h16"/></svg>לשיחת התאמה</span>
@@ -1545,12 +1519,10 @@
             <p class="card-what">כל מה שב-Premium — ברמת הליווי הגבוהה ביותר.</p>
             <hr />
             <ul>
-              <li>3 אימונים אישיים שבועיים</li>
-              <li>אופציה לליווי מרחוק בזמן חופשה / לא בארץ + בניית תוכנית ייעודית לחו״ל</li>
-              <li>סיכומי אימונים בוואטסאפ ולמייל</li>
-              <li>גישה מלאה לאפליקציה ייעודית</li>
-              <li>מדידה שבועית הכוללת אחוזי שומן ומסה רזה</li>
-              <li>עזרה בתזונה</li>
+              <li>שלושה אימונים אישיים בשבוע</li>
+              <li>שעת עקרונות תזונה אישית</li>
+              <li>מדידת הרכב גוף תקופתית</li>
+              <li>עדיפות מלאה בזמינות ובתיאום</li>
             </ul>
             <button class="cssbuttons-io" onclick="pickPlan('Z90 Elite')">
               <span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M11 5l-7 7 7 7M4 12h16"/></svg>לשיחת התאמה</span>
@@ -1719,7 +1691,7 @@
   <footer class="section-footer" id="footer">
     <div class="footer-box container">
       <div class="contact-details">
-        <h2><span class="ll-z90" style="font-size:1.5rem">Z90</span> <span class="ll-method" style="display:inline-block">METHOD</span></h2>
+        <img src="z90-logo-white.png" alt="Z90 Method" class="footer-logo-img" />
         <div class="contact-company-address">
           אימון אישי פרימיום · תהליכי 90 יום<br/>
           הרצליה
@@ -1854,10 +1826,9 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
-    if (window.AOS) AOS.init({ offset: 100, delay: 0, duration: 600, once: true });
-
     /* ── progress bar + header ── */
     const bar = document.getElementById('progressBar');
     const header = document.getElementById('header');
@@ -1886,13 +1857,6 @@
       entries.forEach(e => { if (e.isIntersecting) spyLinks.forEach(l => l.classList.toggle('active', l.dataset.spy === e.target.id)); });
     }, { rootMargin: '-40% 0px -55% 0px' });
     ['reviews', 'method', 'about', 'packages', 'faq'].forEach(id => { const el = document.getElementById(id); if (el) spyIO.observe(el); });
-
-    /* ── count-up 90 ── */
-    (() => {
-      const el = document.getElementById('count90'); let v = 0;
-      const tick = () => { v += Math.max(1, Math.round((90 - v) / 9)); if (v >= 90) { el.textContent = '90'; return; } el.textContent = v; requestAnimationFrame(tick); };
-      setTimeout(() => requestAnimationFrame(tick), 500);
-    })();
 
     /* marquees are duplicated by small isolated <script> tags right after each track (see markup) */
 
@@ -1986,17 +1950,9 @@
 
     /* ── leads ── */
     let chosenPlan = '';
-    function scrollToContact() {
-      const el = document.getElementById('contact');
-      if (!el) return;
-      const headerEl = document.querySelector('.header');
-      const headerH = headerEl ? headerEl.getBoundingClientRect().height : 80;
-      const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
-      window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
-    }
     function pickPlan(plan) {
       chosenPlan = plan;
-      scrollToContact();
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
       setTimeout(() => document.getElementById('lname').focus({ preventScroll: true }), 900);
     }
     // הליד נשלח אוטומטית למייל המאמן כ-PDF דרך Google Apps Script
@@ -2039,7 +1995,6 @@
           })
         });
         formEl.style.display = 'none'; okEl.style.display = 'block';
-        if (window.z90TrackLead) window.z90TrackLead(formEl.id || 'lead');
         return true;
       } catch (e) {
         if (btn) { btn.disabled = false; btn.querySelector('span').textContent = origText; }
@@ -2096,6 +2051,193 @@
     accModal.addEventListener('click', e => { if (e.target === accModal) accModal.classList.remove('open'); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { accModal.classList.remove('open'); accPanel.classList.remove('open'); } });
     applyAcc();
+
+    /* ══════════════════════════════════════════════════════════
+       MOTION SYSTEM — GSAP + ScrollTrigger
+       drives page-load choreography, scroll reveals, card tilt/float,
+       and counters. Respects "עצירת אנימציות" (acc-still) and OS-level
+       prefers-reduced-motion — both fall back to a static, fully visible page.
+       ══════════════════════════════════════════════════════════ */
+    (function () {
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const stillActive = () => document.documentElement.classList.contains('acc-still');
+      const motionOff = () => reduceMotion || stillActive();
+
+      if (!window.gsap || !window.ScrollTrigger) {
+        /* CDN failed to load — make sure nothing is left hidden */
+        document.querySelectorAll('[data-aos]').forEach(el => { el.style.opacity = 1; });
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+
+      /* ---------- text splitting helpers ---------- */
+      function splitWordsMask(el) {
+        if (!el) return [];
+        const text = el.textContent;
+        el.innerHTML = '';
+        text.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { el.appendChild(document.createTextNode(part)); return; }
+          const mask = document.createElement('span');
+          mask.className = 'word-mask';
+          const inner = document.createElement('span');
+          inner.textContent = part;
+          mask.appendChild(inner);
+          el.appendChild(mask);
+        });
+        return [...el.querySelectorAll('.word-mask > span')];
+      }
+      /* Hebrew letters get split individually (flashy per-letter reveal); digit/Latin/punct
+         runs (e.g. "90", "1:1", "—") stay grouped as one token so RTL bidi ordering never breaks. */
+      function splitLetters(container) {
+        if (!container) return [];
+        const HEB = /[֐-׿]/;
+        function walk(node) {
+          if (node.nodeType === 3) {
+            const tokens = node.textContent.match(/[֐-׿]|[^֐-׿\s]+|\s+/g) || [];
+            const frag = document.createDocumentFragment();
+            let wordSpan = null;
+            tokens.forEach(tok => {
+              if (/^\s+$/.test(tok)) { wordSpan = null; frag.appendChild(document.createTextNode(tok)); return; }
+              if (!wordSpan) { wordSpan = document.createElement('span'); wordSpan.className = 'word-nowrap'; frag.appendChild(wordSpan); }
+              const s = document.createElement('span');
+              s.className = 'letter';
+              s.textContent = tok;
+              wordSpan.appendChild(s);
+            });
+            node.parentNode.replaceChild(frag, node);
+          } else if (node.nodeType === 1) {
+            [...node.childNodes].forEach(walk);
+          }
+        }
+        [...container.childNodes].forEach(walk);
+        return [...container.querySelectorAll('.letter')];
+      }
+
+      /* ---------- generic [data-aos] reveal (replaces AOS, same markup) ---------- */
+      const DIRS = {
+        'fade-down': { y: -28 }, 'fade-up': { y: 28 },
+        'fade-left': { x: 40 }, 'fade-right': { x: -40 },
+      };
+      document.querySelectorAll('[data-aos]:not(.bcard):not(.class)').forEach(el => {
+        if (motionOff()) return; // CSS safety-net already guarantees visibility
+        const from = DIRS[el.dataset.aos] || DIRS['fade-down'];
+        const delay = (parseInt(el.dataset.aosDelay, 10) || 0) / 1000;
+        gsap.set(el, { opacity: 0, ...from });
+        ScrollTrigger.create({
+          trigger: el, start: 'top 88%', once: true,
+          onEnter: () => gsap.to(el, { opacity: 1, x: 0, y: 0, duration: 0.7, delay, ease: 'power3.out' })
+        });
+      });
+
+      /* ---------- card-grid reveal: benefit cards + pricing cards ---------- */
+      function revealCardGrid(selector) {
+        const cards = [...document.querySelectorAll(selector)];
+        if (!cards.length) return;
+        if (motionOff()) { gsap.set(cards, { opacity: 1, y: 0, scale: 1, rotation: 0 }); return; }
+        gsap.set(cards, { opacity: 0, y: 70, scale: 0.92 });
+        ScrollTrigger.create({
+          trigger: cards[0].closest('section') || cards[0].parentElement,
+          start: 'top 78%', once: true,
+          onEnter: () => cards.forEach((c, i) => {
+            gsap.to(c, {
+              opacity: 1, y: 0, scale: 1, rotation: i % 2 === 0 ? -2.2 : 2.2,
+              duration: 0.9, delay: i * 0.09, ease: 'back.out(1.3)',
+              onComplete: () => gsap.to(c, { rotation: 0, duration: 0.4, ease: 'power2.out' })
+            });
+          })
+        });
+      }
+      revealCardGrid('.bgrid .bcard');
+      revealCardGrid('.cards .class');
+
+      /* ---------- 3D hover tilt + click pulse on cards & buttons ---------- */
+      function apply3DTilt(el) {
+        if (!el || reduceMotion) return;
+        el.addEventListener('mousemove', (e) => {
+          if (stillActive()) return;
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(el, { rotateX: -py * 10, rotateY: px * 10, scale: 1.035, duration: 0.4, ease: 'power2.out', transformPerspective: 700, overwrite: 'auto' });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, { rotateX: 0, rotateY: 0, scale: 1, duration: 0.7, ease: 'elastic.out(1,0.6)', overwrite: 'auto' });
+        });
+      }
+      document.querySelectorAll('.bgrid .bcard, .cards .class').forEach(apply3DTilt);
+
+      document.querySelectorAll('.nav-cta, .btn-angled').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (motionOff()) return;
+          gsap.fromTo(btn, { scale: 1 }, { scale: 0.93, duration: 0.12, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+        });
+      });
+
+      /* ---------- hero intro choreography ---------- */
+      const heading = document.querySelector('.section-hero .heading');
+      const eyebrow = document.querySelector('.hero-eyebrow');
+      const desc = document.querySelector('.section-hero .description');
+      const buttons = document.querySelector('.hero-box-buttons');
+      const heroStrip = document.querySelector('.hero-strip');
+      const quickCard = document.querySelector('.quick-card');
+      const navHeader = document.getElementById('header');
+
+      if (heading && !motionOff()) {
+        const words = splitWordsMask(eyebrow);
+        const letters = splitLetters(heading);
+
+        gsap.set(navHeader, { opacity: 0, y: -20 });
+        if (words.length) gsap.set(words, { y: '105%' });
+        if (letters.length) gsap.set(letters, { y: 60, opacity: 0 });
+        gsap.set([desc, buttons, heroStrip], { opacity: 0, y: 20 });
+        gsap.set(quickCard, { y: -140, opacity: 0, rotation: -6, scale: 0.9 });
+
+        const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        intro.to(navHeader, { opacity: 1, y: 0, duration: 0.7 }, 0.1);
+        if (words.length) intro.to(words, { y: '0%', duration: 0.8, stagger: 0.07, ease: 'power3.out' }, 0.25);
+        if (letters.length) intro.to(letters, { y: 0, opacity: 1, duration: 0.6, stagger: 0.018, ease: 'back.out(1.6)' }, 0.45);
+        intro.to(quickCard, { y: 0, opacity: 1, rotation: -2, scale: 1, duration: 1, ease: 'back.out(1.3)' }, 0.55);
+        intro.to([desc, buttons, heroStrip], { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 1.05);
+        intro.eventCallback('onComplete', () => {
+          /* continuous idle float once the card has landed */
+          gsap.to(quickCard, { y: '+=10', rotation: '+=1.4', duration: 3.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+        });
+      } else if (heading) {
+        /* motion disabled — just apply the mark's own rest rotation, nothing else */
+        gsap.set(quickCard, { rotation: -2 });
+      }
+
+      /* ---------- scroll-linked hero fade/scale as the page leaves the hero ---------- */
+      if (!motionOff()) {
+        ScrollTrigger.create({
+          trigger: '.section-hero', start: 'top top', end: 'bottom top', scrub: 0.6,
+          onUpdate: (self) => {
+            const p = self.progress;
+            gsap.set('.hero-text', { opacity: 1 - p * 0.9, scale: 1 + p * 0.04 });
+            gsap.set(quickCard, { opacity: 1 - p * 0.6, y: -p * 40 });
+          }
+        });
+      }
+
+      /* ---------- counters ---------- */
+      function countUpOnView(elId, target, triggerEl) {
+        const el = document.getElementById(elId);
+        if (!el || !triggerEl) return;
+        if (motionOff()) { el.textContent = target; return; }
+        ScrollTrigger.create({
+          trigger: triggerEl, start: 'top 88%', once: true,
+          onEnter: () => {
+            let v = 0;
+            const tick = () => { v += Math.max(1, Math.round((target - v) / 8)); if (v >= target) { el.textContent = target; return; } el.textContent = v; requestAnimationFrame(tick); };
+            requestAnimationFrame(tick);
+          }
+        });
+      }
+      countUpOnView('count90', 90, document.querySelector('.section-hero'));
+      countUpOnView('count6', 6, document.querySelector('.hero-strip'));
+      countUpOnView('count11', 11, document.querySelector('.about-creds'));
+    })();
   </script>
 <!-- ═══════ COOKIE CONSENT (Z90) ═══════ -->
 <style id="z90ck-style">
@@ -2125,7 +2267,7 @@
   if(!bar)return;
   if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
   function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
-  document.getElementById('z90ckAccept').onclick=function(){set('all'); if (window.z90LoadMetaPixel) window.z90LoadMetaPixel();};
+  document.getElementById('z90ckAccept').onclick=function(){set('all');};
   document.getElementById('z90ckReject').onclick=function(){set('necessary');};
 }catch(e){}})();
 </script>

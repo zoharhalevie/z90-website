@@ -61,6 +61,9 @@
     .ll-z90 { font-weight: 900; font-size: 1.8rem; letter-spacing: 0.02em; color: #fff; }
     .ll-method { font-weight: 600; font-size: 0.68rem; letter-spacing: 0.4em; color: #fff; text-indent: 0.4em; margin-top: 3px; }
     .tb-mark { width: 38px; height: 38px; background: var(--yellow); color: var(--black-1); clip-path: polygon(15% 0,100% 0,85% 100%,0 100%); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.05rem; }
+    .logo-img { height: 38px; width: auto; display: block; }
+    .footer-logo-img { height: 32px; width: auto; display: block; }
+    @media (max-width: 520px) { .logo-img { height: 30px; } }
     .tb-cta {
       background: var(--yellow); color: var(--black-1); text-decoration: none;
       font-weight: 800; font-size: 0.9rem; padding: 11px 24px; border-radius: 5px;
@@ -336,35 +339,7 @@
 
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .rv.in { opacity: 1; transform: none; }
-  .result-inset{display:flex;align-items:center;gap:30px;max-width:800px;margin:44px auto 0}.result-inset.flip{flex-direction:row-reverse}.result-shot{position:relative;width:290px;flex-shrink:0;border-radius:14px;overflow:hidden;box-shadow:rgba(0,0,0,0.45) 0px 16px 44px;border:1px solid var(--line);background:var(--card-2)}.result-shot img{width:100%;display:block}.result-shot .rs-lbl{position:absolute;top:11px;font-size:0.74rem;font-weight:800;letter-spacing:0.03em;padding:5px 15px;border-radius:100px;white-space:nowrap;z-index:2}.result-shot .rs-lbl.before{left:11px;background:rgba(0,0,0,0.72);color:#fff}.result-shot .rs-lbl.during{right:11px;background:var(--yellow);color:var(--black-1)}.ri-text{flex:1;min-width:0}.ri-text .ri-badge{color:var(--yellow);font-weight:800;font-size:0.78rem;letter-spacing:0.14em;display:block;margin-bottom:10px}.ri-text h4{color:#fff;font-size:1.25rem;font-weight:800;margin-bottom:10px}.ri-text p{color:var(--soft);font-size:0.98rem;line-height:1.75}@media (max-width:680px){.result-inset,.result-inset.flip{flex-direction:column;text-align:center;gap:18px}.result-shot{width:250px}}</style>
-<!-- ═══════ META PIXEL (Z90) — נטען רק לאחר הסכמה לעוגיות שיווקיות ═══════ -->
-<script>
-(function(){
-  var Z90_PIXEL_ID = '931255999991314';
-  window.z90LoadMetaPixel = function(){
-    if (window.fbq) return; // הגנה מפני התקנה כפולה
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', Z90_PIXEL_ID);
-    fbq('track', 'PageView');
-  };
-  window.z90TrackLead = function(formId){
-    try {
-      window.__z90LeadFired = window.__z90LeadFired || {};
-      var key = formId || 'lead';
-      if (window.__z90LeadFired[key]) return; // מונע שליחת Lead כפולה
-      window.__z90LeadFired[key] = true;
-      if (window.fbq) { fbq('track', 'Lead'); }
-    } catch(e){}
-  };
-  try {
-    if (localStorage.getItem('z90_cookie_consent') === 'all') { window.z90LoadMetaPixel(); }
-  } catch(e){}
-})();
-</script>
+  </style>
 </head>
 <body>
 
@@ -372,7 +347,7 @@
 
   <!-- TOP BAR -->
   <div class="topbar" id="topbar">
-    <div class="tb-logo"><div class="logo-lockup"><span class="ll-z90">Z90</span><span class="ll-method">METHOD</span></div></div>
+    <div class="tb-logo"><img src="z90-logo-white.png" alt="Z90 Method" class="logo-img" /></div>
     <a href="#lead" class="tb-cta">קבע שיחת התאמה</a>
   </div>
 
@@ -442,7 +417,7 @@
           <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M7 21h10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>גב חזק ויציב</h3><p>פחות כאבים, יותר ביטחון בכל תנועה יומיומית.</p></div></div>
           <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round"/></svg></div><div><h3>תנועה חופשית</h3><p>טווחי תנועה וגמישות — בלי נוקשות בבוקר.</p></div></div>
           <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5h6L11 22l8.5-11.5h-6L13 2z" stroke-linejoin="round"/></svg></div><div><h3>אנרגיה לאורך היום</h3><p>אימון שמטעין, לא ששואב. אנרגיה יציבה.</p></div></div>
-          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>ליווי שלא עוזב</h3><p>מעקב אחרי כל אימון והתאמות שבועיות.</p></div></div><div class="result-inset rv" style="grid-column:1/-1;margin:30px auto 0"><div class="result-shot"><span class="rs-lbl before">לפני</span><span class="rs-lbl during">בתהליך</span><img src="result-2.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy"></div><div class="ri-text"><span class="ri-badge">תוצאה אמיתית</span><h4>ככה נראה תהליך אמיתי</h4><p>שינוי של מתאמן ב-Z90 — לא קסם, אלא עבודה נכונה, הדרגתית ועקבית לאורך כל הדרך.</p></div></div>
+          <div class="oc rv"><div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-5M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>ליווי שלא עוזב</h3><p>מעקב אחרי כל אימון והתאמות שבועיות.</p></div></div>
         </div>
       </div>
     </section>
@@ -492,7 +467,7 @@
             <h2>אני זהר הלוי</h2>
             <p>מאמן כושר אישי, מלווה מתאמנים בתהליכי שינוי פיזיים ומנטליים כבר 11 שנים.</p>
             <p><strong>אני לא מעביר אימונים — אני בונה תהליכים.</strong> כל מתאמן מתחיל עם אבחון, מקבל תוכנית מותאמת, ועובד לפי מחזורים מסודרים של 90 יום.</p>
-            <p>בלי קיצורי דרך, בלי הבטחות ריקות — עבודה נכונה, מדויקת ובטוחה, שמחזירה לך שליטה בגוף.</p><div class="result-inset rv" style="margin:26px 0 0;gap:22px;max-width:none"><div class="result-shot" style="width:210px"><span class="rs-lbl before">לפני</span><span class="rs-lbl during">היום</span><img src="coach-transform.jpg" alt="זהר הלוי — לפני והיום" loading="lazy"></div><div class="ri-text"><span class="ri-badge">גם אני עברתי את הדרך</span><h4>מהמקום שלך — להיום</h4><p>התחלתי קטן, רזה וחסר ביטחון. בדיוק את התהליך שאני מעביר אתכם — עברתי בעצמי. זה אפשרי, ואני יודע איך מגיעים לשם.</p></div></div>
+            <p>בלי קיצורי דרך, בלי הבטחות ריקות — עבודה נכונה, מדויקת ובטוחה, שמחזירה לך שליטה בגוף.</p>
             <div class="coach-creds">
               <div><span class="c-top">11+</span><span class="c-bot">שנות ניסיון</span></div>
               <div><span class="c-top">מאות</span><span class="c-bot">מתאמנים</span></div>
@@ -517,7 +492,7 @@
     </section>
   </main>
 
-  <section class="sec alt" style="padding:64px 0"><div class="container"><div class="result-inset flip rv"><div class="result-shot"><span class="rs-lbl before">לפני</span><span class="rs-lbl during">בתהליך</span><img src="result-1.jpg" alt="תוצאה אמיתית של מתאמן — לפני ובתהליך" loading="lazy"></div><div class="ri-text"><span class="ri-badge">תוצאה אמיתית</span><h4>התהליך עובד</h4><p>מתאמן נוסף, אותו תהליך של 90 יום — ליווי צמוד, מעקב והתאמות. זו רמת התוצאה שאפשר להגיע אליה.</p></div></div></div></section><!-- FINAL CTA -->
+  <!-- FINAL CTA -->
   <section class="final">
     <div class="final-bg"></div>
     <h2>מוכן/ה לעשות את הצעד הראשון?</h2>
@@ -534,7 +509,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="f-logo"><div class="logo-lockup" style="align-items:center"><span class="ll-z90">Z90</span><span class="ll-method">METHOD</span></div></div>
+    <div class="f-logo"><img src="z90-logo-white.png" alt="Z90 Method" class="footer-logo-img" style="margin:0 auto" /></div>
     <div class="f-meta">אימון אישי פרימיום · תהליכי 90 יום · הרצליה</div>
     <div class="f-social">
       <a class="wa" href="https://wa.me/972546349923" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
@@ -636,7 +611,6 @@
         });
         document.getElementById('leadForm').style.display = 'none';
         document.getElementById('lcSent').style.display = 'block';
-        if (window.z90TrackLead) window.z90TrackLead('leadForm');
       } catch (e) {
         if (span) { btn.disabled = false; span.textContent = orig; }
         alert('אופס, משהו השתבש בשליחה. אפשר גם לפנות אליי ישירות בוואטסאפ.');
@@ -679,7 +653,7 @@
 .z90ck-accept{background:#F4CE14;color:#161616}
 .z90ck-reject{background:transparent;color:#F4CE14;border:1px solid #F4CE14}
 @media(max-width:600px){.z90ck-in{flex-direction:column;align-items:stretch}.z90ck-btns{justify-content:center}.z90ck-btn{flex:1}}
-.result-inset{display:flex;align-items:center;gap:30px;max-width:800px;margin:44px auto 0}.result-inset.flip{flex-direction:row-reverse}.result-shot{position:relative;width:290px;flex-shrink:0;border-radius:14px;overflow:hidden;box-shadow:rgba(0,0,0,0.45) 0px 16px 44px;border:1px solid var(--line);background:var(--card-2)}.result-shot img{width:100%;display:block}.result-shot .rs-lbl{position:absolute;top:11px;font-size:0.74rem;font-weight:800;letter-spacing:0.03em;padding:5px 15px;border-radius:100px;white-space:nowrap;z-index:2}.result-shot .rs-lbl.before{left:11px;background:rgba(0,0,0,0.72);color:#fff}.result-shot .rs-lbl.during{right:11px;background:var(--yellow);color:var(--black-1)}.ri-text{flex:1;min-width:0}.ri-text .ri-badge{color:var(--yellow);font-weight:800;font-size:0.78rem;letter-spacing:0.14em;display:block;margin-bottom:10px}.ri-text h4{color:#fff;font-size:1.25rem;font-weight:800;margin-bottom:10px}.ri-text p{color:var(--soft);font-size:0.98rem;line-height:1.75}@media (max-width:680px){.result-inset,.result-inset.flip{flex-direction:column;text-align:center;gap:18px}.result-shot{width:250px}}</style>
+</style>
 <div class="z90ck-bar" id="z90ckBar" role="dialog" aria-label="הסכמה לשימוש בעוגיות">
   <div class="z90ck-in">
     <div class="z90ck-txt">אנחנו משתמשים בעוגיות (cookies) חיוניות לתפעול האתר ולשיפור החוויה שלך. בלחיצה על "אני מסכים/ה" תאשר/י שימוש בכל העוגיות. למידע נוסף: <a href="/cookies">מדיניות פרטיות ועוגיות</a>.</div>
@@ -695,7 +669,7 @@
   if(!bar)return;
   if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
   function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
-  document.getElementById('z90ckAccept').onclick=function(){set('all'); if (window.z90LoadMetaPixel) window.z90LoadMetaPixel();};
+  document.getElementById('z90ckAccept').onclick=function(){set('all');};
   document.getElementById('z90ckReject').onclick=function(){set('necessary');};
 }catch(e){}})();
 </script>
