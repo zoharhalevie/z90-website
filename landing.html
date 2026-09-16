@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10/dist/html2pdf.bundle.min.js"></script>
   <title>Z90 Method — קבע שיחת התאמה והתחל את התהליך</title>
   <meta name="description" content="תהליך אישי של 90 יום שמחזיר לך שליטה על הגוף. השאר פרטים וקבע שיחת התאמה קצרה — בלי עלות, בלי מחויבות." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -339,9 +338,40 @@
 
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .rv.in { opacity: 1; transform: none; }
+  
+    /* ── שאלת סינון בטופס ── */
+    .qc-select, .form-control select { width: 100%; background: rgba(0,0,0,0.25); border: 1px solid var(--line); border-radius: 5px; color: var(--white); font-family: inherit; font-size: 1rem; font-weight: 300; padding: 14px 16px; outline: none; appearance: none; -webkit-appearance: none; cursor: pointer; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23F4CE14' stroke-width='2' fill='none'/></svg>"); background-repeat: no-repeat; background-position: left 14px center; }
+    .qc-select:invalid, .form-control select:invalid { color: var(--faint); }
+    .qc-select option, .form-control select option { color: #161616; background: #fff; }
+    .qc-select:focus { border-color: var(--yellow-line); }
+    .form-control select { background-color: transparent; border: 0; border-bottom: 2px #fff solid; border-radius: 0; padding: 13px 0; }
+    .form-control select:focus, .form-control select:valid { border-bottom-color: var(--yellow); }
   </style>
+<!-- ═══════ ANALYTICS (Z90) — GA4 + Meta Pixel, נטענים רק אחרי הסכמה לעוגיות ═══════ -->
+<script>
+(function(){
+  var GA4_ID = 'G-XXXXXXXXXX';          /* ← להחליף במזהה GA4 כשיהיה */
+  var PIXEL_ID = '931255999991314';
+  var consent = null; try { consent = localStorage.getItem('z90_cookie_consent'); } catch(e){}
+  window.z90LoadAnalytics = function(){
+    if (window.__z90a) return; window.__z90a = 1;
+    if (GA4_ID && GA4_ID.indexOf('XXXX') === -1) {
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID; document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('js', new Date()); gtag('config', GA4_ID);
+    }
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+    s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID); fbq('track', 'PageView');
+  };
+  if (consent === 'all') window.z90LoadAnalytics();
+})();
+</script>
 </head>
-<body>
+<body data-page="landing" data-product="Z90">
 
   <a href="#lead" class="skip-link">דלג לטופס ההרשמה</a>
 
@@ -384,6 +414,7 @@
               <input type="tel" id="lphone" required dir="ltr" autocomplete="tel" aria-label="טלפון" />
               <label aria-hidden="true"><span style="transition-delay:0ms">ט</span><span style="transition-delay:50ms">ל</span><span style="transition-delay:100ms">פ</span><span style="transition-delay:150ms">ו</span><span style="transition-delay:200ms">ן</span></label>
             </div>
+              <div class="form-control" style="margin-bottom:26px"><select id="lconcern" required aria-label="מה הכי מפריע לך היום"><option value="" disabled selected>מה הכי מפריע לך היום?</option><option>גב תחתון</option><option>נוקשות</option><option>חוסר כוח</option><option>פחד להיפצע</option><option>רוצה מבנה</option><option>אחר</option></select></div>
             <button class="send-btn" onclick="sendLead()">
               <div class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path></svg></div>
               <span>שלח ואחזור אליך</span>
@@ -395,7 +426,7 @@
             <p>בדרך אליי — אחזור אליך בהקדם לתיאום שיחת ההתאמה.</p>
           </div>
           <div class="lc-or"><span>או בוואטסאפ, מיד</span></div>
-          <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90" target="_blank" rel="noopener">
+          <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90%20%28%D7%A0%D7%97%D7%99%D7%AA%D7%94%29" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             שלח הודעה בוואטסאפ
           </a>
@@ -499,7 +530,7 @@
     <p>שיחת התאמה קצרה, בלי עלות ובלי מחויבות. נבדוק יחד אם התהליך מתאים לך — וזהו.</p>
     <div class="final-actions">
       <a href="#lead" class="btn">השאר פרטים עכשיו</a>
-      <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90" target="_blank" rel="noopener">דבר איתי בוואטסאפ</a>
+      <a class="btn wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90%20%28%D7%A0%D7%97%D7%99%D7%AA%D7%94%29" target="_blank" rel="noopener">דבר איתי בוואטסאפ</a>
       <a class="btn call" href="tel:+972546349923">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
         <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1.25">התקשרו אליי<span dir="ltr" style="font-weight:700;font-size:.95em">054-634-9923</span></span>
@@ -512,7 +543,7 @@
     <div class="f-logo"><img src="z90-logo-white.png" alt="Z90 Method" class="footer-logo-img" style="margin:0 auto" /></div>
     <div class="f-meta">אימון אישי פרימיום · תהליכי 90 יום · הרצליה</div>
     <div class="f-social">
-      <a class="wa" href="https://wa.me/972546349923" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      <a class="wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%D7%9C-Z90%20%28%D7%A0%D7%97%D7%99%D7%AA%D7%94%29" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
       <a class="ig" href="https://www.instagram.com/zoharhalevie_fitness/" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg width="20" height="20" viewBox="0 0 448 512" fill="#fff"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a>
       <a class="ph" href="tel:+972546349923" aria-label="התקשרו אליי"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
     </div>
@@ -522,7 +553,7 @@
   <!-- STICKY MOBILE CTA -->
   <div class="sticky-cta">
     <a class="s-call" href="#lead">קבע שיחת התאמה</a>
-    <a class="s-wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94" target="_blank" rel="noopener">וואטסאפ</a>
+    <a class="s-wa" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%94%D7%AA%D7%90%D7%9E%D7%94%20%28%D7%A0%D7%97%D7%99%D7%AA%D7%94%29" target="_blank" rel="noopener">וואטסאפ</a>
   </div>
 
   <!-- ACCESSIBILITY -->
@@ -565,57 +596,6 @@
         if (!open) { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
       });
     });
-
-    /* lead → נשלח אוטומטית למייל המאמן כ-PDF דרך Google Apps Script */
-    const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwQtt-5p7F5YvZ4W31lumhse0lP7gUGGoRAWZcEyoU3r1cJzcNv7LiaiULrskAGG_4T/exec';
-    function leadNb(s){ return String(s==null?'':s).replace(/ /g, String.fromCharCode(160)); }
-    function leadPdfHTML(rows, title){
-      var d = new Date();
-      var date = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
-      var h = '<div style="font-family:Arial,sans-serif;direction:rtl;text-align:right;width:620px;padding:28px;color:#1a202c;background:#fff;box-sizing:border-box">';
-      h += '<div style="text-align:center;border-bottom:3px solid #F4CE14;padding-bottom:12px;margin-bottom:14px">' +
-           '<div style="font-size:24px;font-weight:800;direction:ltr">Z90 Method</div>' +
-           '<div style="font-size:17px;font-weight:800;margin-top:2px">' + leadNb(title) + '</div>' +
-           '<div style="font-size:12px;color:#718096;margin-top:4px">' + leadNb('נוצר בתאריך ' + date) + '</div></div>';
-      h += '<table style="width:100%;border-collapse:collapse;font-size:15px">';
-      for (var i=0;i<rows.length;i++){ h += '<tr><td style="padding:10px;font-weight:700;color:#2d3748;white-space:nowrap;border-bottom:1px solid #edf2f7">' + leadNb(rows[i][0]) + '</td><td style="padding:10px;color:#1a202c;border-bottom:1px solid #edf2f7;overflow-wrap:anywhere">' + leadNb(rows[i][1] || '-') + '</td></tr>'; }
-      h += '</table></div>';
-      return h;
-    }
-    async function sendLead() {
-      const name = document.getElementById('lname').value.trim();
-      const phone = document.getElementById('lphone').value.trim();
-      if (!name || !phone) { alert('אנא מלא/י שם וטלפון.'); return; }
-      const btn = document.querySelector('#leadForm .send-btn');
-      const span = btn ? btn.querySelector('span') : null;
-      const orig = span ? span.textContent : '';
-      if (span) { btn.disabled = true; span.textContent = 'שולח...'; }
-      try {
-        const html = leadPdfHTML([['שם', name], ['טלפון', phone], ['מקור', 'עמוד נחיתה Z90']], 'ליד חדש מעמוד הנחיתה');
-        const holder = document.createElement('div');
-        holder.style.position = 'fixed'; holder.style.left = '-10000px'; holder.style.top = '0';
-        holder.innerHTML = html; document.body.appendChild(holder);
-        const opt = { margin:[10,10,10,10], filename:'Z90 ליד - ' + name + '.pdf', image:{ type:'jpeg', quality:0.98 }, html2canvas:{ scale:2, useCORS:true, backgroundColor:'#ffffff' }, jsPDF:{ unit:'mm', format:'a4', orientation:'portrait' } };
-        const dataUri = await html2pdf().set(opt).from(holder.firstChild).outputPdf('datauristring');
-        if (holder.parentNode) holder.parentNode.removeChild(holder);
-        const b64 = (dataUri || '').split(',')[1] || '';
-        await fetch(LEAD_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            subject: 'ליד חדש מעמוד הנחיתה - ' + name,
-            body: 'ליד חדש מעמוד הנחיתה Z90\n\nשם: ' + name + '\nטלפון: ' + phone,
-            filename: opt.filename, pdfBase64: b64, name: name, phone: phone
-          })
-        });
-        document.getElementById('leadForm').style.display = 'none';
-        document.getElementById('lcSent').style.display = 'block';
-      } catch (e) {
-        if (span) { btn.disabled = false; span.textContent = orig; }
-        alert('אופס, משהו השתבש בשליחה. אפשר גם לפנות אליי ישירות בוואטסאפ.');
-      }
-    }
 
     /* accessibility */
     const accBtn = document.getElementById('accBtn'), accPanel = document.getElementById('accPanel'), accModal = document.getElementById('accModal');
@@ -669,10 +649,11 @@
   if(!bar)return;
   if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
   function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
-  document.getElementById('z90ckAccept').onclick=function(){set('all');};
+  document.getElementById('z90ckAccept').onclick=function(){set('all'); if(window.z90LoadAnalytics) window.z90LoadAnalytics();};
   document.getElementById('z90ckReject').onclick=function(){set('necessary');};
 }catch(e){}})();
 </script>
 
+<script src="/lead-form.js?v=1"></script>
 </body>
 </html>

@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10/dist/html2pdf.bundle.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -301,8 +300,31 @@
   .to-top.show { opacity: 1; pointer-events: auto; }
   .to-top:hover { transform: translateY(-3px); }
 </style>
+<!-- ═══════ ANALYTICS (Z90) — GA4 + Meta Pixel, נטענים רק אחרי הסכמה לעוגיות ═══════ -->
+<script>
+(function(){
+  var GA4_ID = 'G-XXXXXXXXXX';          /* ← להחליף במזהה GA4 כשיהיה */
+  var PIXEL_ID = '931255999991314';
+  var consent = null; try { consent = localStorage.getItem('z90_cookie_consent'); } catch(e){}
+  window.z90LoadAnalytics = function(){
+    if (window.__z90a) return; window.__z90a = 1;
+    if (GA4_ID && GA4_ID.indexOf('XXXX') === -1) {
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID; document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('js', new Date()); gtag('config', GA4_ID);
+    }
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+    s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID); fbq('track', 'PageView');
+  };
+  if (consent === 'all') window.z90LoadAnalytics();
+})();
+</script>
 </head>
-<body>
+<body data-page="yesodot" data-product="קורס">
 
 <a href="#main" class="skip-link" style="position:absolute;right:-999px;">דלג לתוכן הראשי</a>
 <div id="progressBar"></div>
@@ -765,56 +787,39 @@
     });
   });
 
-  /* lead capture → same Google Apps Script endpoint used across Z90 pages */
-  const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwQtt-5p7F5YvZ4W31lumhse0lP7gUGGoRAWZcEyoU3r1cJzcNv7LiaiULrskAGG_4T/exec';
-  function leadNb(s){ return String(s==null?'':s).replace(/ /g, String.fromCharCode(160)); }
-  function leadPdfHTML(rows, title){
-    var d = new Date();
-    var date = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
-    var h = '<div style="font-family:Arial,sans-serif;direction:rtl;text-align:right;width:620px;padding:28px;color:#1a202c;background:#fff;box-sizing:border-box">';
-    h += '<div style="text-align:center;border-bottom:3px solid #F4CE14;padding-bottom:12px;margin-bottom:14px">' +
-         '<div style="font-size:22px;font-weight:800">יסודות בשליטה</div>' +
-         '<div style="font-size:17px;font-weight:800;margin-top:2px">' + leadNb(title) + '</div>' +
-         '<div style="font-size:12px;color:#718096;margin-top:4px">' + leadNb('נוצר בתאריך ' + date) + '</div></div>';
-    h += '<table style="width:100%;border-collapse:collapse;font-size:15px">';
-    for (var i=0;i<rows.length;i++){ h += '<tr><td style="padding:10px;font-weight:700;color:#2d3748;white-space:nowrap;border-bottom:1px solid #edf2f7">' + leadNb(rows[i][0]) + '</td><td style="padding:10px;color:#1a202c;border-bottom:1px solid #edf2f7;overflow-wrap:anywhere">' + leadNb(rows[i][1] || '-') + '</td></tr>'; }
-    h += '</table></div>';
-    return h;
-  }
-  async function submitLead(nameId, phoneId, formEl, sentEl, source) {
-    const name = document.getElementById(nameId).value.trim();
-    const phone = document.getElementById(phoneId).value.trim();
-    if (!name || !phone) { alert('אנא מלא/י שם וטלפון.'); return; }
-    const btn = formEl.querySelector('.send-btn');
-    const span = btn ? btn.querySelector('span') : null;
-    const orig = span ? span.textContent : '';
-    if (span) { btn.disabled = true; span.textContent = 'שולח...'; }
-    try {
-      const html = leadPdfHTML([['שם', name], ['טלפון', phone], ['מקור', source]], 'ליד חדש - יסודות בשליטה');
-      const holder = document.createElement('div');
-      holder.style.position = 'fixed'; holder.style.left = '-10000px'; holder.style.top = '0';
-      holder.innerHTML = html; document.body.appendChild(holder);
-      const opt = { margin:[10,10,10,10], filename:'יסודות בשליטה - ליד - ' + name + '.pdf', image:{ type:'jpeg', quality:0.98 }, html2canvas:{ scale:2, useCORS:true, backgroundColor:'#ffffff' }, jsPDF:{ unit:'mm', format:'a4', orientation:'portrait' } };
-      const dataUri = await html2pdf().set(opt).from(holder.firstChild).outputPdf('datauristring');
-      if (holder.parentNode) holder.parentNode.removeChild(holder);
-      const b64 = (dataUri || '').split(',')[1] || '';
-      await fetch(LEAD_ENDPOINT, {
-        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          subject: 'ליד חדש - יסודות בשליטה - ' + name,
-          body: 'ליד חדש מעמוד יסודות בשליטה\n\nשם: ' + name + '\nטלפון: ' + phone + '\nמקור: ' + source,
-          filename: opt.filename, pdfBase64: b64, name: name, phone: phone
-        })
-      });
-      formEl.style.display = 'none';
-      sentEl.style.display = 'block';
-    } catch (e) {
-      if (span) { btn.disabled = false; span.textContent = orig; }
-      alert('אופס, משהו השתבש בשליחה. אפשר גם לפנות אליי ישירות בוואטסאפ.');
-    }
-  }
-  function sendHero() { submitLead('hname', 'hphone', document.getElementById('heroForm'), document.getElementById('heroSentOk'), 'הירו - יסודות בשליטה'); }
-  function sendLead() { submitLead('lname', 'lphone', document.getElementById('leadForm'), document.getElementById('lcSent'), 'טופס הרשמה - יסודות בשליטה'); }
 </script>
+<!-- ═══════ COOKIE CONSENT (Z90) ═══════ -->
+<style id="z90ck-style">
+.z90ck-bar{position:fixed;left:0;right:0;bottom:0;z-index:99995;background:#1a1a1a;border-top:2px solid #F4CE14;box-shadow:0 -8px 30px rgba(0,0,0,.55);padding:16px 18px;display:none;font-family:"Heebo",-apple-system,Segoe UI,Arial,sans-serif}
+.z90ck-bar.show{display:block}
+.z90ck-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}
+.z90ck-txt{color:#e8e8e8;font-size:.92rem;line-height:1.6;flex:1;min-width:230px}
+.z90ck-txt a{color:#F4CE14;text-decoration:underline}
+.z90ck-btns{display:flex;gap:10px;flex-wrap:wrap}
+.z90ck-btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.9rem;padding:11px 22px;border-radius:999px}
+.z90ck-accept{background:#F4CE14;color:#161616}
+.z90ck-reject{background:transparent;color:#F4CE14;border:1px solid #F4CE14}
+@media(max-width:600px){.z90ck-in{flex-direction:column;align-items:stretch}.z90ck-btns{justify-content:center}.z90ck-btn{flex:1}}
+</style>
+<div class="z90ck-bar" id="z90ckBar" role="dialog" aria-label="הסכמה לשימוש בעוגיות">
+  <div class="z90ck-in">
+    <div class="z90ck-txt">אנחנו משתמשים בעוגיות (cookies) חיוניות לתפעול האתר ולשיפור החוויה שלך. בלחיצה על "אני מסכים/ה" תאשר/י שימוש בכל העוגיות. למידע נוסף: <a href="/cookies">מדיניות פרטיות ועוגיות</a>.</div>
+    <div class="z90ck-btns">
+      <button class="z90ck-btn z90ck-reject" id="z90ckReject">רק הכרחי</button>
+      <button class="z90ck-btn z90ck-accept" id="z90ckAccept">אני מסכים/ה</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){try{
+  var KEY='z90_cookie_consent',bar=document.getElementById('z90ckBar');
+  if(!bar)return;
+  if(!localStorage.getItem(KEY)){setTimeout(function(){bar.classList.add('show');},700);}
+  function set(v){try{localStorage.setItem(KEY,v);}catch(e){}bar.classList.remove('show');}
+  document.getElementById('z90ckAccept').onclick=function(){set('all'); if(window.z90LoadAnalytics) window.z90LoadAnalytics();};
+  document.getElementById('z90ckReject').onclick=function(){set('necessary');};
+}catch(e){}})();
+</script>
+<script src="/lead-form.js?v=1"></script>
 </body>
 </html>
