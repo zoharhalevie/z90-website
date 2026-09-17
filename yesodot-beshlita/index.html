@@ -303,6 +303,28 @@
   .to-top { position: fixed; bottom: 26px; left: 26px; z-index: 150; width: 46px; height: 46px; border-radius: 50%; background: var(--yellow); color: var(--black-1); border: none; font-size: 1.2rem; font-weight: 900; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
   .to-top.show { opacity: 1; pointer-events: auto; }
   .to-top:hover { transform: translateY(-3px); }
+
+  /* ───── ABOUT ZOHAR — photo + bio ───── */
+  .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: clamp(36px, 6vw, 70px); align-items: center; max-width: 960px; margin: 0 auto; }
+  .photo-frame { position: relative; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; max-width: 300px; margin: 0 auto; background: #1f4e55; box-shadow: rgba(0,0,0,0.4) 0px 18px 50px; }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
+  .photo-frame::after { content: ''; position: absolute; inset: 0; border: 4px solid var(--yellow); border-radius: 50%; pointer-events: none; transition: inset 0.4s ease; }
+  .photo-frame:hover::after { inset: 6px; }
+  .photo-cap { text-align: center; margin-top: 18px; font-size: 1.15rem; font-weight: 900; color: var(--white); }
+  .photo-cap small { display: block; font-size: 0.82rem; font-weight: 500; color: var(--faint); margin-top: 2px; }
+  .about-text { text-align: center; }
+  .about-text .kick { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.26em; color: var(--yellow); margin-bottom: 12px; }
+  .about-text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; margin-bottom: 16px; }
+  .about-text p { color: var(--soft); font-size: 1.02rem; margin-bottom: 14px; }
+  .about-text p strong { color: var(--white); font-weight: 700; }
+  .about-creds { display: flex; gap: 28px; margin: 24px 0 16px; flex-wrap: wrap; justify-content: center; }
+  .ac-item .ac-top { font-size: 1.35rem; font-weight: 900; color: var(--yellow); display: block; line-height: 1.2; }
+  .ac-item .ac-bot { font-size: 0.76rem; color: var(--faint); }
+  .about-sig { font-size: 1.1rem; font-weight: 800; color: var(--yellow); }
+  @media (max-width: 860px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .photo-frame { max-width: 260px; margin: 0 auto; }
+  }
 </style>
 <!-- ═══════ ANALYTICS (Z90) — GA4 + Meta Pixel, נטענים רק אחרי הסכמה לעוגיות ═══════ -->
 <script>
@@ -346,6 +368,7 @@
         <span class="ll-sub">מבית <img src="/z90-logo-white.png" alt="Z90 METHOD" class="ll-sub-logo"></span>
       </div>
       <ul id="navMenu">
+        <li><a href="#about">מי מעביר</a></li>
         <li><a href="#who">למי זה מיועד</a></li>
         <li><a href="#program">התוכנית</a></li>
         <li><a href="#syllabus">הסילבוס</a></li>
@@ -397,6 +420,41 @@
           <div class="hs-item"><span class="hs-top">4</span><span class="hs-bot">מפגשים שבועיים</span></div>
           <div class="hs-item"><span class="hs-top">60</span><span class="hs-bot">דקות למפגש</span></div>
           <div class="hs-item"><span class="hs-top">5</span><span class="hs-bot">מקומות בקבוצה</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ ABOUT ZOHAR ═══════ -->
+  <section class="sec-pad bg-1" id="about">
+    <div class="container">
+      <h2 class="title" data-aos="fade-down">מי מעביר את הסדנה</h2>
+      <div class="about-grid">
+        <div data-aos="fade-left">
+          <div class="photo-frame">
+            <img src="/zohar-coach.png" alt="זהר הלוי — מאמן כושר אישי, Z90 Method" />
+          </div>
+          <div class="photo-cap">זהר הלוי<small>מאמן כושר אישי · Z90 Method</small></div>
+        </div>
+        <div class="about-text" data-aos="fade-down">
+          <p class="kick">אודות</p>
+          <h2>אני זהר הלוי</h2>
+          <p>
+            שלום, אני זהר הלוי, מאמן כושר אישי מהרצליה. הדרך שלי בעולם הכושר התחילה
+            לפני 11 שנים ממקום אישי מאוד — כנער קטן ורזה שחווה מקרוב את חוסר הביטחון
+            שיכול להגיע עם זה. עם הזמן גיליתי כמה כוח יש לתהליך נכון, לא רק בבניית הגוף
+            אלא גם בבניית הביטחון העצמי וההתמדה.
+          </p>
+          <p>
+            <strong>את הסדנה בניתי כדי לתת בדיוק את מה שהיה חסר לי פעם</strong> —
+            נקודת פתיחה בטוחה, בלי בושה ובלי לחץ, שממנה אפשר להתקדם לבד בביטחון מלא.
+          </p>
+          <div class="about-creds">
+            <div class="ac-item"><span class="ac-top">11+</span><span class="ac-bot">שנות ניסיון</span></div>
+            <div class="ac-item"><span class="ac-top">מאות</span><span class="ac-bot">מתאמנים בליווי</span></div>
+            <div class="ac-item"><span class="ac-top">1:1</span><span class="ac-bot">ליווי אישי</span></div>
+          </div>
+          <p class="about-sig">— זהר הלוי</p>
         </div>
       </div>
     </div>
@@ -711,6 +769,7 @@
     <nav class="footer-nav" aria-label="קישורים מהירים">
       <h3>קישורים מהירים</h3>
       <ul>
+        <li><a href="#about">מי מעביר</a></li>
         <li><a href="#who">למי זה מיועד</a></li>
         <li><a href="#program">התוכנית</a></li>
         <li><a href="#syllabus">הסילבוס</a></li>
