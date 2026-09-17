@@ -309,6 +309,9 @@
 (function(){
   var GA4_ID = 'G-XXXXXXXXXX';          /* ← להחליף במזהה GA4 כשיהיה */
   var PIXEL_ID = '931255999991314';
+  /* ▼ מצב מקומות למחזור המייסדים: 'open' = יש מקומות פנויים | 'full' = המחזור מלא, עובר לרשימת המתנה */
+  /* לשינוי: רק להחליף את המילה כאן ל-'open' או 'full' — כל שאר האתר מתעדכן לבד */
+  window.SEATS_STATUS = 'open';
   var consent = null; try { consent = localStorage.getItem('z90_cookie_consent'); } catch(e){}
   window.z90LoadAnalytics = function(){
     if (window.__z90a) return; window.__z90a = 1;
@@ -361,13 +364,13 @@
     <div class="hero-shade"></div>
     <div class="container hero-box">
       <div class="quick-card">
-        <span class="founders">מחזור מייסדים · 5 מקומות בלבד</span>
+        <span class="founders" id="seatsBadge">מחזור מייסדים · 5 מקומות בלבד</span>
         <h3>נרשמים למחזור הראשון?</h3>
         <p>השאירו שם וטלפון ואחזור אליכם עם כל הפרטים על התאריך הקרוב.</p>
         <div id="heroForm">
           <div class="qc-field"><input type="text" id="hname" placeholder="שם מלא" autocomplete="name" aria-label="שם" /></div>
           <div class="qc-field"><input type="tel" id="hphone" placeholder="050-0000000" dir="ltr" autocomplete="tel" aria-label="טלפון" /></div>
-          <button class="send-btn" onclick="sendHero()"><span>שריינו לי מקום</span></button>
+          <button class="send-btn" onclick="sendHero()"><span id="ctaHeroFormBtn">שריינו לי מקום</span></button>
         </div>
         <div class="sent-ok" id="heroSentOk">
           <span class="ok-mark">✓</span>
@@ -387,7 +390,7 @@
           מתחילים גמורים? נכנסתם פעם ויצאתם מבולבלים? <strong>יסודות בשליטה</strong> היא סדנה קבוצתית קטנה שנותנת לכם בסיס אמיתי — מהתרגילים ועד השפה — כדי שתדעו בדיוק מה לעשות, לבד.
         </p>
         <div class="hero-box-buttons">
-          <a href="#contact" class="btn-angled">להרשמה למחזור המייסדים</a>
+          <a href="#contact" class="btn-angled" id="ctaHeroLink">להרשמה למחזור המייסדים</a>
           <a href="#syllabus" class="btn-angled ghost">לסילבוס המלא ↓</a>
         </div>
         <div class="hero-strip">
@@ -564,13 +567,13 @@
     <div class="container">
       <span class="kick">מחיר</span>
       <h2 class="title" data-aos="fade-down">מחיר מייסדים למחזור הראשון</h2>
-      <p class="sec-sub" data-aos="fade-down">5 מקומות בלבד במחיר הזה. במחזורים הבאים המחיר יעלה.</p>
+      <p class="sec-sub" id="seatsSubPrice" data-aos="fade-down">5 מקומות בלבד במחיר הזה. במחזורים הבאים המחיר יעלה.</p>
       <div class="price-card" data-aos="fade-up">
         <div class="card-flag">מחזור מייסדים</div>
         <h3>יסודות בשליטה</h3>
         <div class="price-amount"><span class="pa-num">650</span> <span class="pa-cur">₪</span> <span class="pa-was">במקום 950 ₪</span></div>
         <div class="price-special">מחיר מיוחד שלא יחזור — למצטרפים הראשונים בלבד</div>
-        <div class="price-unit">4 מפגשים · 5 מקומות בלבד</div>
+        <div class="price-unit" id="seatsUnitPrice">4 מפגשים · 5 מקומות בלבד</div>
         <hr />
         <ul>
           <li>4 מפגשים של 60 דקות, פעם בשבוע</li>
@@ -579,7 +582,7 @@
           <li>תוכנית אימונים אישית לסיום</li>
           <li>ליווי אונליין לאורך כל חודש הקורס — קבוצת וואטסאפ של המחזור עם מענה תוך 24 שעות</li>
         </ul>
-        <a href="#contact" class="btn-angled" style="width:100%;text-align:center">שריינו לי מקום</a>
+        <a href="#contact" class="btn-angled" id="ctaPriceBtn" style="width:100%;text-align:center">שריינו לי מקום</a>
       </div>
       <p class="price-note">המחיר המיוחד <strong>מוגבל למצטרפים הראשונים בלבד ולא יחזור</strong> במחזורים הבאים, בתמורה לפידבק ועדויות בסוף התהליך.</p>
     </div>
@@ -607,7 +610,7 @@
       <div class="contact">
         <div class="contact-copy">
           <span class="kick" style="text-align:right">להרשמה</span>
-          <h2>נשארו 5 מקומות במחיר המייסדים</h2>
+          <h2 id="seatsHeadingContact">נשארו 5 מקומות במחיר המייסדים</h2>
           <p>השאירו פרטים בטופס, או דברו איתי ישירות בוואטסאפ / בטלפון — ואסגור איתכם את התאריך והפרטים.</p>
           <a class="wa-btn" href="https://wa.me/972546349923?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%99%D7%A8%D7%A9%D7%9D%20%D7%9C%D7%A1%D7%93%D7%A0%D7%AA%20%D7%99%D7%A1%D7%95%D7%93%D7%95%D7%AA%20%D7%91%D7%A9%D7%9C%D7%99%D7%98%D7%94" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -619,7 +622,7 @@
           </a>
         </div>
         <div class="contact-form-card">
-          <h3>שריינו מקום עכשיו</h3>
+          <h3 id="ctaContactFormHeading">שריינו מקום עכשיו</h3>
           <div id="leadForm">
             <div class="form-control">
               <input type="text" id="lname" required autocomplete="name" />
@@ -728,6 +731,46 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init({ duration: 650, once: true, offset: 60 });
+
+  /* ═══════ מצב מקומות (open/full) — ראו הגדרה למעלה ב-window.SEATS_STATUS ═══════ */
+  (function () {
+    var status = window.SEATS_STATUS === 'full' ? 'full' : 'open';
+    var COPY = {
+      open: {
+        badge: 'מחזור מייסדים · 5 מקומות בלבד',
+        heroLink: 'להרשמה למחזור המייסדים',
+        heroFormBtn: 'שריינו לי מקום',
+        subPrice: '5 מקומות בלבד במחיר הזה. במחזורים הבאים המחיר יעלה.',
+        unitPrice: '4 מפגשים · 5 מקומות בלבד',
+        priceBtn: 'שריינו לי מקום',
+        headingContact: 'נשארו 5 מקומות במחיר המייסדים',
+        contactFormHeading: 'שריינו מקום עכשיו'
+      },
+      full: {
+        badge: 'מחזור מייסדים מלא · רשימת המתנה פתוחה',
+        heroLink: 'הצטרפות לרשימת ההמתנה',
+        heroFormBtn: 'הצטרפות לרשימת ההמתנה',
+        subPrice: 'המחזור הראשון מלא. השאירו פרטים ותהיו ראשונים לדעת על המחזור הבא.',
+        unitPrice: '4 מפגשים · המחזור מלא',
+        priceBtn: 'הצטרפות לרשימת ההמתנה',
+        headingContact: 'המחזור מלא — הצטרפו לרשימת ההמתנה',
+        contactFormHeading: 'רשימת המתנה — השאירו פרטים'
+      }
+    };
+    var c = COPY[status];
+    var map = {
+      seatsBadge: c.badge, ctaHeroLink: c.heroLink, ctaHeroFormBtn: c.heroFormBtn,
+      seatsSubPrice: c.subPrice, seatsUnitPrice: c.unitPrice, ctaPriceBtn: c.priceBtn,
+      seatsHeadingContact: c.headingContact, ctaContactFormHeading: c.contactFormHeading
+    };
+    Object.keys(map).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = map[id];
+    });
+    if (status === 'full') {
+      window.chosenPlan = 'רשימת המתנה - יסודות בשליטה';
+    }
+  })();
 
   /* header scroll state + progress bar */
   const header = document.getElementById('header');
